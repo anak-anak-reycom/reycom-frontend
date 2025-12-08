@@ -3,6 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+
+  //-----RDS PALLETTE-------
+  --primary : #1B3C53 ;
+  --secondary: #234C6A ;
+  --accent : #456882;
+  --light: #E3E3E3;
 }
 
 @theme inline {
