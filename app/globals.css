@@ -12,9 +12,16 @@
 }
 
 @theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-light: var(--light);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-plus-jakarta-sans);
+  --font-playfair: var(--font-playfair-display);
+  --font-geist: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -27,6 +34,6 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family:  sans-serif;
+  color: black;
+  font-family:  var(--font-sans);
 }

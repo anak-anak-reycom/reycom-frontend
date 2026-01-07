@@ -38,10 +38,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
+      <body className={`
+          ${plusJakarta.variable}
+          ${playfairDisplay.variable}
+          ${geistSans.variable}
+          ${geistMono.variable}
+        `}
         >   
          <Navbar />
-         <main className="relative z-0 px-3 bg-zinc-50 font-sans dark:bg-white">
+         <main className="flex z-0 px-3 pt-20 bg-zinc-50 font-sans dark:bg-white justify-center">
         {children}
          </main>
 
