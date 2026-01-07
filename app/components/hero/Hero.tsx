@@ -5,27 +5,27 @@ import test from "../../public/test.jpg";
 
 const Hero = () => {
   return (
-    <section className="w-full py-20">
+    <section className="w-full">
       <div className="max-w-[1400px] mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
         {/* TEXT KIRI */}
         <div className="mb-">
-          <h1 className="text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight">
+          <h1 className="text-[68px] font-semibold text-black mb-6">
             Your Vault of <br /> Confidentiality
           </h1>
 
-          <p className="text-gray-700 mb-4">The fortress for your secrets.</p>
+          <p className="text-black mb-4 font-medium">The fortress for your secrets.</p>
 
           <p className="text-gray-700 mb-4">
             Control who sees what. Track every move. Lock it down.
             Because trust is silent, secure, and total.
           </p>
 
-          <p className="text-gray-700 mb-6">
+          <p className="text-black font-medium mb-6">
             Contact us today—before your private word leaves your hands.
           </p>
 
-          <button className="border text-black border-black px-6 py-2 rounded-full hover:bg-black hover:text-white transition">
+          <button className="border-3 text-black border-[#456882] px-6 py-2 rounded-3xl hover:bg-black hover:text-white transition">
             Contact Us
           </button>
         </div>

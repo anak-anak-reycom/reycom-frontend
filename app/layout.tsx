@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
 
 
+
 const plusJakarta = Plus_Jakarta_Sans ({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"]
@@ -40,7 +41,9 @@ export default function RootLayout({
       <body
         >   
          <Navbar />
+         <main className="relative z-0 px-3 bg-zinc-50 font-sans dark:bg-white">
         {children}
+         </main>
 
       </body>
     </html>

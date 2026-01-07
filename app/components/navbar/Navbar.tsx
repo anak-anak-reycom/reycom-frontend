@@ -14,7 +14,7 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   return (
-    <header className="w-full sticky top-0 bg-white border-b border-gray-200 drop-shadow-md">
+    <header className="w-full sticky top- z-50 bg-white border-b border-gray-200 drop-shadow-md">
       {/* container full */}
       <div className="w-full">
         <div className="flex items-center justify-between h-[80px]">
