@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.next",
+    "\\app",
+    "\\app\\components",
+    "\\app\\components\\hero",
+    "\\app\\components\\main"
+  ],
+  "SelectedNode": "\\app\\components\\hero\\Hero.tsx",
+  "PreviewInSolutionExplorer": false
+}
