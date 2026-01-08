@@ -44,20 +44,42 @@ export default function Navbar() {
           {/* NAV — MENTOK KANAN */}
           <nav className="mr-0 pr-7">
             <ul className="flex items-center gap-8">
-              {NAV_ITEMS.map((item) => (
-                
-                //Render DropDOWN
-                
-                
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className="text-black font-medium hover:text-gray-600 transition"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {NAV_ITEMS.map((item) => {
+
+                //=== IF LABEL = THE COMPANY MUNCULKAN DROPDOWN===
+                if (item.label === "TheCompany") {
+                  return (
+                    <li key={item.label}>
+                      <NavDropdown label={item.label} menuItems={COMPANY_MENU_ITEMS} />
+                    </li>
+                  );
+                }
+
+
+                //=== IF LABEL = LINE MUNCULKAN DROPDOWN===
+                if (item.label === "Line") {
+                  return (
+                    <li key={item.label}>
+                      <NavDropdown label={item.label} menuItems={LINE_MENU_ITEMS} />
+                    </li>
+                  );
+                }
+
+                 return (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      className="text-black font-medium hover:text-gray-600 transition"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+
+
+
+
+              })}
             </ul>
           </nav>
 
