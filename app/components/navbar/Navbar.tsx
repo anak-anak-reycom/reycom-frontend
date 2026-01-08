@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "../../public/logo.png";
+import NavDropdown  from "./navDropdown";
+import type { MenuProps } from "antd";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -12,6 +14,21 @@ const NAV_ITEMS = [
   { label: "Line", href: "/line" },
 ];
 
+      //===NAVBAR DROPDOWN LIST===
+const COMPANY_MENU_ITEMS: MenuProps["items"] = [
+  { label: "About Us", key: "about" },
+  { label: "Privacy Policy", key: "privacy" },
+  { label: "Video's", key: "video" },
+];
+
+const LINE_MENU_ITEMS: MenuProps["items"] = [
+  { label: "Product A", key: "product_a" },
+  { label: "Product B", key: "product_b" },
+  { label: "Product C", key: "product_c" },
+];
+
+
+    //===NAVBAR COMPONENT===
 export default function Navbar() {
   return (
     <header className="w-full fixed top- z-50 bg-white border-b border-gray-200 drop-shadow-md">
@@ -28,6 +45,10 @@ export default function Navbar() {
           <nav className="mr-0 pr-7">
             <ul className="flex items-center gap-8">
               {NAV_ITEMS.map((item) => (
+                
+                //Render DropDOWN
+                
+                
                 <li key={item.label}>
                   <Link
                     href={item.href}
