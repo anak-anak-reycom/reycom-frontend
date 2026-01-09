@@ -22,7 +22,7 @@ const COMPANY_MENU_ITEMS: MenuProps["items"] = [
 ];
 
 const LINE_MENU_ITEMS: MenuProps["items"] = [
-  { label: "Product A", key: "product_a" },
+  { label: "business outsourcing", key: "product_a" },
   { label: "Product B", key: "product_b" },
   { label: "Product C", key: "product_c" },
 ];
