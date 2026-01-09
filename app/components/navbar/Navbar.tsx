@@ -13,8 +13,14 @@ const NAV_ITEMS = [
   { label: "Career", href: "/career" },
   { label: "Line", href: "/line" },
 ];
+      
+     //===NAVBAR DROPDOWN LIST===
+  const SYSTEM_INTEGRATION_SUBMENU: MenuProps["items"] = [
+  { label: "Hardware Infrastructure", key: "submenu_1" },
+  { label: "Software and Applivation", key: "submenu_2" },
+  { label: "Services", key: "submenu_3" },
+];
 
-      //===NAVBAR DROPDOWN LIST===
 const COMPANY_MENU_ITEMS: MenuProps["items"] = [
   { label: "About Us", key: "about" },
   { label: "Privacy Policy", key: "privacy" },
@@ -22,9 +28,10 @@ const COMPANY_MENU_ITEMS: MenuProps["items"] = [
 ];
 
 const LINE_MENU_ITEMS: MenuProps["items"] = [
-  { label: "business outsourcing", key: "product_a" },
-  { label: "Product B", key: "product_b" },
-  { label: "Product C", key: "product_c" },
+  { label: "Business Process", key: "product_a" },
+  { label: "Printing & Creative Serve", key: "product_b" },
+  { label: "Healthcare Management", key: "product_c" },
+  { label: "System Intregation", key: "product_d", children: SYSTEM_INTEGRATION_SUBMENU },
 ];
 
 
