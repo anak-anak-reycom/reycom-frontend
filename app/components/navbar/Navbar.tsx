@@ -15,6 +15,12 @@ const NAV_ITEMS = [
 ];
 
       //===NAVBAR DROPDOWN LIST===
+  const SYSTEM_INTEGRATION_SUBMENU: MenuProps["items"] = [
+  { label: "Hardware Infrastructure", key: "submenu_1" },
+  { label: "Software and Applivation", key: "submenu_2" },
+  { label: "Services", key: "submenu_3" },
+];
+
 const COMPANY_MENU_ITEMS: MenuProps["items"] = [
   { label: "About Us", key: "about" },
   { label: "Privacy Policy", key: "privacy" },
@@ -22,10 +28,14 @@ const COMPANY_MENU_ITEMS: MenuProps["items"] = [
 ];
 
 const LINE_MENU_ITEMS: MenuProps["items"] = [
-  { label: "Product A", key: "product_a" },
-  { label: "Product B", key: "product_b" },
-  { label: "Product C", key: "product_c" },
+  { label: "Business Process", key: "product_a" },
+  { label: "Printing & Creative Serve", key: "product_b" },
+  { label: "Healthcare Management", key: "product_c" },
+  { label: "System Intregation", key: "product_d", children: SYSTEM_INTEGRATION_SUBMENU },
 ];
+
+
+
 
 
     //===NAVBAR COMPONENT===
@@ -46,7 +56,7 @@ export default function Navbar() {
             <ul className="flex items-center gap-8">
               {NAV_ITEMS.map((item) => {
 
-                //=== IF LABEL = THE COMPANY MUNCULKAN DROPDOWN===
+                // IF LABEL === THE COMPANY MUNCULKAN DROPDOWN
                 if (item.label === "TheCompany") {
                   return (
                     <li key={item.label}>
@@ -55,8 +65,7 @@ export default function Navbar() {
                   );
                 }
 
-
-                //=== IF LABEL = LINE MUNCULKAN DROPDOWN===
+                // IF LABEL === LINE MUNCULKAN DROPDOWN
                 if (item.label === "Line") {
                   return (
                     <li key={item.label}>
@@ -75,10 +84,6 @@ export default function Navbar() {
                     </Link>
                   </li>
                 );
-
-
-
-
               })}
             </ul>
           </nav>
