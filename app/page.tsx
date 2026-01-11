@@ -3,6 +3,7 @@ import Hero from "./components/hero/Hero";
 import { Main } from "./components/main/main";
 import { CardDetail } from "./components/card/card";
 import  Vision  from "./components/vision/vision";
+import { NewsDetail } from "./components/news/news";
 
 export default function Home() {
   return (
@@ -11,6 +12,8 @@ export default function Home() {
       <Main />
       <CardDetail />
       <Vision />
+      <NewsDetail />
+      
       
     </div>
   );
