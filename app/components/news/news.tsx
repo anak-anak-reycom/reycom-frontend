@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Card from "../../../public/card.png"
+import Card from "../../../public/news-img.png"
 
 export const NewsDetail = () => {
   return (
