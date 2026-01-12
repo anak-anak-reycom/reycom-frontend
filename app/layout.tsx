@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
+import Footer from "./components/footer/footer";
 
 
 
@@ -49,6 +50,7 @@ export default function RootLayout({
          <main className="flex z-0 px-3 pt-20 bg-zinc-50 font-sans dark:bg-white justify-center">
         {children}
          </main>
+         <Footer />
 
       </body>
     </html>

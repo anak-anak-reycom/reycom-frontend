@@ -6,7 +6,9 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons";
 type SectionKey = "vision" | "mission" | "about" | null;
 
 export default function Vision() {
-  // awalnya semua tertutup -> null
+  
+
+  // START DROPDOWN NULL
   const [open, setOpen] = useState<SectionKey>(null);
 
   const toggle = (key: SectionKey) => {
@@ -16,7 +18,8 @@ export default function Vision() {
   return (
     <section className="w-full py-24">
       <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-        {/* LEFT TEXT */}
+
+        {/* ====LEFT DESCRIPTION==== */}
         <div>
           <h2 className="text-[48px] font-semibold text-black mb-6">
             Get To Know Us
@@ -27,7 +30,7 @@ export default function Vision() {
           </p>
         </div>
 
-        {/* RIGHT ACCORDION */}
+        {/* =====RIGHT DROPDOWN==== */}
         <div className="space-y-6">
           {/* Panel component repeated for clarity */}
           <Panel
@@ -70,7 +73,7 @@ export default function Vision() {
   );
 }
 
-/* Small reusable Panel subcomponent */
+// ====PANEL COMPONENT====
 function Panel({
   id,
   title,
