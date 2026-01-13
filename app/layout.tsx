@@ -47,7 +47,7 @@ export default function RootLayout({
         `}
         >   
          <Navbar />
-         <main className="flex z-0 px-3 pt-20 bg-zinc-50 font-sans dark:bg-white justify-center">
+         <main className="flex z-0 px-8 pt-20 bg-zinc-50 font-sans dark:bg-white">
         {children}
          </main>
          <Footer />

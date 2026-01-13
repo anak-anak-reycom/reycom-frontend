@@ -1,47 +1,40 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import test from "../../public/test.jpg";
+import Image from "next/image"
 
-export default function CompanyHero() {
+interface CompanyHeroProps {
+  imageSrc: string
+  imageAlt?: string
+  title: string
+  description: string
+}
+
+export default function CompanyHero({ imageSrc, imageAlt = "Company", title, description }: CompanyHeroProps) {
   return (
-    <section className="w-full py-24">
-      <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-16 items-center">
-
-        {/* LEFT TEXT */}
-        <div>
-          <h1 className="text-[64px] font-serif font-bold leading-none mb-6">
-            ABOUT <br /> US
-          </h1>
-
-          <div>
-            <h3 className="font-semibold mb-2">Vision</h3>
-            <p className="text-sm text-gray-700 max-w-xs">
-              To be the Best Document Solution Provider in Asia
-            </p>
+    <section className="w-full py-12 px-4 md:px-8">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+        {/* Image Column */}
+        <div className="flex justify-center md:justify-start">
+          <div className="relative w-full max-w-sm">
+            <Image
+              src={imageSrc || "/public/test.jpg"}
+              alt={imageAlt}
+              width={400}
+              height={400}
+              className="rounded-3xl shadow-2xl object-cover w-full h-auto"
+              priority
+            />
           </div>
         </div>
 
-        {/* CENTER IMAGE */}
-        <div className="rounded-2xl overflow-hidden">
-          <Image
-            src={test}
-            alt="About Us"
-            className="object-cover w-full h-full"
-          />
+        {/* Content Column */}
+        <div className="flex flex-col justify-center space-y-6">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{title}</h1>
+            <p className="text-lg text-gray-600 leading-relaxed">{description}</p>
+          </div>
         </div>
-
-        {/* RIGHT CARD */}
-        <div className="bg-[#234b68] text-white rounded-2xl p-6">
-          <h3 className="font-semibold mb-2">Mission</h3>
-          <p className="text-sm leading-relaxed">
-            Peace of mind <br />
-            Cost efficiency <br />
-            Productivity
-          </p>
-        </div>
-
       </div>
     </section>
-  );
+  )
 }
