@@ -1,5 +1,5 @@
 // -------app/theCompany.tsx-------
-import CompanyHero from "../components/hero/TheCompanyHero";
+import CompanyHero from "../../components/hero/TheCompanyHero";
 
 export const metadata = {
   title: "The Company — Reycom",
