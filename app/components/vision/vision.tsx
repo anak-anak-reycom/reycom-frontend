@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 
+
 type SectionKey = "vision" | "mission" | "about" | null;
 
 export default function Vision() {
@@ -34,6 +35,7 @@ export default function Vision() {
         <div className="space-y-6">
           {/* Panel component repeated for clarity */}
           <Panel
+          
             id="vision"
             title="Vision"
             isOpen={open === "vision"}
