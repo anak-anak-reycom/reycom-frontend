@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import test from "@/app/public/test.jpg"
 
 interface CompanyHeroProps {
   imageSrc: string
@@ -12,12 +13,12 @@ interface CompanyHeroProps {
 export default function CompanyHero({ imageSrc, imageAlt = "Company", title, description }: CompanyHeroProps) {
   return (
     <section className="w-full py-12 px-4 md:px-8">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-        {/* Image Column */}
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+        {/* Left Image*/}
         <div className="flex justify-center md:justify-start">
           <div className="relative w-full max-w-sm">
             <Image
-              src={imageSrc || "/public/test.jpg"}
+              src={test}
               alt={imageAlt}
               width={400}
               height={400}
@@ -27,7 +28,7 @@ export default function CompanyHero({ imageSrc, imageAlt = "Company", title, des
           </div>
         </div>
 
-        {/* Content Column */}
+        {/*  Text */}
         <div className="flex flex-col justify-center space-y-6">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{title}</h1>
