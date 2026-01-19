@@ -14,23 +14,22 @@ export default function SystemIntegrationLayout({ children }: { children: React.
         
         <SystemIntegrationSidebar />
 
-        <Layout style={{ padding: "24px" }}>
-          <Breadcrumb style={{ marginBottom: 16 }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Line</Breadcrumb.Item>
-            <Breadcrumb.Item>System Integration</Breadcrumb.Item>
-          </Breadcrumb>
-
-          <Content
-            style={{
-              minHeight: 360,
-              padding: 24,
-              background: "var(--ant-layout-content-background, #fff)",
-              borderRadius: 8,
-            }}
-          >
-            {children}
-          </Content>
+        <Layout className="w-full">
+            <div className="w-full flex justify-center">
+                <div className="w-full max-w-[1000px] px-6">
+                  
+                    <Content
+                        style={{
+                        minHeight: 360,
+                        padding: 24,
+                        background: "var(--ant-layout-content-background, #fffF)",
+                        borderRadius: 8,
+                        }}
+                    >
+                        {children}
+                    </Content>
+            </div>
+          </div>
         </Layout>
       </Layout>
     </Layout>
