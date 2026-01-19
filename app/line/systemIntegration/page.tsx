@@ -11,7 +11,7 @@ export default function SystemIntegrationPage() {
   return (
     <main className="min-h-screen">
       
-      <SystemIntegrationSidebar/>
+  
 
     </main>
    
