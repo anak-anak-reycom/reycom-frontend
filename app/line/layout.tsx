@@ -10,13 +10,12 @@ const { Content } = Layout;
 export default function SystemIntegrationLayout({ children }: { children: React.ReactNode }) {
   return (
     <Layout className="min-h-screen">
-      <Layout>
-        
+      <Layout> 
         <SystemIntegrationSidebar />
 
         <Layout className="w-full">
             <div className="w-full flex justify-center">
-                <div className="w-full max-w-[1000px] px-6">
+                <div className="w-full max-w-[1000px] px-6 bg-white">
                   
                     <Content
                         style={{
