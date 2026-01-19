@@ -15,120 +15,95 @@ export const CorporateCulture = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           
           {/* CARD 1 */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden max-w-[300px]">
+          <div className="bg-[#ededed] rounded-xl shadow-sm overflow-hidden max-w-[300px]">
+            <div className="px-2 py-3">
             <Image
               src={Card}
               alt="Cirrust Lite"
               width={200}
               height={300}
-              className="w-full object-cover"
+              className="w-full object-cover rounded-[20px] "
             />
 
             <div className="p-5">
-              <h3 className="font-semibold text-lg mb-2">
-                Cirrust Lite: Light But Powerful
+              <h3 className="font-semibold flex justify-center text-3xl mb-2">
+                Proaktif
               </h3>
 
-              <p className="text-secondary text-sm mb-4">
-                Experience the simplicity and efficiency of Cirrust Lite
-                without sacrificing any of the power
+              <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
+              Kesadaran diri untuk bertanggungjawab atas situasi yang akan muncul dan mampu untuk mengantisipasi serta menindaklanjuti situasi tersebut tanpa harus diminta terlebih dahulu.​​
               </p>
 
-              <a
-                href="#"
-                className="text-primary font-medium text-sm hover:underline"
-              >
-                Learn More
-              </a>
+            </div>
             </div>
           </div>
-
-          {/* CARD 2 */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden max-w-[300px]">
+          <div className="bg-[#ededed] rounded-xl shadow-sm overflow-hidden max-w-[300px]">
+            <div className="px-2 py-3">
             <Image
               src={Card}
               alt="Cirrust Lite"
               width={200}
               height={300}
-              className="w-full object-cover"
+              className="w-full object-cover rounded-[20px] "
             />
 
             <div className="p-5">
-              <h3 className="font-semibold text-lg mb-2">
-                Cirrust Lite: Light But Powerful
+              <h3 className="font-semibold flex justify-center text-3xl mb-2">
+                Proaktif
               </h3>
 
-              <p className="text-secondary text-sm mb-4">
-                Experience the simplicity and efficiency of Cirrust Lite
-                without sacrificing any of the power
+              <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
+              Kesadaran diri untuk bertanggungjawab atas situasi yang akan muncul dan mampu untuk mengantisipasi serta menindaklanjuti situasi tersebut tanpa harus diminta terlebih dahulu.​​
               </p>
 
-              <a
-                href="#"
-                className="text-primary font-medium text-sm hover:underline"
-              >
-                Learn More
-              </a>
+            </div>
             </div>
           </div>
-
-          {/* CARD 3 */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden max-w-[300px]">
+          <div className="bg-[#ededed] rounded-xl shadow-sm overflow-hidden max-w-[300px]">
+            <div className="px-2 py-3">
             <Image
               src={Card}
               alt="Cirrust Lite"
               width={200}
               height={300}
-              className="w-full object-cover"
+              className="w-full object-cover rounded-[20px] "
             />
 
             <div className="p-5">
-              <h3 className="font-semibold text-lg mb-2">
-                Cirrust Lite: Light But Powerful
+              <h3 className="font-semibold flex justify-center text-3xl mb-2">
+                Proaktif
               </h3>
 
-              <p className="text-secondary text-sm mb-4">
-                Experience the simplicity and efficiency of Cirrust Lite
-                without sacrificing any of the power
+              <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
+              Kesadaran diri untuk bertanggungjawab atas situasi yang akan muncul dan mampu untuk mengantisipasi serta menindaklanjuti situasi tersebut tanpa harus diminta terlebih dahulu.​​
               </p>
 
-              <a
-                href="#"
-                className="text-primary font-medium text-sm hover:underline"
-              >
-                Learn More
-              </a>
+            </div>
             </div>
           </div>
-
-          {/* ------------------CARD 4-------------------- */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden max-w-[300px]">
+          <div className="bg-[#ededed] rounded-xl shadow-sm overflow-hidden max-w-[300px]">
+            <div className="px-2 py-3">
             <Image
               src={Card}
               alt="Cirrust Lite"
               width={200}
               height={300}
-              className="w-full object-cover"
+              className="w-full object-cover rounded-[20px] "
             />
 
             <div className="p-5">
-              <h3 className="font-semibold text-lg mb-2">
-                Cirrust Lite: Light But Powerful
+              <h3 className="font-semibold flex justify-center text-3xl mb-2">
+                Proaktif
               </h3>
 
-              <p className="text-secondary text-sm mb-4">
-                Experience the simplicity and efficiency of Cirrust Lite
-                without sacrificing any of the power
+              <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
+              Kesadaran diri untuk bertanggungjawab atas situasi yang akan muncul dan mampu untuk mengantisipasi serta menindaklanjuti situasi tersebut tanpa harus diminta terlebih dahulu.​​
               </p>
 
-              <a
-                href="#"
-                className="text-primary font-medium text-sm hover:underline"
-              >
-                Learn More
-              </a>
             </div>
-          </div>          
+            </div>
+          </div>
+        
 
         </div>
       </div>
