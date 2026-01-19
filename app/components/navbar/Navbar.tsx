@@ -27,11 +27,12 @@ const COMPANY_MENU_ITEMS: MenuProps["items"] = [
   { label: "Video's", key: "video" },
 ];
 
+
 const LINE_MENU_ITEMS: MenuProps["items"] = [
   { label: "Business Process", key: "product_a" },
   { label: "Printing & Creative Serve", key: "product_b" },
   { label: "Healthcare Management", key: "product_c" },
-  { label: "System Intregation", key: "product_d", children: SYSTEM_INTEGRATION_SUBMENU },
+  {  label: <Link href="\line\systemIntegration">System Integration</Link>, key: "product_d"},
 ];
 
 export default function Navbar() {

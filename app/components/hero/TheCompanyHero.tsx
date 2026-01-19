@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import test from "@/app/public/test.jpg"
+import company from "../../../public/companyCrop.png"
 
 interface CompanyHeroProps {
   imageSrc: string
@@ -18,7 +19,7 @@ export default function CompanyHero({ imageSrc, imageAlt = "Company", title, des
         <div className="flex justify-center md:justify-start">
           <div className="relative w-full max-w-sm">
             <Image
-              src={test}
+              src={company}
               alt={imageAlt}
               width={400}
               height={400}
