@@ -1,20 +1,20 @@
-import Image from "next/image"
-import Card from "../../../public/news-img.png"
+import React from 'react'
+import Image from 'next/image'
+import Card from "@/public/card.png"
 
-export const NewsDetail = () => {
+const page = () => {
   return (
-    <section className="py-10">
+     <section className="py-10">
       <div className="max-w-[1400px] mx-auto px-4">
         
-        {/* ===== TITLE ===== */}
-        <h2 className="text-2xl font-semibold mb-8">
-          Read our other <span className="text-primary">News</span>
+        {/* ===== title ===== */}
+        <h2 className="text-5xl font-sans font-semibold mb-8">
+          News <span className='font-sans text-secondary'>Features</span>
         </h2>
 
-        {/* ===== GRID ===== */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
           
-          {/* CARD 1 */}
+          {/* card */}
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <Image
               src={Card}
@@ -43,7 +43,6 @@ export const NewsDetail = () => {
             </div>
           </div>
 
-          {/* CARD 2 */}
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <Image
               src={Card}
@@ -72,7 +71,6 @@ export const NewsDetail = () => {
             </div>
           </div>
 
-          {/* CARD 3 */}
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <Image
               src={Card}
@@ -106,3 +104,5 @@ export const NewsDetail = () => {
     </section>
   )
 }
+
+export default page

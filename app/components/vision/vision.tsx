@@ -35,7 +35,6 @@ export default function Vision() {
         <div className="space-y-6">
           {/* Panel component repeated for clarity */}
           <Panel
-          
             id="vision"
             title="Vision"
             isOpen={open === "vision"}
