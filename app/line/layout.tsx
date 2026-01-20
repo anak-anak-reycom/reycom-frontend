@@ -13,9 +13,9 @@ export default function SystemIntegrationLayout({ children }: { children: React.
       <Layout> 
         <SystemIntegrationSidebar />
 
-        <Layout className="w-full">
-            <div className="w-full flex justify-center">
-                <div className="w-full max-w-[1000px] px-6 bg-white">
+        <Layout className="w-full " >
+            <div className="w-full flex justify-center bg-white" >
+                <div className="w-full max-w-[1000px] px-6 ">
                   
                     <Content
                         style={{
