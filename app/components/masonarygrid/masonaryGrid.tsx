@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from "next/image";
-import test from "../../public/test.jpg";
+import test from "@/public/test.jpg";
 
 const masonaryGrid = () => {
   return (
