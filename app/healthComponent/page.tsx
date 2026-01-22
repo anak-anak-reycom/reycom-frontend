@@ -1,5 +1,5 @@
 // app/line/healthcare/page.tsx
-import HealthcareSlides from "../components/slides/Slides";
+import HealthcareSlides from "./components/slides/Slides";
 
 export const metadata = {
   title: "Healthcare Services",
