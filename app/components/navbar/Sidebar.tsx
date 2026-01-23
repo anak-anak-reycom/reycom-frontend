@@ -19,17 +19,17 @@ import {
 const { Sider } = Layout;
 
 const items: MenuProps["items"] = [
-  { key: "hardware", label:<link href="\line\hardwareInsfrastructure" > Hardware Infrastructure </link> , icon: <HardDrive size={18} /> },
-  { key: "server", label:<link href="\line\server"> Server </link> , icon: <Server size={18} /> },
-  { key: "storage", label: <Link href="\line\storage" >Storage </Link>, icon: <Archive size={18} /> },
-  { key: "security", label:<Link href="\line\security" > Security </Link>, icon: <Shield size={18} /> },
-  { key: "peripherals", label: <Link href="\line\peripheral" >Peripheral Devices </Link>, icon: <Briefcase size={18} /> },
-  { key: "software", label: <Link href="\line\softwareAndApps" > Software And Apps </Link>, icon: <Cpu size={18} /> },
-  { key: "ecm", label: <Link href="\line\enterpriseContentManagement" > Enterprise Content Management </Link>, icon: <Archive size={18} /> },
-  { key: "cx", label: <Link href="\line\customerExperience" >Customer Experience </Link>, icon: <Users size={18} /> },
-  { key: "ai", label: <Link href="\line\aiAndMachineLearning" >AI And Machine Learn </Link>, icon: <Zap size={18} /> },
-  { key: "business", label:<Link href="\line\businessApplication" > Business Application </Link> , icon: <Briefcase size={18} /> },
-  { key: "services", label: <Link href="\line\services" > Services </Link>, icon: <Briefcase size={18} /> },
+  { key: "hardware", label:<link href="\line\systemIntegrationhardwareInsfrastructure" > Hardware Infrastructure </link> , icon: <HardDrive size={18} /> },
+  { key: "server", label:<link href="\line\systemIntegration\server"> Server </link> , icon: <Server size={18} /> },
+  { key: "storage", label: <Link href="\line\systemIntegration\storage" >Storage </Link>, icon: <Archive size={18} /> },
+  { key: "security", label:<Link href="\line\systemIntegration\security" > Security </Link>, icon: <Shield size={18} /> },
+  { key: "peripherals", label: <Link href="\systemIntegration\line\peripheral" >Peripheral Devices </Link>, icon: <Briefcase size={18} /> },
+  { key: "software", label: <Link href="\line\systemIntegration\softwareAndApps" > Software And Apps </Link>, icon: <Cpu size={18} /> },
+  { key: "ecm", label: <Link href="\line\systemIntegration\enterpriseContentManagement" > Enterprise Content Management </Link>, icon: <Archive size={18} /> },
+  { key: "cx", label: <Link href="\line\systemIntegration\customerExperience" >Customer Experience </Link>, icon: <Users size={18} /> },
+  { key: "ai", label: <Link href="\line\systemIntegration\aiAndMachineLearning" >AI And Machine Learn </Link>, icon: <Zap size={18} /> },
+  { key: "business", label:<Link href="\line\systemIntegration\businessApplication" > Business Application </Link> , icon: <Briefcase size={18} /> },
+  { key: "services", label: <Link href="\line\systemIntegration\services" > Services </Link>, icon: <Briefcase size={18} /> },
 ];
 
 export default function SystemIntegrationSidebar({
