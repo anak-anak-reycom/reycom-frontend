@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import React from "react";
 import { Layout, Menu, theme } from "antd";
 import type { MenuProps } from "antd";
@@ -19,17 +19,17 @@ import {
 const { Sider } = Layout;
 
 const items: MenuProps["items"] = [
-  { key: "hardware", label: "Hardware Infrastructure", icon: <HardDrive size={18} /> },
-  { key: "server", label: "Server", icon: <Server size={18} /> },
-  { key: "storage", label: "Storage", icon: <Archive size={18} /> },
-  { key: "security", label: "Security", icon: <Shield size={18} /> },
-  { key: "peripherals", label: "Peripheral Devices", icon: <Briefcase size={18} /> },
-  { key: "software", label: "Software And Apps", icon: <Cpu size={18} /> },
-  { key: "ecm", label: "Enterprise Content Management", icon: <Archive size={18} /> },
-  { key: "cx", label: "Customer Experience", icon: <Users size={18} /> },
-  { key: "ai", label: "AI And Machine Learn", icon: <Zap size={18} /> },
-  { key: "business", label: "Business Application", icon: <Briefcase size={18} /> },
-  { key: "services", label: "Services", icon: <Briefcase size={18} /> },
+  { key: "hardware", label:<link href="\line\hardwareInsfrastructure" > Hardware Infrastructure </link> , icon: <HardDrive size={18} /> },
+  { key: "server", label:<link href="\line\server"> Server </link> , icon: <Server size={18} /> },
+  { key: "storage", label: <Link href="\line\storage" >Storage </Link>, icon: <Archive size={18} /> },
+  { key: "security", label:<Link href="\line\security" > Security </Link>, icon: <Shield size={18} /> },
+  { key: "peripherals", label: <Link href="\line\peripheral" >Peripheral Devices </Link>, icon: <Briefcase size={18} /> },
+  { key: "software", label: <Link href="\line\softwareAndApps" > Software And Apps </Link>, icon: <Cpu size={18} /> },
+  { key: "ecm", label: <Link href="\line\enterpriseContentManagement" > Enterprise Content Management </Link>, icon: <Archive size={18} /> },
+  { key: "cx", label: <Link href="\line\customerExperience" >Customer Experience </Link>, icon: <Users size={18} /> },
+  { key: "ai", label: <Link href="\line\aiAndMachineLearning" >AI And Machine Learn </Link>, icon: <Zap size={18} /> },
+  { key: "business", label:<Link href="\line\businessApplication" > Business Application </Link> , icon: <Briefcase size={18} /> },
+  { key: "services", label: <Link href="\line\services" > Services </Link>, icon: <Briefcase size={18} /> },
 ];
 
 export default function SystemIntegrationSidebar({
