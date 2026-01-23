@@ -6,7 +6,7 @@ export const DualCard = () => {
     <section className="py-10">
       <div className="max-w-[1400px] mx-auto px-4">
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
   {/* Card Image */}
   <div className="py-5 px-5 rounded-[20px] bg-[#ededed] shadow-md">
@@ -43,7 +43,7 @@ export const DualCard = () => {
       a prominent hybrid digital information management company from Japan.
       This strategic alliance and investment mark the synergy between RDS and
       TOPPAN FORMS with TOPPAN FORMS as the minority shareholders, which will
-      lead to RDS's further expansion of business in Indonesia and other markets
+      lead to RDS`s further expansion of business in Indonesia and other markets
       in Asia. RDS Group aims to continue to be the best Document Solution and
       System Integration provider in Asia and also strengthening their
       collaboration with TOPPAN FORMS and its alliances, as well as emphasizing

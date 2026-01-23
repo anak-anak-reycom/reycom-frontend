@@ -32,7 +32,6 @@ export function Carousel({
   const startX = useRef(0)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  /* ================= AUTOPLAY ================= */
   useEffect(() => {
     if (!autoPlay || isDragging) return
 
@@ -43,7 +42,6 @@ export function Carousel({
     }
   }, [currentIndex, autoPlay, autoPlayInterval, isDragging])
 
-  /* ================= CONTROLS ================= */
   const goToNext = () =>
     setCurrentIndex((prev) => (prev + 1) % items.length)
 
@@ -52,7 +50,6 @@ export function Carousel({
 
   const goToSlide = (index: number) => setCurrentIndex(index)
 
-  /* ================= DRAG ================= */
   const getX = (e: TouchEvent | MouseEvent) =>
     'touches' in e ? e.touches[0].clientX : e.clientX
 
@@ -78,7 +75,6 @@ export function Carousel({
     setDragTranslate(0)
   }
 
-  /* ================= RENDER ================= */
   return (
     <div className="w-full overflow-hidden">
       <div
