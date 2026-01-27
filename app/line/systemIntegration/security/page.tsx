@@ -2,7 +2,9 @@
 
 const Security = () => {
   return <div>
-            SUCCESS
+    <h1>
+     Security Page
+    </h1>
   </div>
 }
 

@@ -2,7 +2,9 @@
 const customerExp = () => {
     return (
         <div>
-            SUCCESS
+            <h1>
+                Experience Page
+            </h1>
         </div>
     )
 }
