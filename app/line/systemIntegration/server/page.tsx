@@ -2,7 +2,7 @@
 
 const Server = () => {
   return <div>
-        SUCCESS
+        <h1>Server Page</h1>
   </div>
 }
 

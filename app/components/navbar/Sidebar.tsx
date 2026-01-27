@@ -20,17 +20,17 @@ import {
 const { Sider } = Layout;
 
 const MENU_ITEMS: { key: string; label: string; icon: React.ReactNode; route: string }[] = [
-  { key: "hardware", label: "Hardware Infrastructure", icon: <HardDrive size={18} />, route: "/line/system-integration/hardware" },
-  { key: "server", label: "Server", icon: <Server size={18} />, route: "/line/system-integration/server" },
-  { key: "storage", label: "Storage", icon: <Archive size={18} />, route: "/line/system-integration/storage" },
-  { key: "security", label: "Security", icon: <Shield size={18} />, route: "/line/system-integration/security" },
-  { key: "peripherals", label: "Peripheral Devices", icon: <Zap size={18} />, route: "/line/system-integration/peripherals" },
-  { key: "software", label: "Software And Apps", icon: <Cpu size={18} />, route: "/line/system-integration/software" },
-  { key: "ecm", label: "Enterprise Content Management", icon: <Archive size={18} />, route: "/line/system-integration/ecm" },
-  { key: "cx", label: "Customer Experience", icon: <Users size={18} />, route: "/line/system-integration/cx" },
-  { key: "ai", label: "AI And Machine Learn", icon: <Zap size={18} />, route: "/line/system-integration/ai-and-machine-learning" },
-  { key: "business", label: "Business Application", icon: <Briefcase size={18} />, route: "/line/system-integration/business" },
-  { key: "services", label: "Services", icon: <Briefcase size={18} />, route: "/line/system-integration/services" },
+  { key: "hardware", label: "Hardware Infrastructure", icon: <HardDrive size={18} />, route: "/line/systemIntegration/hardware" },
+  { key: "server", label: "Server", icon: <Server size={18} />, route: "/line/systemIntegration/server" },
+  { key: "storage", label: "Storage", icon: <Archive size={18} />, route: "/line/systemIntegration/storage" },
+  { key: "security", label: "Security", icon: <Shield size={18} />, route: "/line/systemIntegration/security" },
+  { key: "peripherals", label: "Peripheral Devices", icon: <Zap size={18} />, route: "/line/systemIntegration/peripheral" },
+  { key: "apps", label: "Software And Apps", icon: <Cpu size={18} />, route: "/line/systemIntegration/apps" },
+  { key: "ecm", label: "Enterprise Content Management", icon: <Archive size={18} />, route: "/line/systemIntegration/enterprise " },
+  { key: "cx", label: "Customer Experience", icon: <Users size={18} />, route: "/line/systemIntegration/experience" },
+  { key: "ai", label: "AI And Machine Learn", icon: <Zap size={18} />, route: "/line/systemIntegration/machine" },
+  { key: "business", label: "Business Application", icon: <Briefcase size={18} />, route: "/line/systemIntegration/application" },
+  { key: "services", label: "Services", icon: <Briefcase size={18} />, route: "/line/systemIntegration/services" },
 ];
 
 export default function SystemIntegrationSidebar({ defaultSelected = "hardware" }: { defaultSelected?: string }) {

@@ -2,7 +2,11 @@
 
 const storage = () => {
   return (
-            <div>SUCCESS</div>
+         <div>
+            <h1>
+                Storage Page
+            </h1>
+         </div>
         )
 }
 

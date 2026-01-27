@@ -2,7 +2,11 @@
 
 const aiMachine = () => {
   return (
-    <div>SUCCESS</div>
+    <div>
+      <h1>
+        AI Page
+      </h1>
+    </div>
   )
 }
 

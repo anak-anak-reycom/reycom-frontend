@@ -32,7 +32,7 @@ const LINE_MENU_ITEMS: MenuProps["items"] = [
   { label:  <Link href="\business"> Business Processing </Link>, key: "product_a" },
   { label: <Link href="\printingServices" > Printing & Creative Serve</Link>, key: "product_b" },
   { label: <Link href="\healthComponent"> Healthcare Management </Link>, key: "product_c" },
-  {  label: <Link href="\line\systemIntegration"> System Integration </Link>, key: "product_d"},
+  {  label: <Link href="\line\systemIntegration\hardware"> System Integration </Link>, key: "product_d"},
 ];
 
 export default function Navbar() {
