@@ -14,7 +14,7 @@ import {
   Users,
   Zap,
   Briefcase,
-  Tool,
+  
 } from "lucide-react";
 
 const { Sider } = Layout;
@@ -24,7 +24,7 @@ const MENU_ITEMS: { key: string; label: string; icon: React.ReactNode; route: st
   { key: "server", label: "Server", icon: <Server size={18} />, route: "/line/system-integration/server" },
   { key: "storage", label: "Storage", icon: <Archive size={18} />, route: "/line/system-integration/storage" },
   { key: "security", label: "Security", icon: <Shield size={18} />, route: "/line/system-integration/security" },
-  { key: "peripherals", label: "Peripheral Devices", icon: <Tool size={18} />, route: "/line/system-integration/peripherals" },
+  { key: "peripherals", label: "Peripheral Devices", icon: <Zap size={18} />, route: "/line/system-integration/peripherals" },
   { key: "software", label: "Software And Apps", icon: <Cpu size={18} />, route: "/line/system-integration/software" },
   { key: "ecm", label: "Enterprise Content Management", icon: <Archive size={18} />, route: "/line/system-integration/ecm" },
   { key: "cx", label: "Customer Experience", icon: <Users size={18} />, route: "/line/system-integration/cx" },

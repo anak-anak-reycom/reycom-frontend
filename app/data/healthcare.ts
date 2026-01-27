@@ -11,7 +11,7 @@ export type Slide = {
   id: string;
   title: string;
   body: string;
-  img: string; // path relative to /public, e.g. "/syntech.jpg"
+  img: string; 
   link?: string;
 };
 
