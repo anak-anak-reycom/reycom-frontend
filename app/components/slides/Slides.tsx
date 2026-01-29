@@ -1,4 +1,4 @@
-// app/components/slides/Slides.tsx
+// app/components/slide
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -60,7 +60,7 @@ export default function HealthcareSlides() {
               ◀
             </button>
 
-            <div className="relative rounded-2xl overflow-hidden border-2 border-[#3b8ed6]">
+            <div className="relative rounded-2xl overflow-hidden">
               {/* current layer */}
               <div
                 className={`absolute inset-0 transition-opacity duration-300 ${
@@ -69,6 +69,7 @@ export default function HealthcareSlides() {
                 aria-hidden={isTransitioning}
                 key={curr.id}
               >
+                
                 <Image
                   src={curr.img}
                   alt={curr.title}
