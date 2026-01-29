@@ -1,4 +1,4 @@
-// app/components/healthcare/HealthcareSlides.tsx
+// app/components/slides/Slides.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
