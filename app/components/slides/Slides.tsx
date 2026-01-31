@@ -1,21 +1,28 @@
-// app/components/slides/Slides.tsx
+// app/components/slide/Slides.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import {healthcareSlides } from "../../data/healthcare";
+import Image, { StaticImageData } from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { healthcareSlides } from "@/app/data/healthcare"; 
+const FADE_MS = 320; 
 
-const FADE_MS = 320; // durasi fade (ms)
+type SlideItem = {
+  id: string;
+  title: string;
+  body: string;
+  img: StaticImageData;
+  link?: string;
+};
 
 export default function HealthcareSlides() {
-  const slides = healthcareSlides;
-  const [current, setCurrent] = useState(0);
+  const items: SlideItem[] = healthcareSlides as SlideItem[];
 
-  // untuk transisi: nextIndex (null berarti tidak ada transisi berjalan)
+  const [current, setCurrent] = useState(0);
   const [nextIndex, setNextIndex] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // keyboard nav
+  
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") goNext();
@@ -28,10 +35,10 @@ export default function HealthcareSlides() {
   const go = (target: number) => {
     if (isTransitioning || target === current) return;
     setNextIndex(target);
-    // ensure DOM paints the next layer before toggling classes
+
+  
     requestAnimationFrame(() => {
       setIsTransitioning(true);
-      // after fade duration, commit the change
       setTimeout(() => {
         setCurrent(target);
         setNextIndex(null);
@@ -40,59 +47,60 @@ export default function HealthcareSlides() {
     });
   };
 
-  const goNext = () => go((current + 1) % slides.length);
-  const goPrev = () => go((current - 1 + slides.length) % slides.length);
+  const goNext = () => go((current + 1) % items.length);
+  const goPrev = () => go((current - 1 + items.length) % items.length);
 
-  const curr = slides[current];
-  const next = nextIndex != null ? slides[nextIndex] : null;
+  const curr = items[current];
+  const next = nextIndex != null ? items[nextIndex] : null;
 
   return (
     <section className="w-full py-12">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          {/* LEFT: image area (two layers for crossfade) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-50 items-center">
+
+          {/* LEFT: image crossfade container */}
           <div className="relative">
             <button
               onClick={goPrev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border bg-white/80 hover:bg-white flex items-center justify-center shadow"
               aria-label="previous"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border bg-white/80 hover:bg-white flex items-center justify-center shadow"
             >
-              ◀
+              <ChevronLeft />
             </button>
 
-            <div className="relative rounded-2xl overflow-hidden border-2 border-[#3b8ed6]">
-              {/* current layer */}
+            <div className="relative rounded-2xl overflow-hidden border-2 border-[#3b8ed6] h-[320px] md:h-[420px] lg:h-[540px]">
+              {/* current */}
               <div
                 className={`absolute inset-0 transition-opacity duration-300 ${
                   isTransitioning ? "opacity-0" : "opacity-100"
                 }`}
-                aria-hidden={isTransitioning}
                 key={curr.id}
+                aria-hidden={isTransitioning}
               >
                 <Image
                   src={curr.img}
                   alt={curr.title}
-                  width={900}
-                  height={540}
-                  className="w-full h-auto object-cover"
+                  fill
+                  sizes="(min-width:1024px) 900px, 100vw"
+                  className="object-contain"
                 />
               </div>
 
-              {/* next layer (rendered only when transitioning) */}
+            
               {next && (
                 <div
                   className={`absolute inset-0 transition-opacity duration-300 ${
                     isTransitioning ? "opacity-100" : "opacity-0"
                   }`}
-                  aria-hidden={!isTransitioning}
                   key={next.id}
+                  aria-hidden={!isTransitioning}
                 >
                   <Image
                     src={next.img}
                     alt={next.title}
-                    width={900}
-                    height={540}
-                    className="w-full h-auto object-cover"
+                    fill
+                    sizes="(min-width:1024px) 900px, 100vw"
+                    className="object-contain"
                   />
                 </div>
               )}
@@ -100,15 +108,16 @@ export default function HealthcareSlides() {
 
             <button
               onClick={goNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border bg-white/80 hover:bg-white flex items-center justify-center shadow"
               aria-label="next"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border bg-white/80 hover:bg-white flex items-center justify-center shadow"
             >
-              ▶
+              <ChevronRight />
             </button>
           </div>
 
-          {/* RIGHT: text area (also crossfade) */}
-          <div className="relative">
+          {/* RIGHT: text area (crossfade in sync) */}
+          <div className="relative min-h-[140px]">
+            {/* current text */}
             <div
               className={`transition-opacity duration-300 ${
                 isTransitioning ? "opacity-0" : "opacity-100"
@@ -126,6 +135,7 @@ export default function HealthcareSlides() {
               )}
             </div>
 
+            {/* next text overlay while transitioning */}
             {next && (
               <div
                 className={`absolute inset-0 transition-opacity duration-300 ${
@@ -147,19 +157,7 @@ export default function HealthcareSlides() {
           </div>
         </div>
 
-        {/* pagination dots (optional) */}
-        <div className="flex gap-3 justify-center mt-6">
-          {slides.map((s, i) => (
-            <button
-              key={s.id}
-              aria-label={`go to ${s.id}`}
-              onClick={() => go(i)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                i === current ? "bg-blue-600 scale-110" : "bg-gray-300"
-              }`}
-            />
-          ))}
-        </div>
+       
       </div>
     </section>
   );
