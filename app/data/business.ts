@@ -1,3 +1,5 @@
+// app/data/business.ts
+
 import image1 from '@/public/business1.png'
 import image2 from '@/public/business2.png'
 import image3 from '@/public/business3.png'
