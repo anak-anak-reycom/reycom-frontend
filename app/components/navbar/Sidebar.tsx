@@ -6,6 +6,7 @@ import { Layout, Menu, theme } from "antd";
 import type { MenuProps } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  Home,
   Server,
   HardDrive,
   Shield,
