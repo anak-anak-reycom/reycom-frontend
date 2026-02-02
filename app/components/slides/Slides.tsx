@@ -56,7 +56,7 @@ export default function HealthcareSlides() {
   return (
     <section className="w-full -mt-6 md:-mt-">
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
 
         
           <div className="relative">
