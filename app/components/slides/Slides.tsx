@@ -54,11 +54,11 @@ export default function HealthcareSlides() {
   const next = nextIndex != null ? items[nextIndex] : null;
 
   return (
-    <section className="w-full py-12">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-50 items-center">
+    <section className="w-full -mt-6 md:-mt-">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
-          {/* LEFT: image crossfade container */}
+        
           <div className="relative">
             <button
               onClick={goPrev}
@@ -68,8 +68,8 @@ export default function HealthcareSlides() {
               <ChevronLeft />
             </button>
 
-            <div className="relative rounded-2xl overflow-hidden border-2 border-[#3b8ed6] h-[320px] md:h-[420px] lg:h-[540px]">
-              {/* current */}
+            <div className="relative rounded-2xl overflow-hidden h-[380px] md:h-[480px] lg:h-[425px]">
+              
               <div
                 className={`absolute inset-0 transition-opacity duration-300 ${
                   isTransitioning ? "opacity-0" : "opacity-100"
@@ -115,9 +115,9 @@ export default function HealthcareSlides() {
             </button>
           </div>
 
-          {/* RIGHT: text area (crossfade in sync) */}
+        
           <div className="relative min-h-[140px]">
-            {/* current text */}
+          
             <div
               className={`transition-opacity duration-300 ${
                 isTransitioning ? "opacity-0" : "opacity-100"
@@ -135,7 +135,7 @@ export default function HealthcareSlides() {
               )}
             </div>
 
-            {/* next text overlay while transitioning */}
+            
             {next && (
               <div
                 className={`absolute inset-0 transition-opacity duration-300 ${
