@@ -13,8 +13,8 @@ export default function SystemIntegration() {
       <div className="max-w-[720px] mx-auto px-6">
         <div className="grid grid-cols-1 gap-8">
 
-          {/* TOP IMAGE */}
-          <div className="relative rounded-xl overflow-hidden border-2 border-[#3b8ed6] p-4">
+         
+          <div className="relative rounded-xl overflow-hidden p-4">
             <div className="rounded-lg overflow-hidden bg-white">
               <Image
                 src={image1}
@@ -27,10 +27,10 @@ export default function SystemIntegration() {
             </div>
           </div>
 
-          {/* TITLE */}
+          
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-semibold mb-2">System Integration</h1>
-            <div className="mx-auto w-24 h-0.5 bg-[#3b8ed6] rounded mb-4" />
+            <div className="mx-auto w-24 h-0.5 rounded mb-4" />
             <p className="text-sm text-gray-700 leading-relaxed">
               At RDS, we go far beyond traditional document management to act as your ultimate
               IT-driven growth partner. By blending our deep-rooted expertise with cutting-edge
@@ -40,9 +40,9 @@ export default function SystemIntegration() {
             </p>
           </div>
 
-          {/* SUB-SECTION: RDS System Integrator + LOGO */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold mb-4">RDS System Integrator</h2>
+          
+          <div className="bg-white rounded-lg items-center p-6 text-center">
+            <h2 className="text-3xl font-semibold mb-4">RDS System Integrator</h2>
 
             <div className="flex flex-col items-center gap-6">
               <div className="w-[180px] h-[120px] rounded-lg overflow-hidden border-2 border-dashed border-[#cfdff0] flex items-center justify-center bg-white p-3">

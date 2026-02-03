@@ -21,6 +21,7 @@ import {
 const { Sider } = Layout;
 
 const MENU_ITEMS: { key: string; label: string; icon: React.ReactNode; route: string }[] = [
+  { key: "started", label: "Gettin Started", icon: <Home size={18} />, route: "/line/systemIntegration/started" },
   { key: "hardware", label: "Hardware Infrastructure", icon: <HardDrive size={18} />, route: "/line/systemIntegration/hardware" },
   { key: "server", label: "Server", icon: <Server size={18} />, route: "/line/systemIntegration/server" },
   { key: "storage", label: "Storage", icon: <Archive size={18} />, route: "/line/systemIntegration/storage" },

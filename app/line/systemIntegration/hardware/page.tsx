@@ -1,12 +1,13 @@
 import { CardDetail } from "@/app/components/card/card"
+import {HardwareContent} from "@/app/components/systemIntegration/hardware/card"
 
 
 const hardwareInsfrastructure = () => {
     return (
-        <div><h1>Hardware Page</h1>
-            <CardDetail/>
-        </div>
+        <main>
+            <HardwareContent/>
+        </main>
     )
-
 }
+
 export default hardwareInsfrastructure
