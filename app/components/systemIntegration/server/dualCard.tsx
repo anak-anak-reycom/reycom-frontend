@@ -7,13 +7,13 @@ import Image from "next/image";
 export default function DualCardServer() {
   return (
     <section className="py-16">
-      <div className="max-w-720px] mx-auto px-6">
+      <div className="max-w-[720px] mx-auto px-6">
 
         {/* GRID 2 KOLOM */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
 
           {/* CARD 1 */}
-          <div className="bg-white rounded-[20px] shadow-md p-6 text-center">
+          <div className="bg-white rounded-[20px] p-6 h-full flex flex-col">
 
             <div className="rounded-[15px] overflow-hidden mb-5">
               <Image
@@ -25,9 +25,10 @@ export default function DualCardServer() {
               />
             </div>
 
-            <h2 className="text-xl font-bold mb-3">
-              Business Server
-            </h2>
+            <div className="flex-1 flex flex-col">
+              <h2 className="text-xl font-bold mb-3">Business Server</h2>
+              <p className="text-sm text-gray-600 leading-relaxed">...</p>
+            </div>
 
             <p className="text-sm text-gray-600 leading-relaxed">
               This machine designed from small, medium to high business
@@ -40,7 +41,7 @@ export default function DualCardServer() {
 
 
           {/* CARD 2 */}
-          <div className="bg-white rounded-[20px] shadow-md p-6 text-center">
+          <div className="bg-white rounded-[20px] p-6 h-full flex flex-col">
 
             <div className="rounded-[15px] overflow-hidden mb-5">
               <Image
@@ -52,9 +53,10 @@ export default function DualCardServer() {
               />
             </div>
 
-            <h2 className="text-xl font-bold mb-3">
-              Hyper Converged Infrastructure
-            </h2>
+            <div className="flex-1 flex flex-col">
+              <h2 className="text-xl font-bold mb-3">Business Server</h2>
+              <p className="text-sm text-gray-600 leading-relaxed">...</p>
+            </div>
 
             <p className="text-sm text-gray-600 leading-relaxed">
               This machine designed from small, medium to high business
