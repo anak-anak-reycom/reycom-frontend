@@ -1,10 +1,15 @@
+import DualCardServer from "@/app/components/systemIntegration/server/dualCard"
 
+const Services = () => {
+  return (
+        <main className="min-h-screen">
+            
+            <DualCardServer/>
 
-const Server = () => {
-  return <div>
-        <h1>Server Page</h1>
-  </div>
+        </main>
+  )
+
+  
 }
 
-export default Server
-    
+export default Services
