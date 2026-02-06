@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function DualCardServer() {
   return (
-    <section className="py-16">
+    <section className="py-5">
       <div className="max-w-[720px] mx-auto px-6">
 
         {/* GRID 2 KOLOM */}

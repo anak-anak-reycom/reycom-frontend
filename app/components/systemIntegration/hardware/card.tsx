@@ -3,31 +3,30 @@
 import Image from "next/image"
 import iot from "@/public/systemIntegration/hardware/iot.png"
 
+export const HardwareContent = () => {
+  return (
+    <section className="w-full py-8">
+      <div className="w-full px-3 sm:px-6 md:px-8 lg:max-w-[720px] lg:mx-auto">
+        <div className="grid grid-cols-1 gap-6">
 
- export const HardwareContent = () => {
-    return (
-    <section className="w-full py-12">
-      <div className="max-w-[720px] mx-auto px-6">
-        <div className="grid grid-cols-1 gap-8">
-
-         
-          <div className="relative rounded-xl overflow-hidden p-4">
-            <div className="rounded-lg overflow-hidden bg-white">
+          {/* wrapper gambar: pastikan ukuran container sama dengan gambar */}
+          <div className="mx-auto w-full max-w-[700px]">
+            <div className="relative w-full h-[350px] overflow-hidden bg-amber-500 shadow-sm">
               <Image
                 src={iot}
                 alt="System Integration"
-                width={700}
-                height={420}
-                className="w-full h-auto object-cover rounded-lg"
+                fill
+                sizes="(min-width:700px) 700px, 100vw"
+                className="object-cover"
                 priority
               />
             </div>
           </div>
 
-          
-          <div className="text-center">
+          {/* teks, biarkan juga lebar sama dengan gambar */}
+          <div className="mx-auto w-full max-w-[700px] text-center">
             <h1 className="text-3xl md:text-4xl font-semibold mb-2">IoT</h1>
-            <div className="mx-auto w-24 h-0.5 rounded mb-4" />
+            <div className="mx-auto w-24 h-0.5 rounded mb-4 bg-gray-200" />
             <p className="text-sm text-gray-700 leading-relaxed">
               At RDS, we go far beyond traditional document management to act as your ultimate
               IT-driven growth partner. By blending our deep-rooted expertise with cutting-edge
@@ -36,9 +35,9 @@ import iot from "@/public/systemIntegration/hardware/iot.png"
               files; we build the digital backbone your business needs to thrive.
             </p>
           </div>
+
         </div>
       </div>
     </section>
-
-    )
+  );
 }

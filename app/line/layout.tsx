@@ -15,7 +15,7 @@ export default function SystemIntegrationLayout({ children }: { children: React.
 
         <Layout className="w-full " >
             <div className="w-full flex justify-center bg-white" >
-                <div className="w-full max-w-[1000px] px-6 ">
+                <div className="w-full lg:max-w-[1000px] px-3 sm:px-6 md:px-8">
                   
                     <Content
                         style={{
