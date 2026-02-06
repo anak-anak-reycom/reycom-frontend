@@ -1,24 +1,24 @@
 "use client";
-
 import Image from "next/image";
-import card from "@/public/systemIntegration/storage/storage.png";
+import card from "@/public/systemIntegration/experience/customerx.png";
 
-export default function CardStorage() {
+export default function CardExperience() {
   return (
-    <section className="w-full py-12">
+
+     <section className="w-full">
         <div className="max-w-[1000px] mx-auto">
             <div className="grid grid-cols-1 gap-3">
 
                 <div className="mx-auto w-full flex justify-center">
-                    <div className="relative w-full mx-auto max-w-[740px]">
+                    <div className="relative w-full mx-auto max-w-[720px]">
                         <Image
                         src={card}
                         alt="storage"
-                        width={740}
+                        width={700}
                         height={400}
                         className="rounded-3xl shadow-2xl object-cover w-full h-auto"
                         priority
-                        sizes="(min-width:1024px) 740px, 100vw"
+                        sizes="(min-width:1024px) 700px, 100vw"
                         />
                     </div>
                 </div>
@@ -27,7 +27,8 @@ export default function CardStorage() {
                     <div className="mx-auto w-24 h-0.5 rounded mb-1 bg-gray-300" />
             
                         <p className="text-sm text-gray-700 leading-relaxed">
-                        Storage is important think on the component of the infrastructure, storage will support your system on the complete lifecycle of data, same as another technology storage had evolution from the old version until modern version, following the technology update we provide comprehensive storage: All-flash system, Hybrid disk and flash storage arrays, Tape Storage
+                        Today’s customers demand personalized, relevant communications that are available in real-time and accessible through the channel of their choice.
+The Customer Experience software allows organizations to deploy a new approach to information exchange thereby improving the ability to maintain relationships with customers and other stakeholders. By using the software, messages disseminated are no longer generic but tailored according to customers’ needs and specific platforms (Web, email, SMS, print] and devices (mobile, laptop, tablet, PC).
                         </p>
 
                 </div>
@@ -38,5 +39,5 @@ export default function CardStorage() {
         </div>
 
     </section>
-  )};
-            
+
+  )}

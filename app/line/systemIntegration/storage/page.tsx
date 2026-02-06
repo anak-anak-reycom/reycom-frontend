@@ -1,13 +1,15 @@
+import CardStorage from "@/app/components/systemIntegration/storage/mainCard"
 
-
-const storage = () => {
+const Storage = () => {
   return (
-         <div>
-            <h1>
-                Storage Page
-            </h1>
-         </div>
-        )
+        <main className="min-h-screen">
+            
+            <CardStorage/>
+
+        </main>
+  )
+
+  
 }
 
-export default storage
+export default Storage
