@@ -5,6 +5,8 @@ import Image from "next/image";
 import Logo from "@/public/logo.png";
 import NavDropdown from "./navDropdown";
 import type { MenuProps } from "antd";
+import { useState , useEffect } from "react";
+import React from "react";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -36,10 +38,25 @@ const LINE_MENU_ITEMS: MenuProps["items"] = [
 ];
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = React.useState(false);
+
+ useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+
   return (
-    <header className="w-full fixed top-0 z-50 bg-white border-b border-gray-200 drop-shadow-md">
+    <header     className={`
+        w-full fixed top-0 z-50 bg-white border-b border-white transition-shadow duration-500
+        ${scrolled ? 'drop-shadow-lg' : 'shadow-none'}
+      `}>
       <div className="w-full">
-        <div className="flex items-center justify-between h-[80px]">
+        <div className="flex items-center justify-between h-20">
 
           {/* LOGO — LEFT */}
           <Link href="/" className="ml-0 pl-7">
