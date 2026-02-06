@@ -24,7 +24,7 @@ export default function CardServer() {
             </div>
           </div>
 
-          {/* teks di bawah, juga dibatasi lebar supaya rapi */}
+          
           <div className="text-center mx-auto max-w-[700px]">
             <div className="mx-auto w-24 h-0.5 rounded mb-1 bg-gray-300" />
             <p className="text-sm text-gray-700 leading-relaxed">

@@ -1,7 +1,7 @@
 import DualCardServer from "@/app/components/systemIntegration/server/dualCard"
 import CardServer from "@/app/components/systemIntegration/server/main"
 
-const Services = () => {
+const Server = () => {
   return (
         <main className="min-h-screen">
             
@@ -14,4 +14,4 @@ const Services = () => {
   
 }
 
-export default Services
+export default Server

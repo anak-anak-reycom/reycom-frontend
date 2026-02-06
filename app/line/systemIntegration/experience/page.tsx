@@ -1,11 +1,15 @@
+import CardExperience from "@/app/components/systemIntegration/experience/mainCard"
 
-const customerExp = () => {
-    return (
-        <div>
-            <h1>
-                Experience Page
-            </h1>
-        </div>
-    )
+const CustomerExperience = () => {
+  return (
+        <main className="min-h-screen">
+            
+            <CardExperience/>
+
+        </main>
+  )
+
+  
 }
-export default customerExp
+
+export default CustomerExperience
