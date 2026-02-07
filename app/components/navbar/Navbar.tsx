@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { label: "News", href: "/News" },
   { label: "Career", href: "/career" },
   { label: "Line", href: "/line" },
+  { label: "Contact", href: "/contact" },
 ];
 
 // NAVBAR DROPDOWN LIST
