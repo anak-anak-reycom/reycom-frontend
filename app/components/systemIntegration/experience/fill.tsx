@@ -1,4 +1,5 @@
 import React from 'react'
+import { ClientExperience } from './client'
 
 export default function FillExperience () {
     return (
@@ -33,13 +34,7 @@ export default function FillExperience () {
         </div>
 
         <div className='mt-8'>
-            <h1 className='text-start font-bold text-4xl'>Our Client</h1>
-                <p className='mt-8 text-[16px] '>
-                    The Records Management System (RMS) is a comprehensive web-based platform engineered to streamline the administration 
-                    of physical document storage and lifecycle management. Specifically optimized to enhance operational efficiency, the RMS empowers administrators and 
-                    back-office teams to seamlessly fulfill customer requests while automatically generating necessary supporting documentation. By centralizing these workflows,
-                    the application ensures that the logistical complexities of hard-copy archiving—from retrieval to tracking—are handled with precision and professional rigor.
-                </p>
+          <ClientExperience/>
         </div>
       </div>
     )    
