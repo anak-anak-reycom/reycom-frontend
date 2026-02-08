@@ -1,11 +1,15 @@
-const peripherals = () =>{ 
-    return (
-        <div>
-            <h1>
-                Peripherals Page
-            </h1>
-        </div>
-    )
+import CardPeripheral from "@/app/components/systemIntegration/peripheral/mainCard"
+import FillPeripheral from "@/app/components/systemIntegration/peripheral/fill"
+
+const Peripherals = () => {
+  return (
+        <main className="min-h-screen">    
+            <CardPeripheral/>
+            <FillPeripheral/>
+        </main>
+  )
+
+  
 }
-     
-export default peripherals
+
+export default Peripherals

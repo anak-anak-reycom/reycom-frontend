@@ -1,11 +1,15 @@
+import CardBusiness from "@/app/components/systemIntegration/businessApp/mainCard"
+import FillBusiness from "@/app/components/systemIntegration/businessApp/fill"
 
-const businessApp = ()  => {
-    return (
-        <div>
-            <h1>
-                Business Application 
-            </h1>
-        </div>
-    )
+const Peripherals = () => {
+  return (
+        <main className="min-h-screen">    
+            <CardBusiness/>
+            <FillBusiness/>
+        </main>
+  )
+
+  
 }
-export default businessApp
+
+export default Peripherals
