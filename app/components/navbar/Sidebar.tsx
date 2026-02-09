@@ -67,7 +67,7 @@ export default function SystemIntegrationSidebar({ defaultSelected = "hardware" 
       onCollapse={(value) => setCollapsed(value)} // manual collapse
       onBreakpoint={(broken) => setCollapsed(broken)} // auto collapse saat breakpoint terpenuhi
       style={{ background: colorBgContainer }}
-      className="!border-none"
+      className="border-none!"
     >
       <div className="px-1 py-6 h-full flex flex-col">
         <div className="mb-4">

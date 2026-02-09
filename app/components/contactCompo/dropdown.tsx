@@ -134,7 +134,7 @@ function BranchPanel({
           </h3>
         </div>
 
-        <span className="text-gray-600 ml-4" aria-hidden>
+        <span className="text-black ml-4 cursor-pointer" aria-hidden>
           {isOpen ? <UpOutlined /> : <DownOutlined />}
         </span>
       </button>
