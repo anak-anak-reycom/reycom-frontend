@@ -34,7 +34,7 @@ const MENU_ITEMS: { key: string; label: string; icon: React.ReactNode; route: st
   { key: "services", label: "Services", icon: <Briefcase size={18} />, route: "/line/systemIntegration/services" },
 ];
 
-export default function SystemIntegrationSidebar({ defaultSelected = "hardware" }: { defaultSelected?: string }) {
+export default function SystemIntegrationSidebar({ defaultSelected = "started" }: { defaultSelected?: string }) {
   const router = useRouter();
   const pathname = usePathname() || "";
 
@@ -64,8 +64,8 @@ export default function SystemIntegrationSidebar({ defaultSelected = "hardware" 
       breakpoint="lg"             
       collapsible
       collapsed={collapsed}
-      onCollapse={(value) => setCollapsed(value)} // manual collapse
       onBreakpoint={(broken) => setCollapsed(broken)} // auto collapse saat breakpoint terpenuhi
+      trigger={null}
       style={{ background: colorBgContainer }}
       className="border-none!"
     >
