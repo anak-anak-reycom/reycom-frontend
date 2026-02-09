@@ -134,10 +134,10 @@ function BranchPanel({
                 <span className="text-black">{titleNormal}</span>
             </h3>
 
-            <span className="text-gray-600 ml-4 flex-shrink-0" aria-hidden>
-                {isOpen ? <UpOutlined /> : <DownOutlined />}
-            </span>
-        </button>
+        <span className="text-black ml-4 cursor-pointer" aria-hidden>
+          {isOpen ? <UpOutlined /> : <DownOutlined />}
+        </span>
+      </button>
 
       <div
         id={`branch-${id}`}

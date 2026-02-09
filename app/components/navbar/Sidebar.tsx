@@ -67,7 +67,7 @@ export default function SystemIntegrationSidebar({ defaultSelected = "started" }
       onBreakpoint={(broken) => setCollapsed(broken)} // auto collapse saat breakpoint terpenuhi
       trigger={null}
       style={{ background: colorBgContainer }}
-      className="!border-none lg:sticky lg-top-6 lg-self-start lg-overflow-auto"
+      className="border-none!"
     >
       <div className="px-1 py-6 h-full flex flex-col">
         <div className="mb-4">
