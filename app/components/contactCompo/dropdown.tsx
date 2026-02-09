@@ -9,6 +9,7 @@ import vietnam from "../../../public/country/viet.png";
 import singapore from "../../../public/country/sngpore.png";
 
 
+
 type BranchKey = "indonesia" | "singapore" | "vietnam" | null;
 
 const BRANCHES = [
@@ -22,7 +23,7 @@ const BRANCHES = [
         address:
           "Jl. Cempaka. No.77 KM38, Kel. Jatimulya, Kec. Tambun Sel., Kabupaten Bekasi, Jawa Barat 17510",
         phone: "(62-21) 3831 9999",
-        // contoh embed map (ganti jika perlu)
+        
         mapEmbed:
           "https://www.google.com/maps?q=Jl.+Cempaka+No.77+Bekasi&output=embed",
       },
@@ -116,28 +117,27 @@ function BranchPanel({
 }) {
   return (
     <div className="rounded-2xl bg-gray-100 overflow-hidden border border-gray-200">
-      <button
-        type="button"
-        aria-expanded={isOpen}
-        aria-controls={`branch-${id}`}
-        onClick={onToggle}
-        className="w-full flex items-center justify-between px-6 py-4 text-lg font-medium focus:outline-none"
-      >
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 relative">
-            <Image src={flagSrc} alt={`${titleHighlight} flag`} fill style={{ objectFit: "contain" }} />
-          </div>
+        <button
+            type="button"
+            aria-expanded={isOpen}
+            aria-controls={`branch-${id}`}
+            onClick={onToggle}
+            className="w-full flex items-center px-6 py-4 text-lg font-medium focus:outline-none"
+            >
+            
+            <div className="w-10 h-10 relative mr-4 flex-shrink-0">
+                <Image src={flagSrc} alt={`${titleHighlight} flag`} fill style={{ objectFit: "contain" }} />
+            </div>
 
-          <h3 className="text-center text-xl font-semibold">
-            <span className="text-red-600">{titleHighlight}</span>{" "}
-            <span className="text-black">{titleNormal}</span>
-          </h3>
-        </div>
+            <h3 className="flex-1 text-center text-xl font-semibold">
+                <span className="text-red-600">{titleHighlight}</span>{" "}
+                <span className="text-black">{titleNormal}</span>
+            </h3>
 
-        <span className="text-gray-600 ml-4" aria-hidden>
-          {isOpen ? <UpOutlined /> : <DownOutlined />}
-        </span>
-      </button>
+            <span className="text-gray-600 ml-4 flex-shrink-0" aria-hidden>
+                {isOpen ? <UpOutlined /> : <DownOutlined />}
+            </span>
+        </button>
 
       <div
         id={`branch-${id}`}
@@ -149,11 +149,11 @@ function BranchPanel({
       >
         <div className="space-y-4">
           <p className="text-sm text-gray-600">
-            {/* optional description */}
+            
             {titleHighlight} branch locations — click a card for details or use the contact phone to reach the office.
           </p>
 
-          {/* Grid responsive: up to 4 cols */}
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {locations.map((loc, idx) => (
               <article
@@ -165,7 +165,7 @@ function BranchPanel({
 
                 <p className="text-sm font-semibold mb-3">Phone : <span className="font-normal">{loc.phone}</span></p>
 
-                {/* Map placeholder - menggunakan iframe embed jika tersedia */}
+                
                 {loc.mapEmbed ? (
                   <div className="mt-auto">
                     <div className="w-full rounded-md overflow-hidden border">

@@ -8,7 +8,7 @@ export default function PrintingServicesPage() {
   return (
     <section className="py-10">
       <div className="max-w-[1400px] mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2  items-center">
           {/* Gambar Kiri */}
           <div className="py-5 px-5 rounded-[20px]  flex justify-start">
             <div className="w-full max-w-[500px]">
