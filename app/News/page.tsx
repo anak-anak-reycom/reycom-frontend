@@ -1,108 +1,72 @@
 import React from 'react'
 import Image from 'next/image'
-import Card from "@/public/card.png"
+import Card from '@/public/card.png'
 
-const page = () => {
+interface NewsItem {
+  id: number
+  title: string
+  content: string
+  imageNews: string
+}
+
+async function getNews(): Promise<NewsItem[]> {
+  const res = await fetch('https://backend-prod-testing.vercel.app/news', {
+    cache: 'no-store',
+  })
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch news')
+  }
+
+  const json = await res.json()
+  return json.data 
+}
+
+const Page = async () => {
+  const news = await getNews()
+
   return (
-     <section className="py-10">
-      <div className="max-w-[1400px] mx-auto px-4">
-        
-        {/* ===== title ===== */}
-        <h2 className="text-5xl font-sans font-semibold mb-8">
-          News <span className='font-sans text-secondary'>Features</span>
+    <section className="py-10">
+      <div className="mx-auto max-w-[1400px] px-4">
+        {/* title */}
+        <h2 className="mb-8 text-5xl font-sans font-semibold">
+          News <span className="text-secondary">Features</span>
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
-          
-          {/* card */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <Image
-              src={Card}
-              alt="Cirrust Lite"
-              width={400}
-              height={250}
-              className="w-full object-cover"
-            />
+        <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 lg:grid-cols-3">
+          {news.map((item) => (
+            <div
+              key={item.id}
+              className="overflow-hidden rounded-xl bg-white shadow-sm"
+            >
+              <Image
+                src={item.imageNews || Card} // fallback img 0
+                alt={item.title}
+                width={400}
+                height={250}
+                className="w-full object-cover"
+              />
 
-            <div className="p-5">
-              <h3 className="font-semibold text-lg mb-2">
-                Cirrust Lite: Light But Powerful
-              </h3>
+              <div className="p-5">
+                <h3 className="mb-2 text-lg font-semibold">{item.title}</h3>
 
-              <p className="text-secondary text-sm mb-4">
-                Experience the simplicity and efficiency of Cirrust Lite
-                without sacrificing any of the power
-              </p>
+                <p className="mb-4 text-sm text-secondary line-clamp-3">
+                  {item.content}
+                </p>
 
-              <a
-                href="/News"
-                className="text-primary font-medium text-sm hover:underline"
-              >
-                Visit News
-              </a>
+                <a
+                  href={`/news/${item.id}`}
+                  className="text-primary text-sm font-medium hover:underline"
+                >
+                  Visit News
+                </a>
+              </div>
             </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <Image
-              src={Card}
-              alt="Cirrust Lite"
-              width={400}
-              height={250}
-              className="w-full object-cover"
-            />
-
-            <div className="p-5">
-              <h3 className="font-semibold text-lg mb-2">
-                Cirrust Lite: Light But Powerful
-              </h3>
-
-              <p className="text-secondary text-sm mb-4">
-                Experience the simplicity and efficiency of Cirrust Lite
-                without sacrificing any of the power
-              </p>
-
-              <a
-                href="/News"
-                className="text-primary font-medium text-sm hover:underline"
-              >
-                Visit News
-              </a>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <Image
-              src={Card}
-              alt="Cirrust Lite"
-              width={400}
-              height={250}
-              className="w-full object-cover"
-            />
-
-            <div className="p-5">
-              <h3 className="font-semibold text-lg mb-2">
-                Cirrust Lite: Light But Powerful
-              </h3>
-
-              <p className="text-secondary text-sm mb-4">
-                Experience the simplicity and efficiency of Cirrust Lite
-                without sacrificing any of the power
-              </p>
-
-              <a
-                href="/News"
-                className="text-primary font-medium text-sm hover:underline"
-              >
-                Visit News
-              </a>
-            </div>
-          </div>
-
+          ))}
         </div>
       </div>
     </section>
   )
 }
 
-export default page
+export default Page
