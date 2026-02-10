@@ -25,37 +25,37 @@ export function ClientExperience() {
 
     },
     {
-      name: 'Automation Anywhere',
-      title: 'Automation Anywhere: The Leading Agentic Process Automation',
+      name: 'Opentext',
+      title: 'OpenText | Secure Information Management for AI',
       logo: (
         <div className="flex items-center gap-2">
-                  <Image src="/systemIntegration/ai/aa.png" alt="3Dolphins Logo" width={150} height={150} />   
+                  <Image src="/systemIntegration/experience/opentext.png" alt="OpenText Logo" width={150} height={150} />   
         </div>
       ),
       description:
-        'Automation Anywhere is a leader in Agentic AI and Robotic Process Automation (RPA), partnering with RDS to redefine enterprise efficiency through intelligent digital workforces. By combining our specialized AI agents and end-to-end process orchestration into our service offering, we enable clients to automate high-volume tasks with 99.9% accuracy and seamless human-agent collaboration. Together, we bridge the gap between legacy systems and the autonomous enterprise, transforming complex workflows into high-speed, data-driven engines for business growth.',
+        'OpenText, a global leader in Information Management, partners with RDS to deliver a comprehensive cloud ecosystem designed to master digital transformation and secure enterprise data. By integrating OpenText’s advanced AI, cybersecurity, and content services into our RDS solutions, we empower organizations to bridge information silos, streamline complex workflows, and turn vast data into actionable insights for smarter, more efficient decision-making.',
     },
     {
-      name: 'Automation Anywhere',
-      title: 'Automation Anywhere: The Leading Agentic Process Automation',
+      name: 'BLUERUSH',
+      title: 'BLUERUSH : The power of digital engagement',
       logo: (
         <div className="flex items-center gap-2">
-                  <Image src="/systemIntegration/ai/aa.png" alt="3Dolphins Logo" width={150} height={150} />   
+                  <Image src="/systemIntegration/experience/bluerush.png" alt="BlueRush Logo" width={150} height={150} />   
         </div>
       ),
       description:
-        'Automation Anywhere is a leader in Agentic AI and Robotic Process Automation (RPA), partnering with RDS to redefine enterprise efficiency through intelligent digital workforces. By combining our specialized AI agents and end-to-end process orchestration into our service offering, we enable clients to automate high-volume tasks with 99.9% accuracy and seamless human-agent collaboration. Together, we bridge the gap between legacy systems and the autonomous enterprise, transforming complex workflows into high-speed, data-driven engines for business growth.',
+        'BlueRush, a leading provider of interactive personalized video solutions, partners with RDS to transform how organizations engage with their customers. Through its flagship IndiVideo platform, BlueRush enables our clients to convert complex data into high-impact, tailored video experiences that drive higher conversion rates and customer loyalty. By integrating these innovative digital tools into the RDS ecosystem, we empower businesses to deliver personalized journeys at scale, ensuring every customer interaction is meaningful, measurable, and results-driven.',
     },
     {
-      name: 'Automation Anywhere',
-      title: 'Automation Anywhere: The Leading Agentic Process Automation',
+      name: 'ObjectifLune',
+      title: 'OBJECTIFLUNE',
       logo: (
         <div className="flex items-center gap-2">
-                  <Image src="/systemIntegration/ai/aa.png" alt="3Dolphins Logo" width={150} height={150} />   
+                  <Image src="/systemIntegration/experience/objectiflune.png" alt="ObjectifLune Logo" width={150} height={150} />   
         </div>
       ),
       description:
-        'Automation Anywhere is a leader in Agentic AI and Robotic Process Automation (RPA), partnering with RDS to redefine enterprise efficiency through intelligent digital workforces. By combining our specialized AI agents and end-to-end process orchestration into our service offering, we enable clients to automate high-volume tasks with 99.9% accuracy and seamless human-agent collaboration. Together, we bridge the gap between legacy systems and the autonomous enterprise, transforming complex workflows into high-speed, data-driven engines for business growth.',
+        '',
     },
   ];
 

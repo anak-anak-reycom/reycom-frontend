@@ -1,9 +1,10 @@
+import ServicesText from "@/app/components/systemIntegration/serviceComp/mainText"
 
 
 const Services = () => {
   return <div>
       <h1>
-        Service Page
+        <ServicesText/>
       </h1>
   </div>
 }
