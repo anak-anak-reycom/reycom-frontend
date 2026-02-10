@@ -5,7 +5,7 @@ import card from "@/public/systemIntegration/experience/customerx.png";
 export default function CardExperience() {
   return (
 
-     <section className="w-full">
+     <section className="w-full py-10">
         <div className="max-w-[1000px] mx-auto">
             <div className="grid grid-cols-1 gap-3">
 

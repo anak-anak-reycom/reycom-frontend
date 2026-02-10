@@ -5,7 +5,7 @@ import iot from "@/public/systemIntegration/hardware/iot.png"
 
 export const HardwareContent = () => {
   return (
-    <section className="w-full py-8">
+    <section className="w-full py-10">
       <div className="w-full px-3 sm:px-6 md:px-8 lg:max-w-[720px] lg:mx-auto">
         <div className="grid grid-cols-1 gap-6">
 
