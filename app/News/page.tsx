@@ -1,29 +1,13 @@
 import React from 'react'
 import Image from 'next/image'
 import Card from '@/public/card.png'
+import { NewsItem } from '@/app//types/news-types'
+import {  getAllNews } from '../data/news'
 
-interface NewsItem {
-  id: number
-  title: string
-  content: string
-  imageNews: string
-}
-
-async function getNews(): Promise<NewsItem[]> {
-  const res = await fetch('https://backend-prod-testing.vercel.app/news', {
-    cache: 'no-store',
-  })
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch news')
-  }
-
-  const json = await res.json()
-  return json.data 
-}
 
 const Page = async () => {
-  const news = await getNews()
+  const news = await getAllNews()
+  const data = news as NewsItem[]
 
   return (
     <section className="py-10">
@@ -34,7 +18,7 @@ const Page = async () => {
         </h2>
 
         <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 lg:grid-cols-3">
-          {news.map((item) => (
+          {data.map((item) => (
             <div
               key={item.id}
               className="overflow-hidden rounded-xl bg-white shadow-sm"
