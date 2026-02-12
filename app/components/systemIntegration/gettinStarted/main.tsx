@@ -14,17 +14,17 @@ export default function SystemIntegration() {
         <div className="grid grid-cols-1 gap-8">
 
          
-          <div className="relative rounded-xl overflow-hidden p-4">
-            <div className="rounded-lg overflow-hidden bg-white">
+          <div className="flex items-center justify-center">
+            
               <Image
                 src={image1}
                 alt="System Integration"
                 width={700}
                 height={420}
-                className="w-full h-auto object-cover rounded-lg"
+                className=" mx-auto"
                 priority
               />
-            </div>
+            
           </div>
 
           

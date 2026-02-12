@@ -6,7 +6,7 @@ import { NewsItem } from "../types/news-types";
 const BASE_API = process.env.BASE_API || "http://localhost:3000";
 
 export const getAllNews = async () => {
-    const response = await axios.get(`${BASE_API}/news`);
+    const response = await axios.get(`${BASE_API}/News`);
     console.log("News data:", response.data);
 
     if (response.status !== 200) {
