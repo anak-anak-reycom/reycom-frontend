@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import card from "@/public/systemIntegration/gettinStarted/image.png";
+import card from "@/public/systemIntegration/hardware/image.png";
 
-export default function SystemIntegration() {
+export default function HardwareContent() {
   return (
 
      <section className="w-full py-10">
@@ -25,11 +25,13 @@ export default function SystemIntegration() {
 
                 <div className="text-center mx-auto max-w-[700px]">
                     <div className="mx-auto w-24 h-0.5 rounded mb-1 bg-gray-300" />
-                    <h2 className="text-3xl pt-5 font-bold mb-4">System Integration</h2>
+                    <h2 className="text-3xl pt-5 font-bold mb-4">IOT</h2>
                         <p className="text-sm text-gray-700 leading-relaxed">
-                          At RDS, we go far beyond traditional document management to act as your ultimate IT-driven growth partner! By blending our deep-rooted expertise with cutting-edge technology, we’ve evolved to provide a vibrant suite of integrated solutions that turn complex data into seamless, high-energy workflows. We don’t just handle
-                          your files; we build the digital backbone your business needs to thrive, delivering custom-tailored experiences that make
-                           modernizing your operations both effortless and exciting.</p>
+                         Nowadays digital transformation is encouraging more organizations to adopt initiatives driven by the Internet of Things (IoT). with the IoT,
+                          we can monitor and control devices and objects with built-in sensors are connected to an Internet of Things platform, which integrates data
+                           from the different devices and applies analytics to share the most valuable information with applications built to address specific needs.
+                            We provide IoT solutions for the water sensor that can provide information about pH, turbidity, dissolved oxygen, salinity, etc. we also 
+                            have an IoT solution for the modern meeting room, smart city, etc</p>
                 </div>
 
 

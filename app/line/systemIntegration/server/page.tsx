@@ -1,4 +1,4 @@
-import DualCardServer from "@/app/components/systemIntegration/server/dualCard"
+import { DualCardServer } from "@/app/components/systemIntegration/server/dualCard"
 import CardServer from "@/app/components/systemIntegration/server/main"
 
 const Server = () => {

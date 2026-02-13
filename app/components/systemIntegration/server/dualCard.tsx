@@ -1,75 +1,57 @@
-"use client";
+'use client';
 
-import image1 from "@/public/systemIntegration/server/card1.png";
-import image2 from "@/public/systemIntegration/server/card2.png";
+import React from "react"
 import Image from "next/image";
 
-export default function DualCardServer() {
-  return (
-    <section className="py-5">
-      <div className="max-w-[720px] mx-auto px-6">
+interface CompanyItem {
+  name: string;
+  title: string;
+  logo: React.ReactNode;
+  description: string;
+}
 
-        {/* GRID 2 KOLOM */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
-
-          {/* CARD 1 */}
-          <div className="bg-white rounded-[20px] p-6 h-full flex flex-col">
-
-            <div className="rounded-[15px] overflow-hidden mb-5">
-              <Image
-                src={image1}
-                alt="Business Server"
-                width={500}
-                height={300}
-                className="w-full object-cover"
-              />
-            </div>
-
-            <div className="flex-1 flex flex-col">
-              <h2 className="text-xl font-bold mb-3">Business Server</h2>
-              <p className="text-sm text-gray-600 leading-relaxed">...</p>
-            </div>
-
-            <p className="text-sm text-gray-600 leading-relaxed">
-              This machine designed from small, medium to high business
-              environment, this machine will be more powerful to support
-              your business, with kind of feature like hardware redundancy
-              such as dual power supplies, RAID disk system, ECC memory, etc.
-            </p>
-
-          </div>
-
-
-          {/* CARD 2 */}
-          <div className="bg-white rounded-[20px] p-6 h-full flex flex-col">
-
-            <div className="rounded-[15px] overflow-hidden mb-5">
-              <Image
-                src={image2}
-                alt="Hyper Converged"
-                width={500}
-                height={300}
-                className="w-full object-cover"
-              />
-            </div>
-
-            <div className="flex-1 flex flex-col">
-              <h2 className="text-xl font-bold mb-3">Business Server</h2>
-              <p className="text-sm text-gray-600 leading-relaxed">...</p>
-            </div>
-
-            <p className="text-sm text-gray-600 leading-relaxed">
-              This machine designed from small, medium to high business
-              environment, this machine will be more powerful to support
-              your business, with kind of feature like hardware redundancy
-              such as dual power supplies, RAID disk system, ECC memory, etc.
-            </p>
-
-          </div>
-
+export function DualCardServer() {
+  const companies: CompanyItem[] = [
+    {
+      name: 'Server Business',
+      title: 'Business Server',
+      logo: (
+        <div className="flex items-center gap-2">
+         <Image src="/systemIntegration/server/card1.png" alt="Server Business Logo" width={150} height={150} />
         </div>
+      ),
+      description:
+        'This machine designed from small, medium to high business environment, this machine will be more powerful to support your business, with kind of feature like hardware redundancy such as dual power supplies, RAID disk system, ECC memory, etc will allowing technicians to replace them on the running server without shutting it down.',
 
-      </div>
-    </section>
+    },
+    {
+      name: 'Hyper',
+      title: 'Hyper Converged Infrastructure (HCI)',
+      logo: (
+        <div className="flex items-center gap-2">
+                  <Image src="/systemIntegration/server/card2.png" alt="Hyper Logo" width={150} height={150}  />   
+        </div>
+      ),
+      description:
+        'This machine designed for enterprise business, Hyper Converged Infrastructure (HCI) effectively eliminates storage as a tier of infrastructure in the data center. Rather than existing as a separate resource, storage and compute resources are added to server hosts and managed by software. Like most modern workloads, HCI leverages virtualization technology, HCI consolidates servers, storage, the hypervisor, and some network functions into a software-centric solution deployed on commodity hardware',
+    },
+  ];
+
+  return (
+    <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-12">
+      {companies.map((company, index) => (
+        <div key={index} className="flex gap-6 items-start">
+          <div className="flex-shrink-0 pt-2 rounded-xl">{company.logo}</div>
+          <div className="flex-1 min-w-0">
+            <h2 className="text-lg font-bold text-gray-900 mb-3">
+              {company.title}
+            </h2>
+            <p className="text-sm text-gray-700 leading-relaxed">
+              {company.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }

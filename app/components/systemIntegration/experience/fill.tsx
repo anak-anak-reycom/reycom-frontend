@@ -34,6 +34,7 @@ export default function FillExperience () {
         </div>
 
         <div className='mt-8'>
+            <h2 className='text-2xl font-semibold'>Our <span className='text-accent'>Client</span></h2>
           <ClientExperience/>
         </div>
       </div>
