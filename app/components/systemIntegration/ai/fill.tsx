@@ -32,8 +32,10 @@ export default function FillAi () {
                 It used to generate, track, edit, and approve documents associated with business processes. It can be done anywhere at any device..
                 </p>
         </div>
-
+        <div className='py-5'>
+        <h2 className='text-2xl font-semibold'>Our <span className='text-accent'>Client</span></h2>
       <ClientAi/>
+        </div>
       </div>
     )    
 }
