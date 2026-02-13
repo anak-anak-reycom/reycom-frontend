@@ -43,7 +43,7 @@ export default function LoginPage(): JSX.Element {
     localStorage.setItem("token", token);
     localStorage.setItem("admin", JSON.stringify(user));
 
-    router.push("/admin/dashboard");
+    router.push("/admin/admin-page");
 
   } catch (err: any) {
     console.error(err);
