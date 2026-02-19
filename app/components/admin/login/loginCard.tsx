@@ -10,8 +10,8 @@ export default function LoginPage(): JSX.Element {
   const router = useRouter();
   const BASE_API = process.env.NEXT_PUBLIC_BASE_API;
 
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [nameAdmin, setName] = useState("");
+  const [passwordAdmin, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
@@ -21,15 +21,15 @@ export default function LoginPage(): JSX.Element {
      e.preventDefault();
   setError("");
 
-  if (!name || !password) {
+  if (!nameAdmin || !passwordAdmin) {
     setError("Name dan password wajib diisi.");
     return;
   }
 
   try {
     const res = await axios.post(`${BASE_API}/admin/login`, {
-      name,
-      password,
+      nameAdmin,
+      passwordAdmin,
     });
 
     console.log("Login response:", res.data.data);
@@ -43,7 +43,7 @@ export default function LoginPage(): JSX.Element {
     localStorage.setItem("token", token);
     localStorage.setItem("admin", JSON.stringify(user));
 
-    router.push("/admin/dashboard");
+    router.push("/admin");
 
   } catch (err: any) {
     console.error(err);
@@ -105,7 +105,7 @@ export default function LoginPage(): JSX.Element {
                     id=""
                     name="name"
                     type="name"
-                    value={name}
+                    value={nameAdmin}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full px-4 py-3 bg-gray-50 text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 border border-gray-300"
                     placeholder="Enter your email"
@@ -123,7 +123,7 @@ export default function LoginPage(): JSX.Element {
                       id="password"
                       name="password"
                       type={showPassword ? "text" : "password"}
-                      value={password}
+                      value={passwordAdmin}
                       onChange={(e) => setPassword(e.target.value)}
                       className="w-full px-4 py-3 bg-gray-50 text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 border border-gray-300 pr-10"
                       placeholder="Enter your password"
