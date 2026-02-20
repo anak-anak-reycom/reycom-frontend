@@ -3,6 +3,8 @@
 import React from "react";
 import Card from "../../../public/news-img.png"
 import Image from "next/image";
+import { NewsItem } from '@/app//types/news-types'
+import {  getAllNews } from '../../data/news'
 
 export default function NewsHeader() {
     return (

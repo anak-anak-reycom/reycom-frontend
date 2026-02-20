@@ -2,6 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
+import { NewsItem } from '@/app//types/news-types'
+import {  getAllNews } from '../../data/news'
 
 export default function NewsCarousel({ imageNews }: { imageNews: string }) {
 

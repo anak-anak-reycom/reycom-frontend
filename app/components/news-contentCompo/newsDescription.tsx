@@ -1,4 +1,6 @@
 "use client";
+import { NewsItem } from '@/app//types/news-types'
+import {  getAllNews } from '../../data/news'
 
 import React from "react";
 
