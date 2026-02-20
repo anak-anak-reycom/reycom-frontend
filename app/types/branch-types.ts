@@ -9,7 +9,6 @@ export interface BranchItem {
       phone: number,
       email: string,
       website: string,
-      createdAt: Date | string,
-      updatedAt: Date | string
+      
 
 }
