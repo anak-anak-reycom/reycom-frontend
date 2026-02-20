@@ -4,7 +4,6 @@ const Applier = () => {
   return (
         <main className="min-h-screen">    
             <ApplierList/>
-            
         </main>
   )
 

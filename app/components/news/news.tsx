@@ -5,11 +5,11 @@ export const NewsDetail = () => {
   return (
     <section className="py-10">
       <div className="max-w-[1400px] mx-auto px-4">
-        
-        {/* ===== TITLE ===== */}
+
         <h2 className="text-2xl font-semibold mb-8">
           Read our other <span className="text-primary">News</span>
         </h2>
+      
 
         {/* ===== GRID ===== */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
@@ -34,12 +34,10 @@ export const NewsDetail = () => {
                 without sacrificing any of the power
               </p>
 
-              <a
-                href="/News"
-                className="text-primary font-medium text-sm hover:underline"
-              >
-                Visit News
-              </a>
+              <div className="grid grid-cols-2 gap-3">
+                <button className="bg-linear-to-br from-blue-700 to-blue-500 px-1 py-2 text-white font-semibold rounded-xl"> Edit </button>
+                <button className="bg-linear-to-br from-red-700 to-red-500 px-1 py-2 text-white font-semibold rounded-xl"> Delete </button>
+              </div>
             </div>
           </div>
 
@@ -63,12 +61,10 @@ export const NewsDetail = () => {
                 without sacrificing any of the power
               </p>
 
-              <a
-                href="/News"
-                className="text-primary font-medium text-sm hover:underline"
-              >
-                Visit News
-              </a>
+              <div className="grid grid-cols-2 gap-3">
+                <button className="bg-linear-to-br from-blue-700 to-blue-500 px-1 py-2 text-white font-semibold rounded-xl"> Edit </button>
+                <button className="bg-linear-to-br from-red-700 to-red-500 px-1 py-2 text-white font-semibold rounded-xl"> Delete </button>
+              </div>
             </div>
           </div>
 
@@ -92,17 +88,18 @@ export const NewsDetail = () => {
                 without sacrificing any of the power
               </p>
 
-              <a
-                href="/News"
-                className="text-primary font-medium text-sm hover:underline"
-              >
-                Visit News
-              </a>
+              <div className="grid grid-cols-2 gap-3">
+                <button className="bg-linear-to-br from-blue-700 to-blue-500 px-1 py-2 text-white font-semibold rounded-xl"> Edit </button>
+                <button className="bg-linear-to-br from-red-700 to-red-500 px-1 py-2 text-white font-semibold rounded-xl"> Delete </button>
+              </div>
             </div>
           </div>
 
         </div>
       </div>
+        <div className="flex justify-start mt-8">
+          <button className="bg-linear-to-br from-green-700 to-green-500 px-4 py-2 text-white font-semibold rounded-xl">+ Add News</button>
+        </div>
     </section>
   )
 }

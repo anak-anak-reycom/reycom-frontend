@@ -130,157 +130,185 @@ export default function ApplierList() {
     iso ? new Date(iso).toLocaleString() : "-";
 
   return (
-    <section className="w-full">
-      <div className="max-w-[1400px] mx-auto px-6 py-8">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-          <div>
-            <Title level={3} style={{ margin: 0 }}>
-              Manajemen Pelamar
-            </Title>
-            <Text type="secondary">Kelola daftar pelamar dan lihat resume</Text>
-          </div>
-
-          <Space>
-            <Input
-              placeholder="Cari nama, email, atau kota..."
-              prefix={<SearchOutlined />}
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              allowClear
-              style={{ width: 340 }}
-            />
-
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={() => setCreateOpen(true)}
-            >
-              Tambah Job
-            </Button>
-          </Space>
+  <section className="w-full bg-gray-50 min-h-screen">
+    <div className="max-w-[1200px] mx-auto px-6 py-8">
+      {/* Header */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
+        <div>
+          <Title level={3} style={{ margin: 0 }}>
+            Manajemen Pelamar
+          </Title>
+          <Text type="secondary">
+            Kelola daftar pelamar, lihat resume, dan lakukan aksi cepat
+          </Text>
         </div>
 
-        {/* loading */}
-        {loading ? (
-          <div className="py-16 flex justify-center">
-            <Spin size="large" />
-          </div>
-        ) : (
-          <>
-            {/* list cards */}
-            <Row gutter={[16, 16]}>
-              {filtered.map((applier) => (
-                <Col key={applier.idApply} xs={24}>
-                  <Card
-                    size="default"
-                    className="shadow-sm"
-                    bodyStyle={{ padding: 20 }}
-                    extra={
-                      <Space>
-                        <Tooltip title="Edit">
-                          <Button
-                            shape="circle"
-                            icon={<EditOutlined />}
-                            onClick={() => {
-                              // placeholder edit action
-                              console.log("edit", applier.idApply);
-                              message.info("Fitur edit belum diimplementasikan");
-                            }}
-                          />
-                        </Tooltip>
+        <Space size="middle">
+          <Input
+            placeholder="Cari nama, email, kota, atau nomor..."
+            prefix={<SearchOutlined />}
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            allowClear
+            size="large"
+            className="rounded-xl"
+            style={{ width: 320 }}
+          />
 
-                        <Popconfirm
-                          title="Hapus pelamar ini?"
-                          onConfirm={() => handleDelete(applier.idApply)}
-                          okText="Hapus"
-                          cancelText="Batal"
-                        >
-                          <Tooltip title="Hapus">
-                            <Button
-                              danger
-                              shape="circle"
-                              icon={<DeleteOutlined />}
-                              loading={loadingDeleteId === applier.idApply}
-                            />
-                          </Tooltip>
-                        </Popconfirm>
-                      </Space>
-                    }
-                  >
-                    <div className="flex gap-4 items-center">
-                      <Avatar size={64} icon={<UserOutlined />} />
+          <Button
+            type="primary"
+            size="large"
+            icon={<PlusOutlined />}
+            className="rounded-xl shadow-sm"
+            onClick={() => setCreateOpen(true)}
+          >
+            Tambah Job
+          </Button>
+        </Space>
+      </div>
 
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <Text strong style={{ fontSize: 18 }}>
+      {/* Loading */}
+      {loading ? (
+        <div className="py-20 flex justify-center">
+          <Spin size="large" />
+        </div>
+      ) : (
+        <>
+          <Row gutter={[16, 16]}>
+            {filtered.map((applier) => (
+              <Col key={applier.idApply} xs={24}>
+                <Card
+                  bordered={false}
+                  className="rounded-2xl shadow-sm hover:shadow-md transition-all duration-200"
+                  bodyStyle={{ padding: 20 }}
+                >
+                  <div className="flex gap-4 items-start">
+                    {/* Avatar */}
+                    <Avatar
+                      size={64}
+                      icon={<UserOutlined />}
+                      className="bg-blue-500"
+                    />
+
+                    {/* Content */}
+                    <div className="flex-1">
+                      {/* Top row */}
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <Text strong style={{ fontSize: 17 }}>
                               {applier.nameApply}
-                            </Text>{" "}
-                            <Tag color={applier.gender === "Male" ? "blue" : "magenta"}>
+                            </Text>
+
+                            <Tag
+                              className="rounded-full px-3"
+                              color={
+                                applier.gender === "Male"
+                                  ? "blue"
+                                  : applier.gender === "Female"
+                                  ? "magenta"
+                                  : "default"
+                              }
+                            >
                               {applier.gender}
                             </Tag>
-                            <div style={{ marginTop: 6 }}>
-                              <Text type="secondary">
-                                <MailOutlined />{" "}
-                              </Text>
-                              <Text style={{ marginLeft: 6 }}>{applier.emailApply}</Text>
-                            </div>
                           </div>
 
-                          <div className="text-right">
-                            <Text type="secondary" style={{ fontSize: 12 }}>
-                              Dikirim: {formatDate(applier.createdAt)}
-                            </Text>
+                          <Text type="secondary">
+                            <MailOutlined /> {applier.emailApply}
+                          </Text>
+                        </div>
+
+                        {/* Actions */}
+                        <Space>
+                          <Tooltip title="Edit">
+                            <Button
+                              shape="circle"
+                              icon={<EditOutlined />}
+                              className="hover:bg-gray-100"
+                              onClick={() => {
+                                message.info("Fitur edit belum tersedia");
+                              }}
+                            />
+                          </Tooltip>
+
+                          <Popconfirm
+                            title="Hapus pelamar ini?"
+                            onConfirm={() => handleDelete(applier.idApply)}
+                            okText="Hapus"
+                            cancelText="Batal"
+                          >
+                            <Tooltip title="Hapus">
+                              <Button
+                                danger
+                                shape="circle"
+                                icon={<DeleteOutlined />}
+                                loading={loadingDeleteId === applier.idApply}
+                              />
+                            </Tooltip>
+                          </Popconfirm>
+                        </Space>
+                      </div>
+
+                      {/* Info grid */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
+                        <div className="bg-gray-50 rounded-xl px-4 py-2">
+                          <Text type="secondary">Nomor HP</Text>
+                          <div>
+                            <Text>{applier.phoneNumberApply}</Text>
                           </div>
                         </div>
 
-                        <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div className="bg-gray-50 rounded-xl px-4 py-2">
+                          <Text type="secondary">Domisili</Text>
                           <div>
-                            <Text type="secondary">Nomor HP</Text>
-                            <div>
-                              <Text>{applier.phoneNumberApply}</Text>
-                            </div>
+                            <Text>{applier.domicile}</Text>
                           </div>
+                        </div>
 
+                        <div className="bg-gray-50 rounded-xl px-4 py-2">
+                          <Text type="secondary">Resume</Text>
                           <div>
-                            <Text type="secondary">Domisili</Text>
-                            <div>
-                              <Text>{applier.domicile}</Text>
-                            </div>
-                          </div>
-
-                          <div>
-                            <Text type="secondary">Resume</Text>
-                            <div className="mt-1">
-                              <Button
-                                type="link"
-                                href={`#${applier.resume}`}
-                                icon={<FileTextOutlined />}
-                                target="_blank"
-                              >
-                                {applier.resume}
-                              </Button>
-                            </div>
+                            <Button
+                              type="link"
+                              href={`#${applier.resume}`}
+                              icon={<FileTextOutlined />}
+                              target="_blank"
+                            >
+                              Lihat Resume
+                            </Button>
                           </div>
                         </div>
                       </div>
+
+                      {/* Footer */}
+                      <div className="mt-4 text-right">
+                        <Text type="secondary" style={{ fontSize: 12 }}>
+                          Dikirim: {formatDate(applier.createdAt)}
+                        </Text>
+                      </div>
                     </div>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
+                  </div>
+                </Card>
+              </Col>
+            ))}
+          </Row>
 
-            {/* jika kosong */}
-            {filtered.length === 0 && (
-              <div className="text-center py-12 text-gray-500">
-                Tidak ada pelamar yang cocok dengan pencarian.
+          {/* Empty state */}
+          {filtered.length === 0 && (
+            <div className="text-center py-20">
+              <div className="text-gray-400 text-lg">
+                Tidak ada pelamar ditemukan
               </div>
-            )}
-          </>
-        )}
-      </div>
+              <div className="text-gray-400 text-sm">
+                Coba kata kunci lain atau tambah pelamar baru
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  </section>
+);
 
-      
-    </section>
-  );
 }

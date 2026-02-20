@@ -7,9 +7,9 @@
 :root {
 
   /* rds pallete */
-  --primary: oklch(0.205 0 0);
-  --secondary: oklch(0.97 0 0);
-  --accent: oklch(0.97 0 0);
+   --primary : #1B3C53 ;
+  --secondary: #234C6A ;
+  --accent : #456882;
   --light: #E3E3E3;
   --radius: 0.625rem;
   --background: oklch(1 0 0);

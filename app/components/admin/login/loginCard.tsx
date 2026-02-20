@@ -61,7 +61,7 @@ export default function LoginPage(): JSX.Element {
       <div className="max-w-6xl w-full bg-white/10 backdrop-blur-lg rounded-3xl overflow-hidden shadow-2xl border border-white/20">
         <div className="flex flex-col md:flex-row">
           {/* Welcome Section - Left */}
-          <div className="w-full md:w-2/5 bg-gradient-to-b from-primary to-secondary p-10 flex flex-col justify-between text-white">
+          <div className="w-full md:w-2/5 bg-gradient-to-b from-primary to-accent p-10 flex flex-col justify-between text-white">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6">Rds Admin Page</h1>
               <div className="w-20 h-1 bg-white mb-6" />
