@@ -9,17 +9,18 @@ export async function getAllApply(): Promise<ApplyItem[]> {
   const url = `${BASE_API}/apply`;
   const headers: Record<string,string> = { "Accept": "application/json" };
 
+
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("token") || localStorage.getItem("admin_token") || null;
     if (token) headers["Authorization"] = `Bearer ${token}`;
   }
 
+  
   const res = await fetch(url, {
     method: "GET",
     headers,
     cache: "no-store",
   });
-
   return parseApiResponse<ApplyItem[]>(res);
 }
 

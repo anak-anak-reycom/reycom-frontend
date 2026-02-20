@@ -8,8 +8,6 @@ export interface Company {
   nameCompany: string;
   country: CountryBrief | null; 
   branches: BranchItem[];
-  createdAt: Date | string; 
-  updatedAt: Date |string; 
 }
 
 export interface CompanyBrief {
@@ -20,7 +18,5 @@ export interface CompanyBrief {
     nameBranch: string;
     streetAddress?: string;
     phone?: number;
-  }[];
-  createdAt?: string | Date;
-  updatedAt?: string | Date;
+  } [];
 }
