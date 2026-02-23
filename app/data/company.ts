@@ -1,3 +1,6 @@
+//data/company.ts
+'use server'
+
 import axios from "axios";
 import { CompanyBrief } from "../types/company-types";
 import {Company} from "../types/company-types";
@@ -17,7 +20,12 @@ export const createCompany = async (companyData: CompanyBrief) => {
     nameCompany: companyData.nameCompany,
     
   });
+}
 
+export const getCompanyById = async (id: number): Promise<Company> => {
+    const url = `${BASE_API}/company/${id}`;
+    const res = await fetch(url, {cache: "no-store"});
+    return parseApiResponse<Company>(res);
 }
 
 //DELETE COMPANY

@@ -1,8 +1,10 @@
+//data/country.ts
+'use server'
+
 import axios from "axios";
 import { Country } from "../types/country-types";
 import { CountryBrief } from "../types/country-types";
 import { BASE_API, parseApiResponse } from "./api";
-
 
 //GET ALL COUNTRY
 export const getAllCountry = async () => {
@@ -16,10 +18,11 @@ export const getAllCountry = async () => {
     return response.data.data;
 }
 
-
-//
-
-
+//GET COUNTRY BY ID
+export const getCountryById = async (id: number) => {
+    const response = await axios.get(`${BASE_API}/country/${id}`);
+    return response.data.data;
+}
 
 //DELETE COUNTRY
 export async function deleteCountry(id: number | string): Promise<{ ok: boolean }> {
