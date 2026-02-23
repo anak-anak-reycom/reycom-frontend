@@ -29,7 +29,7 @@ function parseJwtPayload(token: string): any | null {
     return null;
   }
 }
-
+ 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 

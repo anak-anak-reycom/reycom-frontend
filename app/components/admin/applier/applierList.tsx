@@ -27,7 +27,7 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import CreateJob from "./createJob"; // sesuaikan path jika beda
-import { getAllApply, createApply, deleteApply } from "@/app/data/apply";
+import { getAllApplier, createApply, deleteApply } from "@/app/data/apply";
 
 const { Title, Text } = Typography;
 
@@ -56,7 +56,7 @@ export default function ApplierList() {
     const fetchAll = async () => {
       setLoading(true);
       try {
-        const data = await getAllApply();
+        const data = await getAllApplier();
         // backend returns objects keys maybe idApply etc. ensure shape matches Applier
         if (!mounted) return;
         setAppliers(

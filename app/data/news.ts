@@ -46,7 +46,7 @@ export const updateNews = async (newsData: NewsItem) => {
 
 //----------DELETE NEWS-------------------
 export const deleteNews = async (id: number) => {
-    const response = await axios.delete(`${BASE_API}/news`);
+    const response = await axios.delete(`${BASE_API}/news/${id}`);
     return response.data;
 }
 
