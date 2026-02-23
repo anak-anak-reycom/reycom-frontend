@@ -1,4 +1,4 @@
-
+//types/category-types.tsx
 
 export interface CategoryItem {
       id_category: number,

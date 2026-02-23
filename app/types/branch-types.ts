@@ -6,6 +6,7 @@ export interface BranchItem {
       companyId: number,
       nameBranch: string,
       streetAddress: string,
+      linkMaps: string,
       phone: number,
       email: string,
       website: string,
