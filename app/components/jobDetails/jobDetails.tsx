@@ -4,11 +4,13 @@
 import Image from "next/image"
 import { Timer, Calendar } from "lucide-react"
 import jobImage from "@/public/jobImage.png"
+import { JobCarousel } from "../card/jobCarousel"
 
 export default function JobDetails () {
   return (
-    <div className='mx-auto max-w-[1400px] p-4'>
-    
+    <div className='mx-auto max-w-[1400px] grid grid-cols-2 p-4'>
+      
+    <div>
       <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="w-[120px] h-[120px] md:w-[110px] md:h-[110px] flex-shrink-0 flex items-center">
           <Image
@@ -80,6 +82,10 @@ export default function JobDetails () {
 
         </div>
     </div>
+    </div>
+    <div>
+        <JobCarousel/>
+      </div>
     </div>
   )
 }

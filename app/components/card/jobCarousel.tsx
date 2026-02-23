@@ -6,12 +6,12 @@ import { Timer, Calendar } from "lucide-react"
 import jobImage from "@/public/jobImage.png"
 
 
-export const JobCard = () => {
+export const JobCarousel = () => {
   return (
     <section >
       <div className="max-w-[1400px] px-4">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
+        <div className="items-center">
 
           {/* Card Image */}
           <div className="py-5 px-5 rounded-md bg-white shadow-[0px_0px_10px_1px_#cbd5e0]  "> 
