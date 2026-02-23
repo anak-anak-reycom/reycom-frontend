@@ -2,12 +2,13 @@ import React from 'react'
 import Image from 'next/image'
 import Card from '@/public/card.png'
 import { NewsItem } from '@/app//types/news-types'
-import {  getAllNews } from '@/app/data/news'
+import {  getAllNews, getNewsById, deleteNews, createNews } from '@/app/data/news'
+
 
 
 const NewsData = async () => {
-  const news = await getAllNews()
-  const data = news as NewsItem[]
+    const news = await getAllNews()
+    const data = news as NewsItem[]
 
   return (
     <section className="py-10">
@@ -44,7 +45,10 @@ const NewsData = async () => {
 
                <div className="grid grid-cols-2 gap-3">
                 <button className="bg-linear-to-br from-blue-700 to-blue-500 px-1 py-2 text-white font-semibold rounded-xl"> Edit </button>
-                <button className="bg-linear-to-br from-red-700 to-red-500 px-1 py-2 text-white font-semibold rounded-xl"> Delete </button>
+                <button className="bg-linear-to-br from-red-700 to-red-500 px-1 py-2 text-white font-semibold rounded-xl"
+                        onClick={() => {deleteNews(item.id)}}>
+                    Delete</button>
+
               </div>
 
             </div>

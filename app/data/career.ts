@@ -35,8 +35,22 @@ export const getCareerById = async (id: number) => {
     return response.data.data;
 }
 
+//UPDATE CAREER
+export const updateCareer = async (careerData : CareerItem) => {
+    const response = await axios.put(`${BASE_API}/career`, {
+        id : careerData.id,
+        jobDate : careerData.jobDate,
+        jobDescription: careerData.jobDescription,
+        jobResponbilities: careerData.jobResponbilities,
+        jobRequirement: careerData.jobRequirement
+    } )
+
+    return response.data.data;
+}
+
 //DELETE CAREER
 export const deleteCareer = async (id: number) => {
     const response = await axios.delete(`${BASE_API}/career/${id}`);
     return response.data.data;
 }
+

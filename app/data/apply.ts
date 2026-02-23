@@ -5,30 +5,19 @@ import { BASE_API, parseApiResponse } from "./api";
 
 
 //GET ALL APPLIER
-export async function getAllApply(): Promise<ApplyItem[]> {
-  const url = `${BASE_API}/apply`;
-  const headers: Record<string,string> = { "Accept": "application/json" };
+export const getAllApplier  = async () => {
+    const response = await axios.get(`${BASE_API}/apply`)
+    console.log ("Applier Data :", response.data )
+    console.log("URL =", `${BASE_API}/apply`);
 
-
-  if (typeof window !== "undefined") {
-    const token = localStorage.getItem("token") || localStorage.getItem("admin_token") || null;
-    if (token) headers["Authorization"] = `Bearer ${token}`;
-  }
-
-  
-  const res = await fetch(url, {
-    method: "GET",
-    headers,
-    cache: "no-store",
-  });
-  return parseApiResponse<ApplyItem[]>(res);
+    return response.data.data;
 }
 
 //GET APPLIER BY ID
-export async function getApplyById(id: number): Promise<ApplyItem> {
-    const url = `${BASE_API}/apply/${id}`;
-    const res = await fetch(url, {cache: "no-store"});
-    return parseApiResponse<ApplyItem>(res);
+export const getApplierById = async (id :number) => {
+    const response = await axios.get(`${BASE_API}/apply/${id}`)
+    return response.data.date;
+
 }
 
 
