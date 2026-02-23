@@ -4,14 +4,24 @@
 import React from "react";
 import { Layout, Breadcrumb } from "antd";
 import CategorySidebar from "../components/navbar/categorySidebar";
+import { usePathname } from "next/navigation";
 
 const { Content } = Layout;
 
 export default function CategoryLayout({ children }: { children: React.ReactNode }) {
+
+  const pathname = usePathname() || "";
+
+  const hideSidebar = 
+        pathname === "/career-detail" || pathname.startsWith("career/career-details") || pathname.startsWith('/career/')
+
   return (
+    
+
     <Layout className="min-h-screen">
       <Layout> 
-        <CategorySidebar />
+
+        { !hideSidebar && < CategorySidebar />}
 
         <Layout className="w-full " >
             <div className="w-full flex justify-center bg-white" >

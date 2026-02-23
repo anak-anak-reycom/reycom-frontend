@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {BASE_API} from "@/app/data/api";
+import {createNews} from "@/app/data/news";
 
 export default function NewsCreateForm() {
     const [imageFile, setImageFile] = useState<File | null>(null);
