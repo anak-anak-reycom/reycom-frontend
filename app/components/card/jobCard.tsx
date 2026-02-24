@@ -14,7 +14,7 @@ export const JobCard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
 
           {/* Card Image */}
-          <div className="py-5 px-5 rounded-md bg-white shadow-[0px_0px_10px_1px_#cbd5e0]  "> 
+          <div className="py-5 px-5 rounded-md bg-white cursor-pointer hover:bg-gray-100 duration-300 shadow-[0px_0px_10px_1px_#cbd5e0]  "> 
             
             <div className="grid grid-cols-1 text-center">
               <div className="flex flex-col md:flex-row items-center gap-4">
