@@ -143,7 +143,7 @@ export default function LoginPage(): JSX.Element {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full bg-blue-200 from-secondary to-indigo-700 cursor-pointer text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-xl"
+                  className="w-full bg-secondary from-secondary to-indigo-700 cursor-pointer text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-xl"
                 >
                   Login
                 </button>

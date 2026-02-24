@@ -182,8 +182,9 @@ export default function ApplyForm() {
 
           <div className="mb-6">
             <label htmlFor="resume" className={labelClass}>Resume</label>
-            <textarea
+            <input
                 id="resume"
+                type="file"
                 name="resume"
                 value={form.resume}
                 onChange={handleChange}
