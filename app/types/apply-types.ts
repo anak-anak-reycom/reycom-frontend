@@ -7,7 +7,7 @@ export interface ApplyItem {
     idApply: number;
     nameApply: string;
     emailApply: string;
-    phoneNumberApply: number;
+    phoneNumberApply: string;
     gender: string;
     domicile: string;
     resume: string;
