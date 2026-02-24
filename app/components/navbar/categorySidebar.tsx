@@ -4,6 +4,7 @@
 import React, { useMemo, useState } from "react";
 import { Layout } from "antd";
 import { Search } from "lucide-react";
+import { getAllCategory } from "@/app/data/category";
 
 const { Sider } = Layout;
 
@@ -11,8 +12,8 @@ export type Category = { id: number; nameCategory: string };
 export type JobTypeItem = { id: string; label: string };
 
 export type CategorySidebarProps = {
-  categories?: Category[]; // daftar kategori dari API
-  jobTypes?: JobTypeItem[]; // daftar job type disediakan (Full Time, Part Time)
+  categories?: Category[]; 
+  jobTypes?: JobTypeItem[]; 
   collapsed?: boolean;
   onChange?: (payload: { search: string; categories: number[]; jobTypes: string[] }) => void;
 };

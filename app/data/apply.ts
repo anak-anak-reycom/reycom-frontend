@@ -16,28 +16,26 @@ export const getAllApplier  = async () => {
 //GET APPLIER BY ID
 export const getApplierById = async (id :number) => {
     const response = await axios.get(`${BASE_API}/apply/${id}`)
-    return response.data.date;
+    return response.data.data;
 
 }
 
-
-export type CreateApplyPayload = Omit<ApplyItem, "idApply" | "createdAt" | "updatedAt">;
 
 //CREATE APPLIER
-export async function createApply(payload: CreateApplyPayload): Promise<ApplyItem> {
-    const url = `${BASE_API}/apply`
-    const res = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-    });
-
-    return parseApiResponse<ApplyItem>(res);
+export const createSApplier = async (applyData : ApplyItem) => {
+    const response = await axios.post(`${BASE_API}/apply`, {
+        
+        nameApply: applyData.nameApply,
+        emailApply: applyData.emailApply,
+        phoneNumberApply: applyData.phoneNumberApply,
+        gender: applyData.gender,
+        domicile: applyData.domicile,
+        resume: applyData.resume,
+        
+    })
+    
+    return response.data.data;
 }
-
-
 //DELETE APPLIER
 export async function deleteApply(id: number | string): Promise<{ ok: boolean }> {
 
