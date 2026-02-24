@@ -1,4 +1,4 @@
-//types/career-types.tsx
+//types/career-types.ts
 
 export interface CareerItem {
     id: number,

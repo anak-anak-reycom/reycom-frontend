@@ -51,8 +51,6 @@ export const JobCard = () => {
                       <span className="text-md text-gray-400 font-medium">Date Release</span>
                 </div>
               <div>
-                
-                
               </div>
             </div>
           </div>

@@ -18,7 +18,6 @@ export const getAllCareer = async () => {
 //CREATE CAREER
 export const createCareer = async (careerData: CareerItem) => {
   const response = await axios.post(`${BASE_API}/career`, {
-    id: careerData.id,
     jobName: careerData.jobName,
     jobDate: careerData.jobDate, 
     jobDescription: careerData.jobDescription,
