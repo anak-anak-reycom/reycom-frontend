@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Card from '@/public/card.png'
 import { NewsItem } from '@/app//types/news-types'
 import {  getAllNews } from '../data/news'
+import Link from 'next/link'
 
 
 const Page = async () => {
@@ -38,12 +39,12 @@ const Page = async () => {
                   {item.content}
                 </p>
 
-                <a
-                  href={`/news/${item.id}`}
-                  className="text-primary text-sm font-medium hover:underline"
+                <Link
+                    href={`/news-content/${item.id}`}
+                    className="text-primary text-sm font-medium hover:underline"
                 >
                   Visit News
-                </a>
+                </Link>
               </div>
             </div>
           ))}
