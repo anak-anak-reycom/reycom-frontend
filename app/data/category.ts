@@ -13,6 +13,17 @@ export const getAllCategory = async () => {
     
 }
 
+//CREATE CATEGORY 
+export const createCategory = async (categoryData : CategoryItem) => {
+    const response = await axios.post(`${BASE_API}/category`, 
+        {
+            nameCategory : categoryData.name_category,
+            jobType : categoryData.job_type
+        })
+
+        return response.data.data
+}
+
 //GET CATEGORY BY ID
 export const getCategoryById = async (id: number) => {
     const response = await axios.get(`${BASE_API}/category/${id}`);
