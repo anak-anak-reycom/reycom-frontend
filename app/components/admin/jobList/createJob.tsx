@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {CategoryItem} from "@/app/types/category-types";
+import {getCategoryName, getJobTypes} from "@/app/data/category";
 import { BASE_API, parseApiResponse } from "../../../data/api" 
 
 

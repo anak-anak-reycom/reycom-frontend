@@ -7,3 +7,11 @@ export interface CategoryItem {
       created_at: Date,
       updated_at: Date
 }
+
+export interface CategoryName {
+      name_category: string,
+}
+
+export interface JobTypeName {
+      name_category: string,
+}
