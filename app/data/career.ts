@@ -2,7 +2,8 @@
 'use server'
 import axios from "axios";
 import { CareerItem } from "../types/career-types";
-import { BASE_API, parseApiResponse } from "./api" 
+import { BASE_API, parseApiResponse } from "./api"
+
 
 
 //GET ALL CAREER
@@ -24,6 +25,8 @@ export const createCareer = async (careerData: CareerItem) => {
     jobResponbilities: careerData.jobResponbilities,
     jobRequirement: careerData.jobRequirement
   });
+
+  return response.data.data
 
 }
 
@@ -52,4 +55,5 @@ export const deleteCareer = async (id: number) => {
     const response = await axios.delete(`${BASE_API}/career/${id}`);
     return response.data.data;
 }
+
 
