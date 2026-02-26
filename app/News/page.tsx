@@ -18,7 +18,7 @@ const Page = async () => {
           News <span className="text-secondary">Features</span>
         </h2>
 
-        <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {data.map((item) => (
             <div
               key={item.id}
