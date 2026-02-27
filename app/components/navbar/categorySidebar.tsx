@@ -5,6 +5,8 @@ import React, { useMemo, useState } from "react";
 import { Layout } from "antd";
 import { Search } from "lucide-react";
 import { getAllCategory } from "@/app/data/category";
+import {getJobTypes} from "@/app/data/category";
+import {getCategoryName} from "@/app/data/category";
 
 const { Sider } = Layout;
 
@@ -12,14 +14,18 @@ export type Category = { id: number; nameCategory: string };
 export type JobTypeItem = { id: string; label: string };
 
 export type CategorySidebarProps = {
-  categories?: Category[]; 
-  jobTypes?: JobTypeItem[]; 
+  categories?: Category[];
+  jobTypes?: JobTypeItem[];
   collapsed?: boolean;
   onChange?: (payload: { search: string; categories: number[]; jobTypes: string[] }) => void;
 };
 
 export default function CategorySidebar({
-  categories = [],
+  categories = [
+    {id: 1, nameCategory: "Admin"},
+    {id: 2 , nameCategory:"TI"},
+    {id : 3, nameCategory: "Marketing"}
+  ],
   jobTypes = [
     { id: "fulltime", label: "Full Time" },
     { id: "parttime", label: "Part Time" },

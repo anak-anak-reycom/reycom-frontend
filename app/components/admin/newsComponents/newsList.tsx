@@ -19,6 +19,7 @@ import {
 } from "antd";
 import axios from "axios";
 import { Search as SearchIcon, Plus as PlusIcon, Image as ImageIcon } from "lucide-react";
+import CreateNews from "@/app/components/admin/newsComponents/newsForm";
 
 const { Title, Text } = Typography;
 

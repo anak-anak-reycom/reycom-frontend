@@ -1,3 +1,4 @@
+//data/news.ts
 'use server'
 
 import axios from "axios";
