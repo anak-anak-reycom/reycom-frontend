@@ -1,237 +1,221 @@
-// app/components/branch/BranchList.tsx
-"use client";
+// components/admin/CreateBranchCard.tsx
+'use client';
 
-import React, { useMemo, useState } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  Avatar,
-  Button,
-  Input,
-  Space,
-  Typography,
-  Tag,
-} from "antd";
-import {
-  SearchOutlined,
-  GlobalOutlined,
-  PhoneOutlined,
-  MailOutlined,
-  LinkOutlined,
-  CopyOutlined,
-} from "@ant-design/icons";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const { Title, Text } = Typography;
-
-type BranchData = {
+type Country = {
   id: number;
-  companyId?: number;
-  companyName?: string;
-  countryName?: string;
-  nameBranch: string;
-  streetAddress?: string;
-  phone?: string;
-  email?: string;
-  website?: string;
-  createdAt?: string;
-  updatedAt?: string;
+  nameCountry: string;
+  companies?: { id: number; nameCompany: string }[];
 };
 
-// contoh data statis (ambil sesuai JSON yang kamu share)
-const SAMPLE_BRANCHES: BranchData[] = [
-  {
-    id: 1,
-    companyId: 1,
-    companyName: "rds semarang",
-    countryName: "indonesia",
-    nameBranch: "rds furry",
-    streetAddress: "jl.indraprasta/xx/xx",
-    phone: "08139923281",
-    email: "rds@gmail.com",
-    website: "https://www.rds.co.id",
-    createdAt: "2026-02-23T14:39:34.000Z",
-    updatedAt: "2026-02-02T14:40:17.000Z",
-  },
-  {
-    id: 2,
-    companyId: 1,
-    companyName: "rds semarang",
-    countryName: "indonesia",
-    nameBranch: "RDS Jawa",
-    streetAddress: "JL.Jomokerto 4 nomor 65",
-    phone: "8734834783493",
-    email: "rdsjomokerto@gmail.com",
-    website: "https://rdsjomok.co.id",
-    createdAt: "2026-02-07T05:12:22.359Z",
-    updatedAt: "2026-02-07T05:12:22.359Z",
-  },
-];
+export default function CreateBranchCard({ onCreated }: { onCreated?: () => void }) {
+  const BASE_API = process.env.NEXT_PUBLIC_BASE_API ?? '';
 
-export default function BranchList() {
-  const [q, setQ] = useState("");
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [companies, setCompanies] = useState<{ id: number; nameCompany: string }[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  // Jika nanti mau ganti ke data lain, ubah SOURCE di sini
-  const branches = SAMPLE_BRANCHES;
+  const [countryId, setCountryId] = useState<number | ''>('');
+  const [companyId, setCompanyId] = useState<number | ''>('');
+  const [nameBranch, setNameBranch] = useState('');
+  const [streetAddress, setStreetAddress] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [website, setWebsite] = useState('');
+  const [linkMap, setLinkMap] = useState('');
 
-  const filtered = useMemo(() => {
-    const term = q.trim().toLowerCase();
-    if (!term) return branches;
-    return branches.filter((b) => {
-      return (
-        (b.nameBranch ?? "").toLowerCase().includes(term) ||
-        (b.companyName ?? "").toLowerCase().includes(term) ||
-        (b.countryName ?? "").toLowerCase().includes(term) ||
-        (b.streetAddress ?? "").toLowerCase().includes(term) ||
-        String(b.phone ?? "").toLowerCase().includes(term) ||
-        (b.email ?? "").toLowerCase().includes(term)
-      );
-    });
-  }, [branches, q]);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  const mapLink = (addr?: string) => {
-    if (!addr) return "#";
-    const q = encodeURIComponent(addr);
-    return `https://www.google.com/maps/search/?api=1&query=${q}`;
-  };
+  const inputClass = 'w-full rounded-full border-2 border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#214B62]';
+  const labelClass = 'block mb-2 font-medium';
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(`${BASE_API}/country`);
+        const payload = res.data?.data ?? res.data;
+        if (!mounted) return;
+        // normalize minimal shape
+        const arr = Array.isArray(payload) ? payload : [];
+        const normalized = arr.map((c: any) => ({
+          id: Number(c.id ?? c.idCountry ?? 0),
+          nameCountry: String(c.nameCountry ?? c.name_country ?? ''),
+          companies: Array.isArray(c.companies)
+            ? c.companies.map((co: any) => ({ id: Number(co.id ?? co.idCompany ?? co.id), nameCompany: co.nameCompany ?? co.name_company ?? co.name }))
+            : [],
+        }));
+        setCountries(normalized);
+      } catch (err: any) {
+        console.error('Failed to load countries', err);
+        setErrorMsg(err?.response?.data?.message ?? err?.message ?? 'Failed to load countries');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+
+    return () => { mounted = false; };
+  }, [BASE_API]);
+
+  // update companies list when country changes
+  useEffect(() => {
+    if (!countryId) {
+      setCompanies([]);
+      setCompanyId('');
+      return;
+    }
+    const found = countries.find((c) => c.id === countryId);
+    const comps = found?.companies ?? [];
+    setCompanies(comps);
+    // if current companyId not in new list -> reset
+    if (companyId && !comps.some((c) => c.id === companyId)) setCompanyId('');
+  }, [countryId, countries]);
+
+  function validate() {
+    if (!countryId) return 'Pilih country terlebih dahulu';
+    if (!companyId) return 'Pilih company terlebih dahulu';
+    if (!nameBranch.trim()) return 'Nama branch wajib diisi';
+    // optional: basic email validation
+    if (email && !/^\S+@\S+\.\S+$/.test(email)) return 'Email tidak valid';
+    return null;
+  }
+
+  async function handleSubmit(e?: React.FormEvent) {
+    e?.preventDefault();
+    setErrorMsg(null);
+    setSuccessMsg(null);
+
+    const v = validate();
+    if (v) {
+      setErrorMsg(v);
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const payload = {
+        companyId: companyId,
+        nameBranch: nameBranch.trim(),
+        streetAddress: streetAddress.trim() || null,
+        phone: phone.trim() || null,
+        email: email.trim() || null,
+        website: website.trim() || null,
+        linkMap: linkMap.trim() || null,
+      };
+
+      const res = await axios.post(`${BASE_API}/branch`, payload, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      setSuccessMsg('Branch created successfully');
+      setNameBranch('');
+      setStreetAddress('');
+      setPhone('');
+      setEmail('');
+      setWebsite('');
+      setLinkMap('');
+      setCountryId('');
+      setCompanyId('');
+      onCreated?.();
+    } catch (err: any) {
+      console.error('Create branch failed', err);
+      const srv = err?.response?.data;
+      let message = 'Failed to create branch';
+      if (srv) {
+        if (typeof srv === 'string') message = srv;
+        else if (srv.message) message = srv.message;
+        else if (srv.errors) message = JSON.stringify(srv.errors);
+        else message = JSON.stringify(srv);
+      } else if (err?.message) message = err.message;
+      setErrorMsg(message);
+    } finally {
+      setSubmitting(false);
+      setTimeout(() => setSuccessMsg(null), 2500);
+    }
+  }
 
   return (
-    <section className="w-full">
-      <div className="max-w-[1400px] mx-auto px-6 py-8">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-          <div>
-            <Title level={3} style={{ margin: 0 }}>
-              Branches
-            </Title>
-            <Text type="secondary">Daftar cabang perusahaan (frontend-only)</Text>
-          </div>
+    <div className="max-w-[720px] mx-auto bg-white p-6 rounded-lg shadow">
+      <h3 className="text-xl font-semibold mb-4">Create Branch</h3>
 
-          <Space>
-            <Input
-              placeholder="Cari branch, company, country, alamat, atau nomor..."
-              prefix={<SearchOutlined />}
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              allowClear
-              style={{ width: 420 }}
-            />
-            {/* tombol contoh (dummy) */}
-            <Button
-              type="primary"
-              icon={<LinkOutlined />}
-              onClick={() => {
-                // placeholder action
-                // nanti bisa buka modal tambah branch
-                alert("Tambah branch (dummy)");
-              }}
-            >
-              Tambah Branch
-            </Button>
-          </Space>
+      {errorMsg && <div className="mb-4 text-sm text-red-600">{errorMsg}</div>}
+      {successMsg && <div className="mb-4 text-sm text-green-600">{successMsg}</div>}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className={labelClass}>Country</label>
+          <select
+            value={countryId}
+            onChange={(e) => setCountryId(e.target.value ? Number(e.target.value) : '')}
+            className={inputClass}
+          >
+            <option value="">-- pilih country --</option>
+            {loading ? (
+              <option disabled>Loading...</option>
+            ) : (
+              countries.map((c) => <option key={c.id} value={c.id}>{c.nameCountry}</option>)
+            )}
+          </select>
         </div>
 
-        <Row gutter={[16, 16]}>
-          {filtered.map((b) => (
-            <Col key={b.id} xs={24} sm={24} md={12}>
-              <Card size="default" className="shadow-sm" bodyStyle={{ padding: 18 }}>
-                <div className="flex gap-4 items-start">
-                  <Avatar size={64} style={{ backgroundColor: "#f0f0f0" }} icon={<CopyOutlined />} />
+        <div>
+          <label className={labelClass}>Company</label>
+          <select
+            value={companyId}
+            onChange={(e) => setCompanyId(e.target.value ? Number(e.target.value) : '')}
+            className={inputClass}
+            disabled={!companies.length}
+          >
+            <option value="">{companies.length ? '-- pilih company --' : 'Pilih country dulu'}</option>
+            {companies.map((co) => <option key={co.id} value={co.id}>{co.nameCompany}</option>)}
+          </select>
+        </div>
 
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          <Text strong style={{ fontSize: 18 }}>
-                            {b.nameBranch}
-                          </Text>
-                          <Tag color="cyan" style={{ textTransform: "capitalize" }}>
-                            {b.countryName ?? "Unknown"}
-                          </Tag>
-                        </div>
+        <div>
+          <label className={labelClass}>Branch Name</label>
+          <input value={nameBranch} onChange={(e) => setNameBranch(e.target.value)} placeholder="Nama cabang" className={inputClass} />
+        </div>
 
-                        <div style={{ marginTop: 6 }}>
-                          <Text type="secondary">{b.companyName}</Text>
-                        </div>
+        <div>
+          <label className={labelClass}>Street Address (optional)</label>
+          <input value={streetAddress} onChange={(e) => setStreetAddress(e.target.value)} placeholder="Alamat jalan" className={inputClass} />
+        </div>
 
-                        <div style={{ marginTop: 8 }}>
-                          <Text type="secondary">
-                            <GlobalOutlined />{" "}
-                          </Text>
-                          <Text style={{ marginLeft: 8 }}>{b.streetAddress ?? "-"}</Text>
-                        </div>
-
-                        <div style={{ marginTop: 8, display: "flex", gap: 12, alignItems: "center" }}>
-                          <div>
-                            <Text type="secondary">
-                              <PhoneOutlined />{" "}
-                            </Text>
-                            <Text style={{ marginLeft: 6 }}>
-                              {b.phone ? (
-                                <a href={`tel:${b.phone}`}>{b.phone}</a>
-                              ) : (
-                                "-"
-                              )}
-                            </Text>
-                          </div>
-
-                          <div>
-                            <Text type="secondary">
-                              <MailOutlined />{" "}
-                            </Text>
-                            <Text style={{ marginLeft: 6 }}>
-                              {b.email ? <a href={`mailto:${b.email}`}>{b.email}</a> : "-"}
-                            </Text>
-                          </div>
-
-                          <div>
-                            <Text type="secondary">
-                              <LinkOutlined />{" "}
-                            </Text>
-                            <Text style={{ marginLeft: 6 }}>
-                              {b.website ? (
-                                <a href={b.website} target="_blank" rel="noreferrer">
-                                  {new URL(b.website).hostname}
-                                </a>
-                              ) : (
-                                "-"
-                              )}
-                            </Text>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="text-right">
-                        <Space direction="vertical" align="end">
-                          <Text type="secondary" style={{ fontSize: 12 }}>
-                            {b.createdAt ? new Date(b.createdAt).toLocaleString() : ""}
-                          </Text>
-
-                          <Space>
-                            <Button
-                              type="default"
-                              icon={<GlobalOutlined />}
-                              href={mapLink(b.streetAddress)}
-                              target="_blank"
-                            >
-                              Lihat Maps
-                            </Button>
-                          </Space>
-                        </Space>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-
-        {filtered.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
-            Tidak ada branch yang cocok dengan pencarian.
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label className={labelClass}>Phone (optional)</label>
+            <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="0812xxxx" className={inputClass} />
           </div>
-        )}
-      </div>
-    </section>
+          <div>
+            <label className={labelClass}>Email (optional)</label>
+            <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email@company.com" className={inputClass} />
+          </div>
+        </div>
+
+        <div>
+          <label className={labelClass}>Website (optional)</label>
+          <input value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://..." className={inputClass} />
+        </div>
+
+        <div>
+          <label className={labelClass}>Map Embed Link (optional)</label>
+          <input value={linkMap} onChange={(e) => setLinkMap(e.target.value)} placeholder="google maps embed link" className={inputClass} />
+        </div>
+
+        <div className="flex gap-3">
+          <button type="submit" disabled={submitting} className="rounded-lg bg-[#214B62] text-white px-6 py-3">
+            {submitting ? 'Creating...' : 'Create Branch'}
+          </button>
+          <button type="button" onClick={() => {
+            setCountryId(''); setCompanyId(''); setNameBranch(''); setStreetAddress(''); setPhone(''); setEmail(''); setWebsite(''); setLinkMap(''); setErrorMsg(null); setSuccessMsg(null);
+          }} className="rounded-lg border px-4 py-3">Reset</button>
+        </div>
+      </form>
+    </div>
   );
 }
