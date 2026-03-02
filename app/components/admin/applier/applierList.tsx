@@ -27,7 +27,7 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import CreateJob from "./createJob"; // sesuaikan path jika beda
-import { getAllApplier, createApply, deleteApply } from "@/app/data/apply";
+import { getAllApplier, deleteApply } from "@/app/data/apply";
 
 const { Title, Text } = Typography;
 
