@@ -1,4 +1,4 @@
-// components/sidebars/SystemIntegrationSidebar.tsx
+// components/sidebars/SystemIntegrationSidebar.tsx (ERROR)
 "use client";
 
 import React, { useMemo, useState } from "react";

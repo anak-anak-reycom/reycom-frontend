@@ -7,14 +7,13 @@ import NavDropdown from "./navDropdown";
 import type { MenuProps } from "antd";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown, MenuIcon, XIcon } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
   { label: "TheCompany", href: "/company" },
   { label: "News", href: "/News" },
-  { label: "Line", href: "/line" },
   { label: "Career", href: "/career" },
+  { label: "Line", href: "/line" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -25,24 +24,9 @@ const LINE_MENU_ITEMS = [
   { label: "System Integration", href: "/line/systemIntegration/hardware" },
 ];
 
-// variants for the hamburger animation
-const topBarVariants = {
-  closed: { rotate: 0, y: 0 },
-  open: { rotate: 45, y: 6 },
-};
-const middleBarVariants = {
-  closed: { opacity: 1 },
-  open: { opacity: 0 },
-};
-const bottomBarVariants = {
-  closed: { rotate: 0, y: 0 },
-  open: { rotate: -45, y: -6 },
-};
-
 export default function Navbar() {
-  const [scrolled, setScrolled] = React.useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [lineOpenMobile, setLineOpenMobile] = useState(false);
 
  useEffect(() => {
     const handleScroll = () => {
@@ -59,41 +43,13 @@ export default function Navbar() {
     >
       <div className="max-w-[1400px] mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-
-          {/* LOGO — LEFT */}
-          <Link href="/" className="ml-0 pl-7 md:pl-0">
+    
+          <Link href="/" className="flex items-center gap-3">
             <Image src={Logo} alt="Logo" width={98} height={98} />
           </Link>
 
-          {/* MOBILE TOGGLE */}
-          <button
-            onClick={() => setMobileOpen((o) => !o)}
-            className="md:hidden focus:outline-none"
-            aria-label="Toggle menu"
-          >
-            <motion.div
-              className="space-y-1"
-              initial="closed"
-              animate={mobileOpen ? "open" : "closed"}
-              transition={{ duration: 0.2 }}
-            >
-              <motion.span
-                className="block h-0.5 w-6 bg-black"
-                variants={topBarVariants}
-              />
-              <motion.span
-                className="block h-0.5 w-6 bg-black"
-                variants={middleBarVariants}
-              />
-              <motion.span
-                className="block h-0.5 w-6 bg-black"
-                variants={bottomBarVariants}
-              />
-            </motion.div>
-          </button>
-
-          {/* NAV — RIGHT */}
-          <nav className="hidden md:block mr-0 pr-7">
+      
+          <nav className="hidden lg:flex items-center">
             <ul className="flex items-center gap-8">
               {NAV_ITEMS.map((item) => {
                 if (item.label === "Line") {
@@ -257,58 +213,19 @@ export default function Navbar() {
                 );
               })}
             </ul>
+
+    
+            <div className="mt-6">
+              <Link
+                href="/career"
+                className="block text-center px-4 py-3 bg-slate-800 text-white rounded-md hover:opacity-95"
+                onClick={() => setMobileOpen(false)}
+              >
+                Join Us
+              </Link>
+            </div>
           </nav>
         </div>
-
-        {/* MOBILE MENU */}
-        {mobileOpen && (
-          <nav className="md:hidden bg-white border-t border-gray-200">
-            <ul className="flex flex-col space-y-4 p-4">
-              {NAV_ITEMS.map((item) => {
-                if (item.label === "TheCompany") {
-                  return (
-                    <li key={item.label}>
-                      <Link
-                        href={item.href}
-                        className="block text-black font-medium hover:text-gray-600 transition"
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        The Company
-                      </Link>
-                    </li>
-                  );
-                }
-
-                if (item.label === "Line") {
-                  return (
-                    <li key={item.label}>
-                      {/* for simplicity we just link to base page on mobile. dropdowns can be expanded later */}
-                      <Link
-                        href="/line"
-                        className="block text-black font-medium hover:text-gray-600 transition"
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  );
-                }
-
-                return (
-                  <li key={item.label}>
-                    <Link
-                      href={item.href}
-                      className="block text-black font-medium hover:text-gray-600 transition"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-        )}
       </div>
     </header>
   );
