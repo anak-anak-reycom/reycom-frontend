@@ -7,6 +7,7 @@ import NavDropdown from "./navDropdown";
 import type { MenuProps } from "antd";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { ChevronDown, MenuIcon, XIcon } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -41,6 +42,7 @@ const bottomBarVariants = {
 export default function Navbar() {
   const [scrolled, setScrolled] = React.useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [lineOpenMobile, setLineOpenMobile] = useState(false);
 
  useEffect(() => {
     const handleScroll = () => {

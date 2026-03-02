@@ -29,7 +29,7 @@ const Page = async () => {
                 alt={item.title}
                 width={400}
                 height={250}
-                className="w-full object-cover"
+                className="w-full h-48 object-cover"
               />
 
               <div className="p-5">
