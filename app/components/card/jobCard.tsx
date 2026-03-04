@@ -2,11 +2,12 @@ import Image from "next/image"
 import Card from "../../../public/card.png"
 import { getCategoryById } from "@/app/data/category"
 import { getCareerById } from "@/app/data/career"
+import { CareerItem } from "@/app/types/career-types"
 import { Timer, Calendar } from "lucide-react"
 import jobImage from "@/public/jobImage.png"
 
 
-export const JobCard = () => {
+export const JobCard = ({ career } : {career : CareerItem}) => {
   return (
     <section >
       <div className="max-w-[1400px] px-4">
@@ -22,16 +23,16 @@ export const JobCard = () => {
                       <div className="w-[120px] h-[120px] md:w-[70px] md:h-[70px] flex-shrink-0 flex items-center">
                         <Image
                           src={jobImage}
-                          alt="Quadrant Synergy"
+                          alt="Quadrant"
                           width={70}
                           height={70}
                           className="object-cover rounded"
-                        />
+                        />  
                       </div>
               
                       <div className="flex-1 flex flex-col justify-center text-center md:text-left">
                         <h3 className="text-lg md:text-2xl font-semibold">
-                          Software Engineer
+                           {career.jobName}
                         </h3>
                       </div>
                       </div>
@@ -43,7 +44,7 @@ export const JobCard = () => {
                 </div>
                 <div>
                 <h2 className="text-md text-left font-semibold">Requrirement</h2>
-                <p className="text-left">Responsibilities: Provide API with service-side logic Develop reusable framework (code and library) Optimization API for speed and scalability Implement data security and data protection Designing and...</p>
+                <p className="text-left">{career.jobDescription}</p>
                 </div>
 
                 <div className="mt-4 flex items-center gap-2  py-1 text-sm">
