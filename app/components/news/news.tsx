@@ -88,18 +88,13 @@ export const NewsDetail = () => {
                 without sacrificing any of the power
               </p>
 
-              <div className="grid grid-cols-2 gap-3">
-                <button className="bg-linear-to-br from-blue-700 to-blue-500 px-1 py-2 text-white font-semibold rounded-xl"> Edit </button>
-                <button className="bg-linear-to-br from-red-700 to-red-500 px-1 py-2 text-white font-semibold rounded-xl"> Delete </button>
-              </div>
+             
             </div>
           </div>
 
         </div>
       </div>
-        <div className="flex justify-start mt-8">
-          <button className="bg-linear-to-br from-green-700 to-green-500 px-4 py-2 text-white font-semibold rounded-xl">+ Add News</button>
-        </div>
+        
     </section>
   )
 }
