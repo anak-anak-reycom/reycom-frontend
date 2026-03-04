@@ -1,7 +1,6 @@
-// components/sidebars/SystemIntegrationSidebar.tsx (ERROR)
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Layout, Menu, theme } from "antd";
 import type { MenuProps } from "antd";
 import { usePathname, useRouter } from "next/navigation";
@@ -34,19 +33,21 @@ const MENU_ITEMS: { key: string; label: string; icon: React.ReactNode; route: st
   { key: "services", label: "Services", icon: <Briefcase size={18} />, route: "/line/systemIntegration/services" },
 ];
 
-export default function SystemIntegrationSidebar({ defaultSelected = "started" }: { defaultSelected?: string }) {
+type Props = {
+  defaultSelected?: string;
+  collapsed: boolean; 
+  onCollapse: (collapsed: boolean) => void;
+};
+
+export default function SystemIntegrationSidebar({ defaultSelected = "started", collapsed, onCollapse }: Props) {
   const router = useRouter();
   const pathname = usePathname() || "";
 
-  // Dapatkan segmen terakhir yang relevan: /line/systemIntegration/<key>
   const parts = pathname.split("/").filter(Boolean);
   const activeKey = parts[2] ?? defaultSelected;
 
   const { token: { colorBgContainer } } = theme.useToken();
 
-  const [collapsed, setCollapsed] = useState(false);
-
-  // Ant Design Menu items structure
   const items: MenuProps["items"] = useMemo(
     () => MENU_ITEMS.map(it => ({ key: it.key, icon: it.icon, label: it.label })),
     []
@@ -54,24 +55,29 @@ export default function SystemIntegrationSidebar({ defaultSelected = "started" }
 
   const handleClick: MenuProps["onClick"] = ({ key }) => {
     const found = MENU_ITEMS.find(it => it.key === key);
-    if (found) router.push(found.route);
+    if (found) {
+      router.push(found.route);
+      
+      if (typeof window !== "undefined" && !window.matchMedia("(min-width: 1024px)").matches) {
+        onCollapse(true); 
+      }
+    }
   };
 
   return (
     <Sider
       width={260}
-      collapsedWidth={80}           
-      breakpoint="lg"             
+      collapsedWidth={0}
+      breakpoint="lg"
       collapsible
       collapsed={collapsed}
-      onBreakpoint={(broken) => setCollapsed(broken)} // auto collapse saat breakpoint terpenuhi
+      onBreakpoint={(broken) => onCollapse(broken)}
       trigger={null}
       style={{ background: colorBgContainer }}
-      className="border-none!"
+      className={`border-none! fixed top-0 left-0 h-full z-50 lg:static lg:h-auto transform transition-transform duration-300 ${collapsed ? "-translate-x-full" : "translate-x-0"}`}
     >
       <div className="px-1 py-6 h-full flex flex-col">
         <div className="mb-4">
-          
           <div className={`text-lg font-semibold transition-all overflow-hidden ${collapsed ? "opacity-0 h-0" : "opacity-100"}`}>
             System Integrate
           </div>
@@ -82,7 +88,7 @@ export default function SystemIntegrationSidebar({ defaultSelected = "started" }
             mode="inline"
             selectedKeys={[activeKey]}
             onClick={handleClick}
-            inlineCollapsed={collapsed} 
+            inlineCollapsed={false} // biarkan ant menu menampilkan label ketika desktop; pada mobile kita hide seluruh sidebar
             style={{ height: "100%", borderInlineEnd: 0, background: "transparent" }}
             items={items}
           />
