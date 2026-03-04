@@ -7,6 +7,7 @@ import NavDropdown from "./navDropdown";
 import type { MenuProps } from "antd";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { ChevronDown, MenuIcon, XIcon } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -27,10 +28,20 @@ const LINE_MENU_ITEMS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [lineOpenMobile, setLineOpenMobile] = useState(false);
 
  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 0)
+  const handleScroll = () => setScrolled(window.scrollY > 50);
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+  
+  useEffect(()  => {
+    const body = document.body;
+    if (mobileOpen) {
+      body.classList.add("overflow-hidden");
+    } else {
+      body.classList.remove("overflow-hidden");
     }
     return () => body.classList.remove("overflow-hidden");
   }, [mobileOpen]);
