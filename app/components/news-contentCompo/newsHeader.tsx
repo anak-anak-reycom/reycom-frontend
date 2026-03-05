@@ -17,7 +17,7 @@ export default function NewsHeader({ news }: { news: NewsItem }) {
                                 alt={news.title}
                                 width={700}
                                 height={400}
-                                className="rounded-3xl shadow-2xl object-cover w-full h-auto"
+                                className="rounded-3xl shadow-2xl object-cover w-180 h-auto"
                                 priority
                                 sizes="(min-width:1024px) 700px, 100vw"
                             />

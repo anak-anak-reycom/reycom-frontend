@@ -3,8 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/public/logo.png";
-import { useEffect, useState } from "react";
-import { Menu as MenuIcon, X as XIcon, ChevronDown } from "lucide-react";
+import NavDropdown from "./navDropdown";
+import type { MenuProps } from "antd";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ChevronDown, MenuIcon, XIcon } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -27,14 +30,13 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lineOpenMobile, setLineOpenMobile] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 0);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+ useEffect(() => {
+  const handleScroll = () => setScrolled(window.scrollY > 50);
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
   
-  useEffect(() => {
+  useEffect(()  => {
     const body = document.body;
     if (mobileOpen) {
       body.classList.add("overflow-hidden");
