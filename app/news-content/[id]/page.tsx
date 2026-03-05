@@ -2,11 +2,14 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { getNewsById } from "@/app/data/news";
+import { getAllNews } from "@/app/data/news";
 import NewsHeader from "@/app/components/news-contentCompo/newsHeader";
 import NewsDescription from "@/app/components/news-contentCompo/newsDescription";
+import NewsCarousel from "@/app/components/news-contentCompo/newsCarousel";
 
 export default async function NewsContentPage({ params }: { params: any }) {
 
+    const all = await getAllNews()
     const resolvedParams = await params;
     const rawId = resolvedParams?.id;
     const id = Number(rawId);
@@ -25,8 +28,11 @@ export default async function NewsContentPage({ params }: { params: any }) {
 
         return (
             <main className="min-h-screen">
+
                 <NewsHeader news={news} />
-                <NewsDescription news={news} />
+                <NewsDescription news={news}/>
+                <NewsCarousel news = {all}/>
+                
             </main>
         );
     } catch (err: any) {

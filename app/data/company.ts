@@ -18,6 +18,7 @@ export async function getAllCompany(): Promise<CompanyBrief[]> {
 export const createCompany = async (companyData: CompanyBrief) => {
   const response = await axios.post(`${BASE_API}/company`, {
     nameCompany: companyData.nameCompany,
+
     
   });
 }
