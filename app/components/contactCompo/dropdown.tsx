@@ -1,98 +1,143 @@
 "use client";
 
-import React, { useState } from "react";
-import { DownOutlined, UpOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
+
+import indoFlag from "../../../public/country/indo.png";
+import vietFlag from "../../../public/country/viet.png";
+import sngFlag from "../../../public/country/sngpore.png";
+import defaultFlag from "../../../public/country/indo.png";
 import { StaticImageData } from "next/image";
-import inonesia from "../../../public/country/indo.png";
-import vietnam from "../../../public/country/viet.png";
-import singapore from "../../../public/country/sngpore.png";
 
+type BranchLocation = {
+  id?: number;
+  title: string;
+  address?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  website?: string | null;
+  mapEmbed?: string | null;
+};
 
+type CompanyBrief = {
+  id: number;
+  nameCompany: string;
+  branches?: Array<{
+    id: number;
+    nameBranch?: string;
+    streetAddress?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    website?: string | null;
+    linkMap?: string | null;
+  }>;
+};
 
-type BranchKey = "indonesia" | "singapore" | "vietnam" | null;
+type CountryApi = {
+  id: number;
+  nameCountry: string;
+  companies?: CompanyBrief[];
+};
 
-const BRANCHES = [
-  {
-    key: "indonesia",
-    flag: inonesia,
-    title: { highlight: "Indonesian", normal: "Branch" },
-    locations: [
-      {
-        title: "Headquarter",
-        address:
-          "Jl. Cempaka. No.77 KM38, Kel. Jatimulya, Kec. Tambun Sel., Kabupaten Bekasi, Jawa Barat 17510",
-        phone: "(62-21) 3831 9999",
-        
-        mapEmbed:
-          "https://www.google.com/maps?q=Jl.+Cempaka+No.77+Bekasi&output=embed",
-      },
-      {
-        title: "Office 2",
-        address:
-          "Jl. Contoh No.2, Kec. Contoh, Kota Contoh, Jawa Barat 17100",
-        phone: "(62-21) 3831 1111",
-        mapEmbed:
-          "https://www.google.com/maps?q=Jalan+Contoh+Bekasi&output=embed",
-      },
-    ],
-  },
-  {
-    key: "singapore",
-    flag: singapore,
-    title: { highlight: "Singapore", normal: "Branch" },
-    locations: [
-      {
-        title: "Singapore Office",
-        address: "10 Example Street, #01-01, Singapore 010101",
-        phone: "+65 6123 4567",
-        mapEmbed: "https://www.google.com/maps?q=Singapore&output=embed",
-      },
-    ],
-  },
-  {
-    key: "vietnam",
-    flag: vietnam,
-    title: { highlight: "Vietnam", normal: "Branch" },
-    locations: [
-      {
-        title: "Vietnam Office",
-        address: "123 Example Rd, Ho Chi Minh City, Vietnam 700000",
-        phone: "+84 28 1234 5678",
-        mapEmbed: "https://www.google.com/maps?q=Ho+Chi+Minh+City&output=embed",
-      },
-    ],
-  },
-];
+function getFlagForCountry(name?: string) {
+  if (!name) return defaultFlag;
+  const low = name.toLowerCase();
+  if (low.includes("indonesia") || low.includes("indo")) return indoFlag;
+  if (low.includes("viet") || low.includes("vietnam")) return vietFlag;
+  if (low.includes("singapore") || low.includes("sg") || low.includes("singap")) return sngFlag;
+  return defaultFlag;
+}
 
-export default function BranchDropdown() {
-  const [open, setOpen] = useState<BranchKey>(null);
+/**
+ * Component utama: fetch countries dari backend dan render accordion per country
+ */
+export default function BranchDropdownClient() {
+  const BASE = process.env.NEXT_PUBLIC_BASE_API ?? "";
+  const [countries, setCountries] = useState<CountryApi[]>([]);
+  const [openKey, setOpenKey] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
 
-  const toggle = (key: BranchKey) => {
-    setOpen((prev) => (prev === key ? null : key));
-  };
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      setLoading(true);
+      setErr(null);
+      try {
+        const res = await fetch(`${BASE}/country`, { cache: "no-store" });
+        if (!res.ok) throw new Error(`Fetch countries failed: ${res.status}`);
+        const json = await res.json();
+        // API returns { success, message, data: [...] }
+        const data: CountryApi[] = Array.isArray(json?.data) ? json.data : json?.data ?? [];
+        if (!mounted) return;
+        setCountries(data);
+      } catch (e: any) {
+        console.error("load countries error", e);
+        if (mounted) setErr(e?.message ?? "Failed to load countries");
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+    return () => { mounted = false; };
+  }, [BASE]);
 
   return (
     <section className="w-full py-12">
       <div className="max-w-[1200px] mx-auto space-y-4 px-4">
-        {BRANCHES.map((b) => (
-          <BranchPanel
-            key={b.key}
-            id={b.key}
-            flagSrc={b.flag}
-            titleHighlight={b.title.highlight}
-            titleNormal={b.title.normal}
-            isOpen={open === (b.key as BranchKey)}
-            onToggle={() => toggle(b.key as BranchKey)}
-            locations={b.locations}
-          />
-        ))}
+        {loading && <div className="text-sm text-gray-500">Loading branches...</div>}
+        {err && <div className="text-sm text-red-600">{err}</div>}
+
+        {countries.map((c) => {
+    
+          const locations: BranchLocation[] = [];
+          (c.companies ?? []).forEach((co) => {
+            if (Array.isArray(co.branches) && co.branches.length) {
+              co.branches.forEach((b) => {
+                locations.push({
+                  id: b.id,
+                  title: b.nameBranch ?? co.nameCompany,
+                  address: b.streetAddress ?? undefined,
+                  phone: b.phone ?? undefined,
+                  email: b.email ?? undefined,
+                  website: b.website ?? undefined,
+                  mapEmbed: (b as any).linkMap ?? (b as any).mapEmbed ?? undefined,
+                });
+              });
+            } else {
+              
+              locations.push({
+                id: co.id,
+                title: co.nameCompany,
+                address: undefined,
+                phone: undefined,
+              });
+            }
+          });
+
+          return (
+            <BranchPanel
+              key={c.id}
+              id={String(c.id)}
+              flagSrc={getFlagForCountry(c.nameCountry)}
+              titleHighlight={c.nameCountry}
+              titleNormal="Branch"
+              isOpen={openKey === c.id}
+              onToggle={() => setOpenKey((prev) => (prev === c.id ? null : c.id))}
+              locations={locations}
+            />
+          );
+        })}
+
+        {countries.length === 0 && !loading && !err && (
+          <div className="text-sm text-gray-500">No branch data available.</div>
+        )}
       </div>
     </section>
   );
 }
 
-/* ---------- BranchPanel ---------- */
+/* ---------- BranchPanel (presentational) ---------- */
 function BranchPanel({
   id,
   flagSrc,
@@ -103,36 +148,30 @@ function BranchPanel({
   locations,
 }: {
   id: string;
-  flagSrc: StaticImageData;
+  flagSrc: StaticImageData | string;
   titleHighlight: string;
   titleNormal: string;
   isOpen: boolean;
   onToggle: () => void;
-  locations: {
-    title: string;
-    address: string;
-    phone: string;
-    mapEmbed?: string;
-  }[];
+  locations: BranchLocation[];
 }) {
   return (
     <div className="rounded-2xl bg-gray-100 overflow-hidden border border-gray-200">
-        <button
-            type="button"
-            aria-expanded={isOpen}
-            aria-controls={`branch-${id}`}
-            onClick={onToggle}
-            className="w-full flex items-center px-6 py-4 text-lg font-medium focus:outline-none"
-            >
-            
-            <div className="w-10 h-10 relative mr-4 flex-shrink-0">
-                <Image src={flagSrc} alt={`${titleHighlight} flag`} fill style={{ objectFit: "contain" }} />
-            </div>
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        aria-controls={`branch-${id}`}
+        onClick={onToggle}
+        className="w-full flex items-center px-6 py-4 text-lg font-medium focus:outline-none"
+      >
+        <div className="w-10 h-10 relative mr-4 flex-shrink-0">
+          <Image src={flagSrc as any} alt={`${titleHighlight} flag`} fill style={{ objectFit: "contain" }} />
+        </div>
 
-            <h3 className="flex-1 text-center text-xl font-semibold">
-                <span className="text-red-600">{titleHighlight}</span>{" "}
-                <span className="text-black">{titleNormal}</span>
-            </h3>
+        <h3 className="flex-1 text-center text-xl font-semibold">
+          <span className="text-red-600">{titleHighlight}</span>{" "}
+          <span className="text-black">{titleNormal}</span>
+        </h3>
 
         <span className="text-black ml-4 cursor-pointer" aria-hidden>
           {isOpen ? <UpOutlined /> : <DownOutlined />}
@@ -149,32 +188,23 @@ function BranchPanel({
       >
         <div className="space-y-4">
           <p className="text-sm text-gray-600">
-            
             {titleHighlight} branch locations — click a card for details or use the contact phone to reach the office.
           </p>
 
-          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {locations.map((loc, idx) => (
-              <article
-                key={idx}
-                className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 flex flex-col"
-              >
+              <article key={loc.id ?? idx} className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 flex flex-col">
                 <h4 className="text-lg font-semibold mb-2">{loc.title}</h4>
-                <p className="text-sm text-gray-700 mb-3 leading-relaxed">{loc.address}</p>
+                <p className="text-sm text-gray-700 mb-3 leading-relaxed">{loc.address ?? "Address not provided"}</p>
 
-                <p className="text-sm font-semibold mb-3">Phone : <span className="font-normal">{loc.phone}</span></p>
+                <p className="text-sm font-semibold mb-3">
+                  Phone : <span className="font-normal">{loc.phone ?? "-"}</span>
+                </p>
 
-                
                 {loc.mapEmbed ? (
                   <div className="mt-auto">
                     <div className="w-full rounded-md overflow-hidden border">
-                      <iframe
-                        title={`${loc.title} map`}
-                        src={loc.mapEmbed}
-                        className="w-full h-36"
-                        loading="lazy"
-                      />
+                      <iframe title={`${loc.title} map`} src={loc.mapEmbed} className="w-full h-36" loading="lazy" />
                     </div>
                   </div>
                 ) : (

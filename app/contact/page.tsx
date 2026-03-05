@@ -5,6 +5,9 @@ import { useState } from "react";
 import CompanyDirectory from "@/app/components/contactCompo/company";
 import BranchSearch from "@/app/components/contactCompo/search";
 import BranchDropdown from "../components/contactCompo/dropdown";
+import { getAllBranch } from "../data/branch";
+import { getAllCountry } from "../data/country";
+import { getAllCompany } from "../data/company";
 
 export default function ContactPage() {
   const [query, setQuery] = useState("");

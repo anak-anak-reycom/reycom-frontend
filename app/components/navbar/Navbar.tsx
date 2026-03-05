@@ -146,7 +146,7 @@ export default function Navbar() {
         {/* overlay */}
         <div
           className={`absolute inset-0 bg-black/40 transition-opacity ${
-            mobileOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+            mobileOpen ? "opacity-100" : "opacity-100 pointer-events-none"
           }`}
           onClick={() => setMobileOpen(false)}
           aria-hidden="true"
