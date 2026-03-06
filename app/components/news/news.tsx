@@ -7,7 +7,7 @@ import { getAllNews } from "@/app/data/news";
 import type { NewsItem } from "@/app/types/news-types";
 
 //GET ALL NEWS
-function getDateValue(item: any) {
+function getDateValue(item : any) {
   return (
     new Date(item.createdAt ?? item.created_at ?? item.date ?? item.publishedAt ?? null).getTime() ||
     0

@@ -1,64 +1,67 @@
-import Image from "next/image"
-import Card from "../../../public/card.png"
-import { getCategoryById } from "@/app/data/category"
-import { getCareerById } from "@/app/data/career"
-import { CareerItem } from "@/app/types/career-types"
-import { Timer, Calendar } from "lucide-react"
-import jobImage from "@/public/jobImage.png"
+// components/card/JobCard.tsx
+import Image from "next/image";
+import Link from "next/link";
+import { Timer, Calendar } from "lucide-react";
+import jobImage from "@/public/jobImage.png";
+import { CareerItem } from "@/app/types/career-types";
 
+export const JobCard = ({
+  career,
+}: {
+  career: CareerItem & { category?: { idCategory: number; nameCategory: string; jobType: string } };
+}) => {
+  const rawJobType = career?.category?.jobType ?? "";
+  const jobTypeNormalized = (() => {
+    const s = String(rawJobType || "").toLowerCase();
+    if (!s) return "Full Time";
+    if (s.includes("full")) return "Full Time";
+    if (s.includes("part")) return "Part Time";
 
-export const JobCard = ({ career } : {career : CareerItem}) => {
+    return rawJobType
+      .split(" ")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
+  })();
+
+  const href = `/career/career-details/${career.id}`;
+
   return (
-    <section >
-      <div className="max-w-[1400px] px-4">
+    <Link href={href} className="block w-full">
+      <article className="w-full">
+        <div className="bg-white rounded-md p-5 shadow-md hover:shadow-lg transition-shadow duration-200 h-full flex flex-col">
+          <div className="flex items-start gap-4 border-b border-gray-100 pb-4">
+            <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded overflow-hidden bg-gray-50 flex items-center justify-center">
+              <Image src={jobImage}
+                alt={career.jobName ?? "job"}
+                width={80} height={80} 
+                className=      "object-cover w-full h-full" />
+            </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
-
-          {/* Card Image */}
-          <div className="py-5 px-5 rounded-md bg-white cursor-pointer hover:bg-gray-100 duration-300 shadow-[0px_0px_10px_1px_#cbd5e0]  "> 
-            
-            <div className="grid grid-cols-1 text-center">
-              <div className="flex flex-col md:flex-row items-center gap-4">
-                <div className="flex gap-4 border-b-2 border-gray-200 pb-3 w-full"> 
-                      <div className="w-[120px] h-[120px] md:w-[70px] md:h-[70px] flex-shrink-0 flex items-center">
-                        <Image
-                          src={jobImage}
-                          alt="Quadrant"
-                          width={70}
-                          height={70}
-                          className="object-cover rounded"
-                        />  
-                      </div>
-              
-                      <div className="flex-1 flex flex-col justify-center text-center md:text-left">
-                        <h3 className="text-lg md:text-2xl font-semibold">
-                           {career.jobName}
-                        </h3>
-                      </div>
-                      </div>
-                </div>
-
-                <div className="mt-4 flex items-center gap-2  py-1 text-sm">
-                      <Timer size={25} />
-                      <span className="text-md font-bold">Full Time</span>
-                </div>
-                <div>
-                <h2 className="text-md text-left font-semibold">Requrirement</h2>
-                <p className="text-left">{career.jobDescription}</p>
-                </div>
-
-                <div className="mt-4 flex items-center gap-2  py-1 text-sm">
-                      <Calendar size={25} className="text-gray-400" />
-                      <span className="text-md text-gray-400 font-medium">Date Release</span>
-                </div>
-              <div>
-              </div>
+            <div className="flex-1">
+              <h3 className="text-lg md:text-xl font-semibold leading-snug">{career.jobName}</h3>
+              {career.category?.nameCategory && <div className="text-sm text-gray-500 mt-1">{career.category.nameCategory}</div>}
             </div>
           </div>
 
-        </div>
+          <div className="mt-4 flex-1">
+            <div className="flex items-center gap-3 mb-3">
+              <Timer size={20} />
+              <span className="font-semibold">{jobTypeNormalized}</span>
+            </div>
 
-      </div>
-    </section>
-  )
-}
+            <h4 className="text-sm font-semibold mb-1">Requirement</h4>
+            <p className="text-sm text-gray-600 line-clamp-3">{career.jobDescription ?? "No description"}</p>
+          </div>
+
+          
+          <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-3 text-sm text-gray-500">
+            <Calendar size={18} />
+            <span>{career.jobDate ? new Date(career.jobDate).toLocaleDateString() : ""}</span>
+          </div>
+        </div>
+      </article>
+    </Link>
+  );
+};
+
+export default JobCard;

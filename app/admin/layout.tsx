@@ -34,7 +34,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
                 <Layout className="w-full">
                     <div className="w-full flex justify-center bg-white">
-                        <div className="w-full lg:max-w-[1000px] px-3 sm:px-6 md:px-8">
+                        <div className="w-full lg:max-w-[1400px] px-3 sm:px-6 md:px-8">
                             <Layout.Content
                                 style={{
                                     minHeight: 360,

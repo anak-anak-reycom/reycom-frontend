@@ -21,6 +21,7 @@ const { Sider } = Layout;
 
 const MENU_ITEMS: { key: string; label: string; icon: React.ReactNode; route: string }[] = [
   { key: "applier", label: "Applier", icon: <Home size={18} />, route: "/admin/admin-page/career" },
+  { key: "jobList", label: "Job List", icon: <Home size={18} />, route: "/admin/admin-page/jobs" },
   { key: "news", label: "News", icon: <HardDrive size={18} />, route: "/admin/admin-page/news" },
   { key: "branch", label: "Branches", icon: <Server size={18} />, route: "/admin/admin-page/branch" },
   { key: "storage", label: "Storage", icon: <Archive size={18} />, route: "/admin/storage" }

@@ -1,12 +1,9 @@
-// components/sidebars/CategorySidebar.tsx
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Layout } from "antd";
-import { Search } from "lucide-react";
-import { getAllCategory } from "@/app/data/category";
-import {getJobTypes} from "@/app/data/category";
-import {getCategoryName} from "@/app/data/category";
+import { Search, Check, Menu as MenuIcon, X as XIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const { Sider } = Layout;
 
@@ -22,9 +19,9 @@ export type CategorySidebarProps = {
 
 export default function CategorySidebar({
   categories = [
-    {id: 1, nameCategory: "Admin"},
-    {id: 2 , nameCategory:"TI"},
-    {id : 3, nameCategory: "Marketing"}
+    { id: 1, nameCategory: "Admin" },
+    { id: 2, nameCategory: "IT" },
+    { id: 3, nameCategory: "Marketing" }
   ],
   jobTypes = [
     { id: "fulltime", label: "Full Time" },
@@ -36,8 +33,25 @@ export default function CategorySidebar({
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<Set<number>>(new Set());
   const [selectedJobTypes, setSelectedJobTypes] = useState<Set<string>>(new Set());
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  // memoized filtered categories by search
+  const pathname = usePathname();
+
+  useEffect(() => {
+    
+    setMobileOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+   
+    const body = document.body;
+    if (mobileOpen) body.style.overflow = "hidden";
+    else body.style.overflow = "";
+    return () => {
+      body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   const filteredCategories = useMemo(() => {
     if (!search.trim()) return categories;
     const q = search.trim().toLowerCase();
@@ -71,98 +85,154 @@ export default function CategorySidebar({
     onChange?.({ search: v, categories: Array.from(selectedCategories), jobTypes: Array.from(selectedJobTypes) });
   };
 
-  // small helper render circle checkbox
-  function CircleCheck({ checked }: { checked: boolean }) {
+  function RectangleCheck({ checked }: { checked: boolean }) {
+    const primary = "#1f5f84";
     return (
       <span
         aria-hidden
-        className={`w-9 h-9 rounded-full flex items-center justify-center border-2 ${
-          checked ? "bg-blue-700 border-blue-700" : "border-blue-600/80"
-        }`}
+        className={`flex items-center justify-center transition-all duration-150 select-none w-8 h-8 rounded-lg`}
+        style={{
+          borderWidth: 3.5,
+          borderStyle: "solid",
+          borderColor: checked ? primary : "rgba(31,95,132,0.9)",
+          background: checked ? primary : "#ffffff",
+        }}
       >
-        {/* inner dot when checked */}
-        {checked ? <span className="w-3 h-3 rounded-full bg-white" /> : null}
+        {checked ? <Check size={16} color="#fff" /> : null}
       </span>
     );
   }
 
-  return (
-    <Sider
-      width={280}
-      collapsedWidth={80}
-      breakpoint="lg"
-      collapsible
-      collapsed={collapsed}
-      trigger={null}
-      style={{ background: "transparent" }}
-      className="!border-none px-4 py-6"
-    >
-      <div className="space-y-6">
-        {/* Search */}
-        <div>
-          <div className="relative">
-            <input
-              value={search}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder="Find Ur Job"
-              className="w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-200 bg-white"
-            />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-              <Search size={16} />
-            </span>
-          </div>
+ //------------------------SIDEBAR LAYOUT-------------------------------------//
+  const sidebarContent = (
+    <div className="space-y-6 p-4">
+      {/* Search */}
+      <div>
+        <div className="relative">
+          <input
+            value={search}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            placeholder="Find Ur Job"
+            className="w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-200 bg-white"
+          />
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <Search size={16} />
+          </span>
         </div>
+      </div>
 
-        {/* Category list */}
-        <div>
-          <h4 className="text-lg font-medium mb-4">Category</h4>
+      {/* Category list */}
+      <div>
+        <h4 className="text-lg font-medium mb-4">Category</h4>
 
-          <div className="space-y-4">
-            {filteredCategories.length === 0 ? (
-              <div className="text-sm text-gray-500">No categories</div>
-            ) : (
-              filteredCategories.map((cat) => {
-                const checked = selectedCategories.has(cat.id);
-                return (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    onClick={() => toggleCategory(cat.id)}
-                    className="w-full flex items-center gap-4 text-left hover:opacity-90"
-                    aria-pressed={checked}
-                    aria-label={`Toggle category ${cat.nameCategory}`}
-                  >
-                    <CircleCheck checked={checked} />
-                    <span className="text-base">{cat.nameCategory}</span>
-                  </button>
-                );
-              })
-            )}
-          </div>
-        </div>
-
-        {/* Job Type */}
-        <div>
-          <h4 className="text-lg font-medium mb-4">Job Type</h4>
-
-          <div className="space-y-4">
-            {jobTypes.map((jt) => {
-              const checked = selectedJobTypes.has(jt.id);
+        <div className="space-y-3">
+          {filteredCategories.length === 0 ? (
+            <div className="text-sm text-gray-500">No categories</div>
+          ) : (
+            filteredCategories.map((cat) => {
+              const checked = selectedCategories.has(cat.id);
               return (
                 <button
-                  key={jt.id}
+                  key={cat.id}
                   type="button"
-                  onClick={() => toggleJobType(jt.id)}
-                  className="w-full flex items-center gap-4 text-left hover:opacity-90"
+                  onClick={() => toggleCategory(cat.id)}
+                  className="w-full flex items-center gap-3 text-left hover:opacity-95 py-1"
+                  aria-pressed={checked}
+                  aria-label={`Toggle category ${cat.nameCategory}`}
                 >
-                  <CircleCheck checked={checked} />
-                  <span className="text-base">{jt.label}</span>
+                  <RectangleCheck checked={checked} />
+                  <span className="text-base">{cat.nameCategory}</span>
                 </button>
               );
-            })}
+            })
+          )}
+        </div>
+      </div>
+
+      {/* Job Type */}
+      <div>
+        <h4 className="text-lg font-medium mb-4">Job Type</h4>
+
+        <div className="space-y-3">
+          {jobTypes.map((jt) => {
+            const checked = selectedJobTypes.has(jt.id);
+            return (
+              <button
+                key={jt.id}
+                type="button"
+                onClick={() => toggleJobType(jt.id)}
+                className="w-full flex items-center gap-3 text-left hover:opacity-95 py-1"
+                aria-pressed={checked}
+              >
+                <RectangleCheck checked={checked} />
+                <span className="text-base">{jt.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      
+      <Sider
+        width={280}
+        collapsedWidth={80}
+        breakpoint="lg"
+        collapsible
+        collapsed={collapsed}
+        trigger={null}
+        style={{ background: "white" }}
+        className="!border-none px-4 py-6 hidden lg:block"
+      >
+        {sidebarContent}
+      </Sider>
+
+      
+      {!collapsed && !mobileOpen && (
+        <button
+          aria-label="Open filters"
+          className="lg:hidden fixed z-50 flex items-center gap-2 bg-white rounded-b-md px-3 py-2"
+          onClick={() => setMobileOpen(true)}
+        >
+          <MenuIcon size={18} />
+        </button>
+      )}
+  
+      
+      <div
+        className={`fixed inset-0 z-40 lg:hidden transition-transform ${
+          mobileOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+        aria-hidden={!mobileOpen}
+      >
+        
+        <div
+          className={`absolute inset-0 bg-black/40 transition-opacity ${mobileOpen ? "opacity-100" : "opacity-0"}`}
+          onClick={() => setMobileOpen(false)}
+        />
+
+      
+        <div
+          className={`absolute left-0 top-0 h-full w-full max-w-xs bg-white shadow-xl transform transition-transform duration-300 ${
+            mobileOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between p-4 border-b">
+            <div className="text-lg font-semibold">Filters</div>
+            <button aria-label="Close filters" onClick={() => setMobileOpen(false)} className="p-2 rounded-md">
+              <XIcon size={18} />
+            </button>
+          </div>
+
+          <div className="overflow-auto h-full">
+            {sidebarContent}
           </div>
         </div>
       </div>
-    </Sider>
+
+    </>
   );
 }
