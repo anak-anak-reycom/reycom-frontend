@@ -1,21 +1,33 @@
-import ApplyForm from "../components/card/applyCard"
 import { JobCard } from "../components/card/jobCard"
 import { getAllCareer } from "../data/career"
-import { getAllCategory, getCategoryName, getJobTypes } from "../data/category"
+import { CareerItem } from "../types/career-types"
+import { JobCarousel } from "../components/card/jobCarousel"
 
 
-export default function Career() {
+export default async function CareerPage() {
 
-  const careers = getAllCareer()
-  const categories = getAllCategory()
+ let careers : (CareerItem &  {category? : {idCategory : number; nameCategory : string; jobType : string} })[] = []
+ try {
+    careers = await getAllCareer()
+ }
+ catch (err){
+  console.error(" Failed to load", err)
+ }
 
   return (
     <main className="min-h-screen">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 ">
+      <div className="max-w-[1400px] mx auto px-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 ">
 
-            <JobCard/>
+            {careers.length === 0 ? (
+            <div className="text-gray-500">No career found.</div>
+          ) : (
+            careers.map((c) => <JobCard key = {c.id} career={c}/>)
+          )}
 
+        </div>
         </div>
     </main>
   )
 }
+  
