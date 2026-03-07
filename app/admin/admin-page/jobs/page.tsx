@@ -23,10 +23,18 @@ export default async function JobList  ()  {
                 <div>Career not found</div>
               ) : (
                 careers.map((c) => <AdminJobCard key = {c.id} career = {c}/>)
-              )}
-
-
+                
+              ) }
+               
             </div>
+            <div className="flex justify-start mt-8">
+                  <button
+                      className="bg-linear-to-br from-green-700 to-green-500 px-4 py-2 text-white font-semibold rounded-xl"
+                        >
+                        + Add News
+                  </button>
+              </div>
+
             
 
         </main>
