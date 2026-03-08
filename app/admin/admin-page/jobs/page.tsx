@@ -27,6 +27,7 @@ export default async function JobList  ()  {
               ) }
                
             </div>
+
             <div className="flex justify-start mt-8">
                   <button
                       className="bg-linear-to-br from-green-700 to-green-500 px-4 py-2 text-white font-semibold rounded-xl"
@@ -34,8 +35,6 @@ export default async function JobList  ()  {
                         + Add News
                   </button>
               </div>
-
-            
 
         </main>
   )

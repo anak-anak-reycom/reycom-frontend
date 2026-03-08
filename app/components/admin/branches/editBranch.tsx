@@ -1,38 +1,60 @@
-// components/admin/CreateBranchCard.tsx
-'use client';
+// app/components/admin/branches/EditBranchCard.tsx
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-type Country = {
+type CountryRaw = {
   id: number;
   nameCountry: string;
   companies?: { id: number; nameCompany: string }[];
 };
 
-export default function EditBranchCard({ onCreated }: { onCreated?: () => void }) {
-  const BASE_API = process.env.NEXT_PUBLIC_BASE_API ?? '';
+export type BranchPayload = {
+  id: number;
+  companyId?: number;
+  nameBranch?: string;
+  streetAddress?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  website?: string | null;
+  linkMap?: string | null;
+};
 
-  const [countries, setCountries] = useState<Country[]>([]);
+export default function EditBranchCard({
+  branchId,
+  onUpdated,
+  onCancel,
+}: {
+  branchId?: number | null;
+  onUpdated?: () => void;
+  onCancel?: () => void;
+}) {
+  const BASE_API = process.env.NEXT_PUBLIC_BASE_API ?? "";
+
+  const [countries, setCountries] = useState<CountryRaw[]>([]);
   const [companies, setCompanies] = useState<{ id: number; nameCompany: string }[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingBranch, setLoadingBranch] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const [countryId, setCountryId] = useState<number | ''>('');
-  const [companyId, setCompanyId] = useState<number | ''>('');
-  const [nameBranch, setNameBranch] = useState('');
-  const [streetAddress, setStreetAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [website, setWebsite] = useState('');
-  const [linkMap, setLinkMap] = useState('');
+  const [countryId, setCountryId] = useState<number | "">("");
+  const [companyId, setCompanyId] = useState<number | "">("");
+  const [nameBranch, setNameBranch] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
+  const [linkMap, setLinkMap] = useState("");
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  const inputClass = 'w-full rounded-full border-2 border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#214B62]';
-  const labelClass = 'block mb-2 font-medium';
+  const inputClass =
+    "w-full rounded-full border-2 border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#214B62]";
+  const labelClass = "block mb-2 font-medium";
 
+  // load countries (and companies nested)
   useEffect(() => {
     let mounted = true;
     (async () => {
@@ -41,47 +63,98 @@ export default function EditBranchCard({ onCreated }: { onCreated?: () => void }
         const res = await axios.get(`${BASE_API}/country`);
         const payload = res.data?.data ?? res.data;
         if (!mounted) return;
-        // normalize minimal shape
         const arr = Array.isArray(payload) ? payload : [];
         const normalized = arr.map((c: any) => ({
           id: Number(c.id ?? c.idCountry ?? 0),
-          nameCountry: String(c.nameCountry ?? c.name_country ?? ''),
+          nameCountry: String(c.nameCountry ?? c.name_country ?? ""),
           companies: Array.isArray(c.companies)
-            ? c.companies.map((co: any) => ({ id: Number(co.id ?? co.idCompany ?? co.id), nameCompany: co.nameCompany ?? co.name_company ?? co.name }))
+            ? c.companies.map((co: any) => ({
+                id: Number(co.id ?? co.idCompany ?? co.id),
+                nameCompany: co.nameCompany ?? co.name_company ?? co.name,
+              }))
             : [],
         }));
         setCountries(normalized);
       } catch (err: any) {
-        console.error('Failed to load countries', err);
-        setErrorMsg(err?.response?.data?.message ?? err?.message ?? 'Failed to load countries');
+        console.error("Failed to load countries", err);
+        setErrorMsg(err?.response?.data?.message ?? err?.message ?? "Failed to load countries");
       } finally {
         if (mounted) setLoading(false);
       }
     })();
 
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, [BASE_API]);
 
-  // update companies list when country changes
+  // load branch detail if branchId provided
+  useEffect(() => {
+    if (!branchId) return;
+
+    let mounted = true;
+    (async () => {
+      setLoadingBranch(true);
+      try {
+        // asumsi endpoint detail branch: GET /branch/:id
+        const res = await axios.get(`${BASE_API}/branch/${branchId}`);
+        const data: BranchPayload = res.data?.data ?? res.data;
+        if (!mounted || !data) return;
+
+        // populate fields (safely)
+        setNameBranch(data.nameBranch ?? "");
+        setStreetAddress(data.streetAddress ?? "");
+        setPhone(data.phone ?? "");
+        setEmail(data.email ?? "");
+        setWebsite(data.website ?? "");
+        setLinkMap(data.linkMap ?? "");
+        if (data.companyId) {
+          setCompanyId(data.companyId);
+          // try find country that contains this company
+          const foundCountry = (countries || []).find((c) => c.companies?.some((co) => co.id === data.companyId));
+          if (foundCountry) {
+            setCountryId(foundCountry.id);
+            setCompanies(foundCountry.companies ?? []);
+          } else {
+            // if countries not loaded yet, we'll set companies when countries arrive via the effect below
+            setCountryId("");
+          }
+        } else {
+          setCompanyId("");
+          setCountryId("");
+        }
+      } catch (err: any) {
+        console.error("Failed to load branch detail", err);
+        setErrorMsg(err?.response?.data?.message ?? err?.message ?? "Failed to load branch detail");
+      } finally {
+        if (mounted) setLoadingBranch(false);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [BASE_API, branchId]);
+
+  // when countries loaded or countryId changes, update companies list
   useEffect(() => {
     if (!countryId) {
       setCompanies([]);
-      setCompanyId('');
+      // keep companyId as is (for edit, we might want to keep it)
       return;
     }
     const found = countries.find((c) => c.id === countryId);
     const comps = found?.companies ?? [];
     setCompanies(comps);
     // if current companyId not in new list -> reset
-    if (companyId && !comps.some((c) => c.id === companyId)) setCompanyId('');
-  }, [countryId, countries]);
+    if (companyId && !comps.some((c) => c.id === companyId)) setCompanyId("");
+  }, [countryId, countries, companyId]);
 
   function validate() {
-    if (!countryId) return 'Pilih country terlebih dahulu';
-    if (!companyId) return 'Pilih company terlebih dahulu';
-    if (!nameBranch.trim()) return 'Nama branch wajib diisi';
-    // optional: basic email validation
-    if (email && !/^\S+@\S+\.\S+$/.test(email)) return 'Email tidak valid';
+    if (!companyId) return "Pilih company terlebih dahulu";
+    if (!nameBranch.trim()) return "Nama branch wajib diisi";
+    if (email && !/^\S+@\S+\.\S+$/.test(email)) return "Email tidak valid";
     return null;
   }
 
@@ -93,6 +166,11 @@ export default function EditBranchCard({ onCreated }: { onCreated?: () => void }
     const v = validate();
     if (v) {
       setErrorMsg(v);
+      return;
+    }
+
+    if (!branchId) {
+      setErrorMsg("branchId tidak disediakan");
       return;
     }
 
@@ -108,26 +186,20 @@ export default function EditBranchCard({ onCreated }: { onCreated?: () => void }
         linkMap: linkMap.trim() || null,
       };
 
-      const res = await axios.patch(`${BASE_API}/branch`, payload, {
-        headers: { 'Content-Type': 'application/json' },
+      // Asumsi update endpoint: PATCH /branch/:id
+      const res = await axios.patch(`${BASE_API}/branch/${branchId}`, payload, {
+        headers: { "Content-Type": "application/json" },
       });
 
-      setSuccessMsg('Branch created successfully');
-      setNameBranch('');
-      setStreetAddress('');
-      setPhone('');
-      setEmail('');
-      setWebsite('');
-      setLinkMap('');
-      setCountryId('');
-      setCompanyId('');
-      onCreated?.();
+      setSuccessMsg("Branch updated successfully");
+      onUpdated?.();
+      // optionally keep data or reset depending on UX
     } catch (err: any) {
-      console.error('Create branch failed', err);
+      console.error("Update branch failed", err);
       const srv = err?.response?.data;
-      let message = 'Failed to create branch';
+      let message = "Failed to update branch";
       if (srv) {
-        if (typeof srv === 'string') message = srv;
+        if (typeof srv === "string") message = srv;
         else if (srv.message) message = srv.message;
         else if (srv.errors) message = JSON.stringify(srv.errors);
         else message = JSON.stringify(srv);
@@ -139,10 +211,15 @@ export default function EditBranchCard({ onCreated }: { onCreated?: () => void }
     }
   }
 
+  if (!branchId) {
+    return <div className="p-4 text-sm text-gray-600">branchId not provided</div>;
+  }
+
   return (
     <div className="max-w-[720px] mx-auto bg-white p-6 rounded-lg shadow">
-      <h3 className="text-xl font-semibold mb-4">Create Branch</h3>
+      <h3 className="text-xl font-semibold mb-4">Edit Branch</h3>
 
+      {(loading || loadingBranch) && <div className="mb-4 text-sm text-gray-500">Loading...</div>}
       {errorMsg && <div className="mb-4 text-sm text-red-600">{errorMsg}</div>}
       {successMsg && <div className="mb-4 text-sm text-green-600">{successMsg}</div>}
 
@@ -151,15 +228,11 @@ export default function EditBranchCard({ onCreated }: { onCreated?: () => void }
           <label className={labelClass}>Country</label>
           <select
             value={countryId}
-            onChange={(e) => setCountryId(e.target.value ? Number(e.target.value) : '')}
+            onChange={(e) => setCountryId(e.target.value ? Number(e.target.value) : "")}
             className={inputClass}
           >
             <option value="">-- pilih country --</option>
-            {loading ? (
-              <option disabled>Loading...</option>
-            ) : (
-              countries.map((c) => <option key={c.id} value={c.id}>{c.nameCountry}</option>)
-            )}
+            {loading ? <option disabled>Loading...</option> : countries.map((c) => <option key={c.id} value={c.id}>{c.nameCountry}</option>)}
           </select>
         </div>
 
@@ -167,11 +240,11 @@ export default function EditBranchCard({ onCreated }: { onCreated?: () => void }
           <label className={labelClass}>Company</label>
           <select
             value={companyId}
-            onChange={(e) => setCompanyId(e.target.value ? Number(e.target.value) : '')}
+            onChange={(e) => setCompanyId(e.target.value ? Number(e.target.value) : "")}
             className={inputClass}
             disabled={!companies.length}
           >
-            <option value="">{companies.length ? '-- pilih company --' : 'Pilih country dulu'}</option>
+            <option value="">{companies.length ? "-- pilih company --" : "Pilih country dulu"}</option>
             {companies.map((co) => <option key={co.id} value={co.id}>{co.nameCompany}</option>)}
           </select>
         </div>
@@ -209,11 +282,11 @@ export default function EditBranchCard({ onCreated }: { onCreated?: () => void }
 
         <div className="flex gap-3">
           <button type="submit" disabled={submitting} className="rounded-lg bg-[#214B62] text-white px-6 py-3">
-            {submitting ? 'Updating...' : 'Update Branch'}
+            {submitting ? "Updating..." : "Update Branch"}
           </button>
           <button type="button" onClick={() => {
-            setCountryId(''); setCompanyId(''); setNameBranch(''); setStreetAddress(''); setPhone(''); setEmail(''); setWebsite(''); setLinkMap(''); setErrorMsg(null); setSuccessMsg(null);
-          }} className="rounded-lg border px-4 py-3">Reset</button>
+            onCancel?.();
+          }} className="rounded-lg border px-4 py-3">Cancel</button>
         </div>
       </form>
     </div>

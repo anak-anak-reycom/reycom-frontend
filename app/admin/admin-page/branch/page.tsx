@@ -1,5 +1,7 @@
 // app/admin/branches/page.tsx
 import BranchCard, { Branch } from "@/app/components/admin/branches/branchCard";
+import CreateBranchCard from "@/app/components/admin/branches/createBranch";
+import EditBranchCard from "@/app/components/admin/branches/editBranch";
 
 const BASE_API = process.env.NEXT_PUBLIC_BASE_API; 
 
@@ -21,6 +23,18 @@ export default async function BranchesPage() {
           branches.map((b) => <BranchCard key={b.id} branch={b} />)
         )}
       </div>
+
+       <div className="flex justify-start mt-8">
+              <button
+                  
+                  className="bg-linear-to-br from-green-700 to-green-500 px-4 py-2 text-white font-semibold rounded-xl"
+              >
+                + Add News
+              </button>
+      </div>
+
     </main>
+
+
   );
 }
