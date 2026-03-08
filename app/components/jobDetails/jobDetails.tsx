@@ -6,10 +6,11 @@ import Image from "next/image";
 import { Timer, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import jobImage from "@/public/jobImage.png";
-import { JobCarousel } from "../card/jobCarousel";
+import JobCard from "../card/jobCard";
 import ApplyForm from "../card/applyCard";
 import type { CareerItem } from "@/app/types/career-types";
 import type { CategoryItem } from "@/app/types/category-types";
+import JobCarousel from "../card/jobCarousel";
 
 export default function JobDetails({
   career,
@@ -102,7 +103,7 @@ export default function JobDetails({
         </div>
 
         <div>
-          <JobCarousel />
+          <JobCarousel excludeId={career.id} />
         </div>
       </div>
 
