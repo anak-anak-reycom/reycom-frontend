@@ -47,7 +47,7 @@ export default function NewsDataClientPage() {
         fetchNews();
     }, []);
 
-    // lock scroll when modal open
+    
     useEffect(() => {
         document.body.style.overflow = showCreate ? "hidden" : "auto";
         return () => {
@@ -55,7 +55,7 @@ export default function NewsDataClientPage() {
         };
     }, [showCreate]);
 
-    // close on ESC
+  
     useEffect(() => {
         function handleEsc(e: KeyboardEvent) {
             if (e.key === "Escape") setShowCreate(false);
@@ -64,7 +64,7 @@ export default function NewsDataClientPage() {
         return () => window.removeEventListener("keydown", handleEsc);
     }, []);
 
-    // client delete (calls backend DELETE /news/:id) — needs token
+    
     async function handleDelete(id: number) {
         if (!confirm("Delete this news?")) return;
         const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
@@ -100,7 +100,7 @@ export default function NewsDataClientPage() {
                     <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 lg:grid-cols-3">
                         {news.map((item) => (
                             <div key={item.id} className="overflow-hidden rounded-xl bg-white shadow-sm">
-                                {/* Next Image: external domains must be configured in next.config.js for remote images */}
+                                
                                 <Image
                                     src={item.imageNews || Card}
                                     alt={item.title}
@@ -120,7 +120,7 @@ export default function NewsDataClientPage() {
                                 <div className="grid grid-cols-2 gap-3 p-4">
                                     <button
                                         className="bg-linear-to-br from-blue-700 to-blue-500 px-1 py-2 text-white font-semibold rounded-xl"
-                                        // editing could open another modal; not implemented here
+                                       
                                         onClick={() => alert("Edit not implemented in this example")}
                                     >
                                         Edit
@@ -137,7 +137,7 @@ export default function NewsDataClientPage() {
                         ))}
                     </div>
 
-                    {/* Add News button - opens modal (inline CreateNews) */}
+                   
                     <div className="flex justify-start mt-8">
                         <button
                             onClick={() => setShowCreate(true)}
@@ -149,7 +149,7 @@ export default function NewsDataClientPage() {
                 </div>
             </section>
 
-            {/* modal using framer-motion (like JobDetails example) */}
+            
             <AnimatePresence>
                 {showCreate && (
                     <motion.div
