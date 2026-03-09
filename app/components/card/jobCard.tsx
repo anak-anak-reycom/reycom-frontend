@@ -26,7 +26,7 @@ export const JobCard = ({
   const href = `/career/career-details/${career.id}`;
 
   return (
-    <Link href={href} className="block w-full text-black">
+    <Link href={href} className="block w-full !text-black">
       <article className="w-full">
         <div className="bg-white rounded-md p-5 shadow-md hover:shadow-lg transition-shadow duration-200 h-full flex flex-col">
           <div className="flex items-start gap-4 border-b border-gray-100 pb-4">
