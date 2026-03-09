@@ -25,6 +25,14 @@ const LINE_MENU_ITEMS = [
   { label: "System Integration", href: "/line/systemIntegration/hardware" },
 ];
 
+const COMPANY_MENU_ITEMS = [
+  { label: "About Us", href: "/company" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Video", href: "/videos" },
+
+];
+
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -49,7 +57,7 @@ export default function Navbar() {
   return (
     <header
       className={`w-full fixed top-0 z-50 bg-white border-b transition-shadow duration-500 ${
-        scrolled ? "drop-shadow-lg" : "shadow-none"
+        scrolled && !mobileOpen ? "drop-shadow-lg" : "shadow-none"
       }`}
     >
       <div className="max-w-[1400px] mx-auto px-4">
@@ -73,10 +81,10 @@ export default function Navbar() {
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        {item.label} <ChevronDown size={14} />
+                        {item.label} 
                       </button>
 
-                      <div className="absolute left-0 mt-3 min-w-[220px] bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all">
+                      <div className="absolute left-0 mt-3 min-w-[220px] bg-white border rounded shadow-md opacity-100 group-hover:opacity-100 invisible group-hover:visible transition-all">
                         <ul className="p-2">
                           {LINE_MENU_ITEMS.map((sub) => (
                             <li key={sub.href}>
@@ -97,13 +105,30 @@ export default function Navbar() {
                 // TheCompany text label tweak
                 if (item.label === "TheCompany") {
                   return (
-                    <li key={item.label}>
-                      <Link
-                        href={item.href}
-                        className="text-black font-medium hover:text-gray-600 transition"
+                     <li key={item.label} className="relative group">
+                      <button
+                        className="flex items-center gap-2 text-black font-medium hover:text-gray-600 transition"
+                        type="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
                       >
-                        The Company
-                      </Link>
+                        The Company 
+                      </button>
+
+                      <div className="absolute left-0 mt-3 min-w-[220px] bg-white border rounded shadow-md opacity-100 group-hover:opacity-100 invisible group-hover:visible transition-all">
+                        <ul className="p-2">
+                          {COMPANY_MENU_ITEMS.map((sub) => (
+                            <li key={sub.href}>
+                              <Link
+                                href={sub.href}
+                                className="block px-3 py-2 text-sm hover:bg-gray-50 rounded"
+                              >
+                                {sub.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </li>
                   );
                 }
@@ -146,7 +171,7 @@ export default function Navbar() {
         {/* overlay */}
         <div
           className={`absolute inset-0 bg-black/40 transition-opacity ${
-            mobileOpen ? "opacity-100" : "opacity-100 pointer-events-none"
+            mobileOpen ? "opacity-110" : "opacity-0 pointer-events-none"
           }`}
           onClick={() => setMobileOpen(false)}
           aria-hidden="true"

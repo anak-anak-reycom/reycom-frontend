@@ -81,7 +81,7 @@ export default function NewsCarousel({ news }: { news: NewsItem[] }) {
 
   return (
     <section className="w-full py-4" tabIndex={0} onKeyDown={onKey}>
-      <div className="max-w-[1000px] mx-auto px-4">
+      <div className="max-w-[1400px] mx-auto px-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">News</h2>
         </div>

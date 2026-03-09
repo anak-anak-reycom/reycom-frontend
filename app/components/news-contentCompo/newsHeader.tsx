@@ -29,12 +29,7 @@ export default function NewsHeader({ news }: { news: NewsItem }) {
 
                         <h1 className="text-3xl font-semibold mb-4">{news.title}</h1>
 
-                        <p className="text-sm text-gray-700 leading-relaxed">
-
-                            {typeof news.content === "string"
-                                ? news.content.slice(0, 280) + (news.content.length > 280 ? "…" : "")
-                                : ""}
-                        </p>
+                        
                     </div>
                 </div>
             </div>
