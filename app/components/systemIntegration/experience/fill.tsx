@@ -26,7 +26,7 @@ export default function FillExperience () {
         </div>
 
         <div className='mt-8'>
-            <h1 className='text-start font-bold text-4xl'>Omnichannel Dashboard</h1>
+            <h1 className='text-start font-bold text-4xl '>Omnichannel Dashboard</h1>
                 <p className='mt-8 text-[16px] '>
                     In a business organization, Document Workflow System can ensure every task is performed by the right people on time.
                 It used to generate, track, edit, and approve documents associated with business processes. It can be done anywhere at any device..

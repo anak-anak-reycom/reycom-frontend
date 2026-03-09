@@ -50,7 +50,7 @@ export default function RootLayout({
         `}
         >   
          <ClientNavbar/>
-         <main className="flex z-0 px-2  pt-20 bg-zinc-50 font-sans justify-center dark:bg-white">
+       <main className="flex z-0 px-2 pt-20 bg-white font-sans justify-center dark:bg-white">
         {children}
          </main>
          <Footer />

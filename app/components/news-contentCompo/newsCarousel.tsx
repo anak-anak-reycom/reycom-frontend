@@ -52,7 +52,7 @@ export default function NewsCarousel({ news }: { news: NewsItem[] }) {
       );
     }
     return (
-      <div className="flex-1 bg-white rounded-lg shadow-sm p-4 min-h-[140px] flex gap-4">
+      <div className="flex-1 bg-white rounded-lg shadow-sm p-4 min-h-[140px] flex gap-4 grid ">
         <div className="flex-shrink-0 w-[90px] h-[90px] rounded-md overflow-hidden bg-gray-100">
           <Image
             src={item.imageNews || fallback}
@@ -86,7 +86,7 @@ export default function NewsCarousel({ news }: { news: NewsItem[] }) {
           <h2 className="text-xl font-semibold">News</h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2  md:grid-cols-2 sm:grid-cols-2 gap-4">
           
           <div>{card(prevItem, "Prev")}</div>
           <div>{card(nextItem, "Next")}</div>
