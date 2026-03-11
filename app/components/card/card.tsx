@@ -35,7 +35,7 @@ export const CardDetail = () => {
               </p>
 
               <a
-                href="#"
+                href="https://lite.cirrust.com/"
                 className="text-primary font-medium text-sm hover:underline"
               >
                 Learn More
@@ -64,7 +64,7 @@ export const CardDetail = () => {
               </p>
 
               <a
-                href="#"
+                href="https://lite.cirrust.com/"
                 className="text-primary font-medium text-sm hover:underline"
               >
                 Learn More
@@ -93,7 +93,7 @@ export const CardDetail = () => {
               </p>
 
               <a
-                href="#"
+                href="https://lite.cirrust.com/"
                 className="text-primary font-medium text-sm hover:underline"
               >
                 Learn More
