@@ -48,7 +48,7 @@ export default async function AdminPage() {
   const gradient = "bg-gradient-to-r from-[#214B62] to-[#4AA3CF]";
 
   return (
-    <main className="min-h-screen bg-white py-8">
+    <main className="min-h-screen bg-white ">
       <div className="max-w-[1200px] mx-auto px-4">
       
 

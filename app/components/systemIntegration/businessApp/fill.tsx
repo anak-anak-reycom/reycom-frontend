@@ -7,29 +7,29 @@ export default function FillBusiness () {
     return (
       <div className='mx-auto max-w-[1000px] my-8 p-4'>
         <div className='mt-8'>
-            <h1 className='text-start font-bold text-4xl'>Bion Core</h1>
-                <p className='mt-8 text-[16px] '>
+            <h1 className='text-start font-bold text-4xl font-sans'>Bion Core</h1>
+                <p className='mt-8 text-[16px]  font-sans'>
                Scanner is an input device that scans documents such as photographs and pages of text. When a document is scanned, it is converted into a digital format, we provide from small until large format scanner
                 </p>
         </div>
 
         <div className='mt-8'>
-            <h1 className='text-start font-bold text-4xl'>Agent Aid</h1>
-                <p className='mt-8 text-[16px] '>
+            <h1 className='text-start font-bold text-4xl font-sans'>Agent Aid</h1>
+                <p className='mt-8 text-[16px]  font-sans'>
                   Printer is an output device that prints paper documents. This includes text documents, images, or a combination of both. We provide from common printer, card printer, until multifunction printer
                 </p>
         </div>
 
         <div className='mt-8'>
-            <h1 className='text-start font-bold text-4xl'>Auto Underwriting</h1>
-                <p className='mt-8 text-[16px] '>
+            <h1 className='text-start font-bold text-4xl font-sans'>Auto Underwriting</h1>
+                <p className='mt-8 text-[16px] font-sans '>
                    Projector is an output device that projects an image onto a large surface, such as a white screen or wall. It may be used an alternative to a monitor or television when showing video or images to a large group of people. We provide from common projector until interactive projector
                 </p>
         </div>
 
         <div className='mt-8'>
-            <h1 className='text-start font-bold text-4xl'>LOS</h1>
-                <p className='mt-8 text-[16px] '>
+            <h1 className='text-start font-bold text-4xl font-sans'>LOS</h1>
+                <p className='mt-8 text-[16px] font-sans '>
                     Loan Origination System (LOS) is an application designed to support the processing of credit applications required by banking and multifinance to Improve Customer Engagement, Risk Analysis, Profitability throughout the Credit Life Cycle. Our All-In-One Solution which includes key features that is:
                     
                 </p>
@@ -41,24 +41,24 @@ export default function FillBusiness () {
         </div>
 
         <div className='mt-8'>
-            <h1 className='text-start font-bold text-4xl'>SLIK Automation</h1>
-                <p className='mt-8 text-[16px] '>
+            <h1 className='text-start font-bold text-4xl font-sans'>SLIK Automation</h1>
+                <p className='mt-8 text-[16px]  font-sans'>
                     SLIK Automation is software technology to automate OJK SLIK Retrieval using Batch & Interactive method dedupe engine for retrieval matching, automate convert & aggerate SLIK IDEB retrieval to Database System and calculate policy checking for SLIK data. SLIK Automation specifically for Banking and Multi-finance sector that has access to the OJK slik portal.
                 </p>
         </div>
 
         <div className='mt-8'>
-            <h1 className='text-start font-bold text-4xl'>Our Client</h1>
-                <p className='mt-8 text-[16px] '>
+            <h1 className='text-start font-bold text-4xl font-sans'>Our Client</h1>
+                <p className='mt-8 text-[16px] font-sans '>
                     The next generation of office display solution, interactive panel allow you to run your meeting and presentation with the freedom and convenience your team needs to do their best work, you can touch and control your presentation on the screen, this is the beautiful idea with modular office design
                 </p>
         </div>
 
         <section className="mt-12">
             <div className="max-w-[1000px] mx-auto px-2">
-            <h2 className="text-4xl font-extrabold mb-8">
-                <span className="text-black">Our</span>{" "}
-                <span className="text-[#234b68]">Client</span>
+            <h2 className="text-4xl font-extrabold mb-8 font-sans">
+                <span className="text-black font-sans">Our</span>{" "}
+                <span className="text-[#234b68] font-sans">Client</span>
             </h2>
 
             {/* Client 1 */}
@@ -77,13 +77,13 @@ export default function FillBusiness () {
                 </div>
 
                 <div className="col-span-12 md:col-span-9 flex justify-center md:justify-start">
-                    <h3 className="text-xl md:text-2xl font-semibold text-center md:text-left">
+                    <h3 className="text-xl md:text-2xl font-semibold text-center md:text-left font-sans">
                     Quadrant Synergy International
                     </h3>
                 </div>
 
                 <div className="col-span-12 pt-4">
-                    <p className="text-[15px] text-gray-700 leading-relaxed">
+                    <p className="text-[15px] text-gray-700 leading-relaxed font-sans">
                     PT Quadrant Synergy International is a specialized IT solutions
                     provider and member of the RDS Group that delivers innovative
                     software development, data center automation, and digital
@@ -114,13 +114,13 @@ export default function FillBusiness () {
                 </div>
 
                 <div className="col-span-12 md:col-span-9 flex justify-center md:justify-start">
-                    <h3 className="text-xl md:text-2xl font-semibold text-center md:text-left">
+                    <h3 className="text-xl md:text-2xl font-semibold text-center md:text-left font-sans">
                     Evotek: FUSE ALL–IN–ONE
                     </h3>
                 </div>
 
                 <div className="col-span-12 pt-4">
-                    <p className="text-[15px] text-gray-700 leading-relaxed">
+                    <p className="text-[15px] text-gray-700 leading-relaxed font-sans">
                     PT Evotek is an IT solution provider specializing in business
                     process automation and software development, particularly for
                     the financial sector. Through its flagship FUSE platform and

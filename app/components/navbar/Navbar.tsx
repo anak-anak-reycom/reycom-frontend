@@ -76,7 +76,7 @@ export default function Navbar() {
                   return (
                     <li key={item.label} className="relative group">
                       <button
-                        className="flex items-center gap-2 text-black font-medium hover:text-gray-600 transition"
+                        className="flex items-center gap-2 text-black font-medium hover:text-gray-600 transition font-sans"
                         type="button"
                         aria-haspopup="true"
                         aria-expanded="false"
@@ -85,7 +85,7 @@ export default function Navbar() {
                       </button>
 
                       <div className="absolute left-0 mt-3 min-w-[220px] bg-white border rounded shadow-md opacity-100 group-hover:opacity-100 invisible group-hover:visible transition-all">
-                        <ul className="p-2">
+                        <ul className="p-2 font-sans">
                           {LINE_MENU_ITEMS.map((sub) => (
                             <li key={sub.href}>
                               <Link
@@ -107,7 +107,7 @@ export default function Navbar() {
                   return (
                      <li key={item.label} className="relative group">
                       <button
-                        className="flex items-center gap-2 text-black font-medium hover:text-gray-600 transition"
+                        className="flex items-center gap-2 text-black font-medium hover:text-gray-600 transition font-sans"
                         type="button"
                         aria-haspopup="true"
                         aria-expanded="false"
@@ -116,12 +116,12 @@ export default function Navbar() {
                       </button>
 
                       <div className="absolute left-0 mt-3 min-w-[220px] bg-white border rounded shadow-md opacity-100 group-hover:opacity-100 invisible group-hover:visible transition-all">
-                        <ul className="p-2">
+                        <ul className="p-2 font-sans">
                           {COMPANY_MENU_ITEMS.map((sub) => (
                             <li key={sub.href}>
                               <Link
                                 href={sub.href}
-                                className="block px-3 py-2 text-sm hover:bg-gray-50 rounded"
+                                className="block px-3 py-2 text-sm hover:bg-gray-50 rounded font-sans"
                               >
                                 {sub.label}
                               </Link>
@@ -137,7 +137,7 @@ export default function Navbar() {
                   <li key={item.label}>
                     <Link
                       href={item.href}
-                      className="text-black font-medium hover:text-gray-600 transition"
+                      className="text-black font-medium hover:text-gray-600 transition font-sans"
                     >
                       {item.label}
                     </Link>
@@ -203,7 +203,7 @@ export default function Navbar() {
                         onClick={() => setLineOpenMobile((v) => !v)}
                         className="w-full flex items-center justify-between px-3 py-3 text-left rounded-md hover:bg-gray-50"
                       >
-                        <span className="font-medium">{item.label}</span>
+                        <span className="font-medium font-sans">{item.label}</span>
                         <ChevronDown
                           size={16}
                           className={`transform transition-transform ${
@@ -218,7 +218,7 @@ export default function Navbar() {
                           lineOpenMobile ? "max-h-48" : "max-h-0"
                         }`}
                       >
-                        <ul className="space-y-1">
+                        <ul className="space-y-1 font-sans">
                           {LINE_MENU_ITEMS.map((sub) => (
                             <li key={sub.href}>
                               <Link
@@ -240,7 +240,7 @@ export default function Navbar() {
                   <li key={item.label}>
                     <Link
                       href={item.href}
-                      className="block px-3 py-3 rounded-md font-medium hover:bg-gray-50"
+                      className="block px-3 py-3 rounded-md font-medium hover:bg-gray-50 font-sans "
                       onClick={() => setMobileOpen(false)}
                     >
                       {item.label}

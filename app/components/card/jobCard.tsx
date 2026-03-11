@@ -38,23 +38,23 @@ export const JobCard = ({
             </div>
 
             <div className="flex-1">
-              <h3 className="text-lg md:text-xl font-semibold leading-snug">{career.jobName}</h3>
-              {career.category?.nameCategory && <div className="text-sm text-gray-500 mt-1">{career.category.nameCategory}</div>}
+              <h3 className="text-lg md:text-xl font-semibold leading-snug font-sans">{career.jobName}</h3>
+              {career.category?.nameCategory && <div className="text-sm text-gray-500 mt-1 font-sans ">{career.category.nameCategory}</div>}
             </div>
           </div>
 
           <div className="mt-4 flex-1">
             <div className="flex items-center gap-3 mb-3">
               <Timer size={20} />
-              <span className="font-semibold">{jobTypeNormalized}</span>
+              <span className="font-semibold font-sans">{jobTypeNormalized}</span>
             </div>
 
-            <h4 className="text-sm font-semibold mb-1">Requirement</h4>
-            <p className="text-sm text-gray-600 line-clamp-3">{career.jobDescription ?? "No description"}</p>
+            <h4 className="text-sm font-semibold mb-1 font-sans">Requirement</h4>
+            <p className="text-sm text-gray-600 line-clamp-3 font-sans">{career.jobDescription ?? "No description"}</p>
           </div>
 
           
-          <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-3 text-sm text-gray-500">
+          <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-3 text-sm text-gray-500 font-sans">
             <Calendar size={18} />
             <span>{career.jobDate ? new Date(career.jobDate).toLocaleDateString() : ""}</span>
           </div>

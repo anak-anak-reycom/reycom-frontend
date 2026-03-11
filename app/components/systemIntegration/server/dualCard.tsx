@@ -31,12 +31,12 @@ export function DualCardServer() {
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-8">
       {companies.map((company, index) => (
-        // stack on mobile, row on md+
+       
         <div
           key={index}
           className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center"
         >
-          {/* Logo: fixed size so it tidak mendorong teks jadi sempit */}
+         
           <div className="flex-shrink-0 pt-2">
             <div className="w-36 h-36 rounded-lg overflow-hidden bg-white/0 mx-auto md:mx-0">
               <Image
@@ -49,7 +49,7 @@ export function DualCardServer() {
             </div>
           </div>
 
-          {/* Text area */}
+          
           <div className="flex-1 min-w-0">
             <h2 className="text-lg font-bold text-gray-900 mb-2">{company.title}</h2>
             <p className="text-sm text-gray-700 leading-relaxed break-words">

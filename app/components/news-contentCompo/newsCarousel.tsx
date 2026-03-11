@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export type NewsItem = {
   id: number | string;
@@ -16,7 +17,6 @@ export default function NewsCarousel({ news }: { news: NewsItem[] }) {
 
   const length = news?.length ?? 0;
 
-  
   const at = (i: number) => {
     if (!length) return null;
     const mod = ((i % length) + length) % length;
@@ -42,8 +42,8 @@ export default function NewsCarousel({ news }: { news: NewsItem[] }) {
     return t.length > max ? t.slice(0, max).trim() + "…" : t;
   };
 
-  const card = (item: NewsItem | null, label: "Prev" | "Next" = "Prev") => {
-    const fallback = "/card.png"; 
+  const card = (item: NewsItem | null, label: "Prev" | "Next" = "Prev", onClick: () => void) => {
+    const fallback = "/card.png";
     if (!item) {
       return (
         <div className="flex-1 p-4 bg-gray-50 rounded-lg shadow-sm min-h-[120px] flex items-center justify-center">
@@ -52,7 +52,11 @@ export default function NewsCarousel({ news }: { news: NewsItem[] }) {
       );
     }
     return (
-      <div className="flex-1 bg-white rounded-lg shadow-sm p-4 min-h-[140px] flex gap-4 grid ">
+      <Link
+        href={`/news-content/${item.id}`}
+        onClick={onClick}
+        className="flex bg-white rounded-lg shadow-sm p-4 min-h-[140px] flex gap-4 grid hover:shadow-md transition-shadow duration-200 cursor-pointer"
+      >
         <div className="flex-shrink-0 w-[90px] h-[90px] rounded-md overflow-hidden bg-gray-100">
           <Image
             src={item.imageNews || fallback}
@@ -69,11 +73,10 @@ export default function NewsCarousel({ news }: { news: NewsItem[] }) {
           <p className="text-sm text-gray-600 line-clamp-2">{excerpt(item.content, 120)}</p>
           <div className="mt-3 text-xs text-gray-400">{formatDate(item.createdAt)}</div>
         </div>
-      </div>
+      </Link>
     );
   };
 
-  // small keyboard handlers
   const onKey = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") goPrev();
     if (e.key === "ArrowRight") goNext();
@@ -86,13 +89,10 @@ export default function NewsCarousel({ news }: { news: NewsItem[] }) {
           <h2 className="text-xl font-semibold">News</h2>
         </div>
 
-        <div className="grid grid-cols-2  md:grid-cols-2 sm:grid-cols-2 gap-4">
-          
-          <div>{card(prevItem, "Prev")}</div>
-          <div>{card(nextItem, "Next")}</div>
-
+        <div className="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-4">
+          <div>{card(prevItem, "Next", goPrev)}</div>
+          <div>{card(nextItem, "Prev", goNext)}</div>
         </div>
-
       </div>
     </section>
   );

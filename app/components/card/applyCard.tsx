@@ -119,7 +119,7 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
       setErrors({});
       onSubmitted?.();
     } catch (err: any) {
-      console.error("Create applier failed:", err);
+      
       const msg = err?.response?.data?.message ?? err?.message ?? "Failed to submit application.";
       setErrorMsg(String(msg));
     } finally {

@@ -40,11 +40,11 @@ export default function BranchCard({ branch }: { branch: Branch }) {
       const headers: any = {};
       if (token) headers["Authorization"] = `Bearer ${token}`;
 
-      // endpoint assumed: DELETE /branch/:id
+      
       const res = await axios.delete(`${BASE_API}/branch/${branch.id}`, { headers });
-      // check success loosely
+      
       if (res.status >= 200 && res.status < 300) {
-        // refresh parent page so server-side list re-fetches (if using app router server fetch)
+        
         router.refresh();
       } else {
         throw new Error(`Delete failed (status ${res.status})`);
@@ -58,7 +58,7 @@ export default function BranchCard({ branch }: { branch: Branch }) {
   }
 
   function onUpdated() {
-    // close modal and refresh list
+    
     setIsEditing(false);
     router.refresh();
   }
