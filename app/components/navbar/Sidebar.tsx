@@ -87,7 +87,7 @@
       >
         <div className="px-1 py-6 h-full flex flex-col">
           <div className="mb-4">
-            <div className={`text-lg font-semibold transition-all overflow-hidden ${collapsed ? "opacity-0 h-0" : "opacity-100"}`}>
+            <div className={`font-sans text-lg font-semibold transition-all overflow-hidden ${collapsed ? "opacity-0 h-0" : "opacity-100"}`}>
               System Integrate
             </div>
           </div>

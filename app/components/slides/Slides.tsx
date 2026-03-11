@@ -1,11 +1,11 @@
-// app/components/slide/Slides.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { healthcareSlides } from "@/app/data/healthcare"; 
-const FADE_MS = 320; 
+import { healthcareSlides } from "@/app/data/healthcare";
+
+const FADE_MS = 320;
 
 type SlideItem = {
   id: string;
@@ -22,7 +22,6 @@ export default function HealthcareSlides() {
   const [nextIndex, setNextIndex] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") goNext();
@@ -35,8 +34,6 @@ export default function HealthcareSlides() {
   const go = (target: number) => {
     if (isTransitioning || target === current) return;
     setNextIndex(target);
-
-  
     requestAnimationFrame(() => {
       setIsTransitioning(true);
       setTimeout(() => {
@@ -53,23 +50,44 @@ export default function HealthcareSlides() {
   const curr = items[current];
   const next = nextIndex != null ? items[nextIndex] : null;
 
+  const arrowClass =
+    "w-10 h-10 rounded-full border bg-white/80 hover:bg-white flex items-center justify-center shadow z-20";
+
   return (
     <section className="w-full -mt-6 md:-mt-">
-      <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-start">
+      
+      <div className="max-w-[1400px] mx-auto px-6 relative">
 
         
+        <button
+          onClick={goPrev}
+          aria-label="previous"
+          className={`hidden lg:flex absolute left-0 top-[190px] -translate-y-1/2 ${arrowClass}`}
+        >
+          <ChevronLeft />
+        </button>
+        <button
+          onClick={goNext}
+          aria-label="next"
+          className={`hidden lg:flex absolute right-0 top-[190px] -translate-y-1/2 ${arrowClass}`}
+        >
+          <ChevronRight />
+        </button>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-start">
+
+       
           <div className="relative">
+           
             <button
               onClick={goPrev}
               aria-label="previous"
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border bg-white/80 hover:bg-white flex items-center justify-center shadow"
+              className={`lg:hidden absolute left-0 top-1/2 -translate-y-1/2 ${arrowClass}`}
             >
               <ChevronLeft />
             </button>
 
             <div className="relative rounded-2xl overflow-hidden h-[380px] md:h-[480px] lg:h-[425px]">
-              
               <div
                 className={`absolute inset-0 transition-opacity duration-300 ${
                   isTransitioning ? "opacity-0" : "opacity-100"
@@ -86,7 +104,6 @@ export default function HealthcareSlides() {
                 />
               </div>
 
-            
               {next && (
                 <div
                   className={`absolute inset-0 transition-opacity duration-300 ${
@@ -109,23 +126,22 @@ export default function HealthcareSlides() {
             <button
               onClick={goNext}
               aria-label="next"
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border bg-white/80 hover:bg-white flex items-center justify-center shadow"
+              className={`lg:hidden absolute right-0 top-1/2 -translate-y-1/2 ${arrowClass}`}
             >
               <ChevronRight />
             </button>
           </div>
 
-        
+       
           <div className="relative min-h-[140px]">
-          
             <div
               className={`transition-opacity duration-300 ${
                 isTransitioning ? "opacity-0" : "opacity-100"
               }`}
               key={curr.id + "-text"}
             >
-              <h2 className="text-2xl font-semibold mb-4">{curr.title}</h2>
-              <p className="text-sm text-gray-700 leading-relaxed">{curr.body}</p>
+              <h2 className="text-2xl font-semibold mb-4  font-sans">{curr.title}</h2>
+              <p className="text-sm text-gray-700 leading-relaxed font-sans">{curr.body}</p>
               {curr.link && (
                 <p className="mt-4">
                   <a href={curr.link} target="_blank" rel="noreferrer" className="text-blue-600 underline">
@@ -135,7 +151,6 @@ export default function HealthcareSlides() {
               )}
             </div>
 
-            
             {next && (
               <div
                 className={`absolute inset-0 transition-opacity duration-300 ${
@@ -143,8 +158,8 @@ export default function HealthcareSlides() {
                 }`}
                 key={next.id + "-text"}
               >
-                <h2 className="text-2xl font-semibold mb-4">{next.title}</h2>
-                <p className="text-sm text-gray-700 leading-relaxed">{next.body}</p>
+                <h2 className="text-2xl font-semibold mb-4 font-sans" >{next.title}</h2>
+                <p className="text-sm text-gray-700 leading-relaxed font-sans">{next.body}</p>
                 {next.link && (
                   <p className="mt-4">
                     <a href={next.link} target="_blank" rel="noreferrer" className="text-blue-600 underline">
@@ -156,8 +171,6 @@ export default function HealthcareSlides() {
             )}
           </div>
         </div>
-
-       
       </div>
     </section>
   );

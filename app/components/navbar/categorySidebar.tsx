@@ -149,7 +149,7 @@ export default function CategorySidebar({
       </div>
 
       <div>
-        <h4 className="text-lg font-medium mb-4">Category</h4>
+        <h4 className="text-lg font-medium mb-4 font-sans">Category</h4>
         <div className="space-y-3">
           {filteredCategories.length === 0 ? (
             <div className="text-sm text-gray-500">No categories</div>
@@ -159,10 +159,10 @@ export default function CategorySidebar({
               const checked = selectedCategories.has(norm);
               return (
                 <button key={cat.id} type="button" onClick={() => toggleCategory(cat.nameCategory)}
-                        className="w-full flex items-center gap-3 text-left hover:opacity-95 py-1"
+                        className="w-full flex items-center gap-3 text-left hover:opacity-95 py-1 font-sans"
                         aria-pressed={checked} aria-label={`Toggle category ${cat.nameCategory}`}>
                   <RectangleCheck checked={checked} />
-                  <span className="text-base">{cat.nameCategory}</span>
+                  <span className="text-base font-sans">{cat.nameCategory}</span>
                 </button>
               );
             })

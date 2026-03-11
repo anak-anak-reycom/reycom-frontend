@@ -23,13 +23,13 @@ export default function CardAi() {
                     </div>
                 </div>
 
-                <div className="text-center mx-auto max-w-[700px] pt-5 ">
+                <div className="text-center mx-auto max-w-[700px] pt-5 font-sans ">
                     <div className="mx-auto w-24 h-0.5 rounded mb-1 bg-gray-300" />
             
-                        <p className="text-sm text-gray-700 leading-relaxed">
+                        <p className="text-sm text-gray-700 leading-relaxed font-sans">
                         When you hear the term “artificial intelligence” or “AI,” however, it’s more likely you have visions of Skynet and the rise of our inevitable robot overlords.
                         </p>
-                        <p className="pt-5">But, the truth of artificial intelligence and particularly machine learning is far less sinister, and it’s actually not something of the far-off future. It’s here today, and it’s shaping and simplifying the way we live, work, travel and communicate. RDS is one of the AI & machine learning solution provider especially to optimize corporate doing the business as usual</p>
+                        <p className="pt-5 font-sans">But, the truth of artificial intelligence and particularly machine learning is far less sinister, and it’s actually not something of the far-off future. It’s here today, and it’s shaping and simplifying the way we live, work, travel and communicate. RDS is one of the AI & machine learning solution provider especially to optimize corporate doing the business as usual</p>
 
                 </div>
 

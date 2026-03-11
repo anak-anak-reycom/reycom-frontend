@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Card from "@/public/card.png";
-import { Timer, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import CreateNews from "@/app/components/admin/newsComponents/newsForm"; // sesuaikan path bila perlu
+import CreateNews from "@/app/components/admin/newsComponents/newsForm";
+import EditNews from "@/app/components/admin/newsComponents/editNews";
 
 type NewsItem = {
     id: number;
@@ -15,6 +15,46 @@ type NewsItem = {
     imageNewsPublicId?: string | null;
 };
 
+// reusable modal wrapper supaya tidak duplikat JSX
+function ModalWrapper({
+    title,
+    onClose,
+    children,
+}: {
+    title: string;
+    onClose: () => void;
+    children: React.ReactNode;
+}) {
+    return (
+        <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={onClose}
+        >
+            <motion.div
+                className="relative bg-white w-full max-w-4xl rounded-3xl shadow-2xl p-6 max-h-[90vh] overflow-y-auto"
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-black text-xl"
+                >
+                    ✕
+                </button>
+                <h2 className="text-2xl font-semibold mb-6 text-center">{title}</h2>
+                {children}
+            </motion.div>
+        </motion.div>
+    );
+}
+
 export default function NewsDataClientPage() {
     const BASE_API = process.env.NEXT_PUBLIC_BASE_API ?? "";
 
@@ -22,10 +62,13 @@ export default function NewsDataClientPage() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    // modal
+    // modal create
     const [showCreate, setShowCreate] = useState(false);
 
-    // fetch news
+    // modal edit
+    const [showEdit, setShowEdit] = useState(false);
+    const [editNewsId, setEditNewsId] = useState<number | null>(null);
+
     async function fetchNews() {
         setLoading(true);
         setError(null);
@@ -33,10 +76,8 @@ export default function NewsDataClientPage() {
             const res = await fetch(`${BASE_API}/news`);
             if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
             const json = await res.json();
-            // expected shape: { success, message, data: [...] }
             setNews(json.data ?? json);
         } catch (err: any) {
-            console.error("fetchNews error:", err);
             setError(err?.message ?? "Failed to fetch news");
         } finally {
             setLoading(false);
@@ -47,24 +88,29 @@ export default function NewsDataClientPage() {
         fetchNews();
     }, []);
 
-    
+    // lock scroll saat salah satu modal terbuka
     useEffect(() => {
-        document.body.style.overflow = showCreate ? "hidden" : "auto";
-        return () => {
-            document.body.style.overflow = "auto";
-        };
-    }, [showCreate]);
+        document.body.style.overflow = (showCreate || showEdit) ? "hidden" : "auto";
+        return () => { document.body.style.overflow = "auto"; };
+    }, [showCreate, showEdit]);
 
-  
+    // Escape key tutup semua modal
     useEffect(() => {
         function handleEsc(e: KeyboardEvent) {
-            if (e.key === "Escape") setShowCreate(false);
+            if (e.key === "Escape") {
+                setShowCreate(false);
+                setShowEdit(false);
+            }
         }
         window.addEventListener("keydown", handleEsc);
         return () => window.removeEventListener("keydown", handleEsc);
     }, []);
 
-    
+    function openEdit(id: number) {
+        setEditNewsId(id);
+        setShowEdit(true);
+    }
+
     async function handleDelete(id: number) {
         if (!confirm("Delete this news?")) return;
         const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
@@ -77,14 +123,16 @@ export default function NewsDataClientPage() {
                 const txt = await res.text();
                 throw new Error(txt || res.statusText || "Delete failed");
             }
-            // refetch
             await fetchNews();
         } catch (err: any) {
-            console.error("Delete failed:", err);
             alert(err?.message ?? "Delete failed");
         }
     }
 
+    const adminToken =
+        typeof window !== "undefined"
+            ? localStorage.getItem("token") ?? undefined
+            : undefined;
 
     return (
         <>
@@ -100,7 +148,6 @@ export default function NewsDataClientPage() {
                     <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 lg:grid-cols-3">
                         {news.map((item) => (
                             <div key={item.id} className="overflow-hidden rounded-xl bg-white shadow-sm">
-                                
                                 <Image
                                     src={item.imageNews || Card}
                                     alt={item.title}
@@ -108,24 +155,19 @@ export default function NewsDataClientPage() {
                                     height={250}
                                     className="w-full object-cover"
                                 />
-
                                 <div className="p-5">
                                     <h3 className="mb-2 text-lg font-semibold">{item.title}</h3>
-
                                     <p className="mb-4 text-sm text-secondary line-clamp-3">
                                         {item.content}
                                     </p>
                                 </div>
-
                                 <div className="grid grid-cols-2 gap-3 p-4">
                                     <button
                                         className="bg-linear-to-br from-blue-700 to-blue-500 px-1 py-2 text-white font-semibold rounded-xl"
-                                       
-                                        onClick={() => alert("Edit not implemented in this example")}
+                                        onClick={() => openEdit(item.id)}
                                     >
                                         Edit
                                     </button>
-
                                     <button
                                         className="bg-linear-to-br from-red-700 to-red-500 px-1 py-2 text-white font-semibold rounded-xl"
                                         onClick={() => handleDelete(item.id)}
@@ -137,7 +179,6 @@ export default function NewsDataClientPage() {
                         ))}
                     </div>
 
-                   
                     <div className="flex justify-start mt-8">
                         <button
                             onClick={() => setShowCreate(true)}
@@ -149,45 +190,30 @@ export default function NewsDataClientPage() {
                 </div>
             </section>
 
-            
             <AnimatePresence>
                 {showCreate && (
-                    <motion.div
-                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        onClick={() => setShowCreate(false)}
-                    >
-                        <motion.div
-                            className="relative bg-white w-full max-w-4xl rounded-3xl shadow-2xl p-6 max-h-[90vh] overflow-y-auto"
-                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                            animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <button
-                                onClick={() => setShowCreate(false)}
-                                className="absolute top-4 right-4 text-gray-400 hover:text-black text-xl"
-                            >
-                                ✕
-                            </button>
+                    <ModalWrapper title="Create News" onClose={() => setShowCreate(false)}>
+                        <CreateNews
+                            adminTokenProp={adminToken}
+                            onSuccess={async () => {
+                                setShowCreate(false);
+                                await fetchNews();
+                            }}
+                        />
+                    </ModalWrapper>
+                )}
 
-                            <h2 className="text-2xl font-semibold mb-6 text-center">Create News</h2>
-
-                            {/* CreateNews component will POST to backend and handle upload.
-                  We pass admin token (from localStorage) and onSuccess to close modal + refetch */}
-                            <CreateNews
-                                adminTokenProp={typeof window !== "undefined" ? localStorage.getItem("token") ?? undefined : undefined}
-                                onSuccess={async () => {
-                                    setShowCreate(false);
-                                    await fetchNews(); // refresh list after create
-                                }}
-                            />
-                        </motion.div>
-                    </motion.div>
+                {showEdit && editNewsId !== null && (
+                    <ModalWrapper title="Edit News" onClose={() => setShowEdit(false)}>
+                        <EditNews
+                            newsId={editNewsId}
+                            adminTokenProp={adminToken}
+                            onSuccess={async () => {
+                                setShowEdit(false);
+                                await fetchNews();
+                            }}
+                        />
+                    </ModalWrapper>
                 )}
             </AnimatePresence>
         </>

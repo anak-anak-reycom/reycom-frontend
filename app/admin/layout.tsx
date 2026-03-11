@@ -27,28 +27,34 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         return null; //
     }
 
-    return (
-        <Layout className="min-h-screen">
-            <Layout>
-                <AdminSidebar />
 
-                <Layout className="w-full">
-                    <div className="w-full flex justify-center bg-white">
-                        <div className="w-full lg:max-w-[1400px] px-3 sm:px-6 md:px-8">
-                            <Layout.Content
-                                style={{
-                                    minHeight: 360,
-                                    padding: 24,
-                                    background: "var(--ant-layout-content-background, #fff)",
-                                    borderRadius: 8,
-                                }}
-                            >
-                                {children}
-                            </Layout.Content>
-                        </div>
-                    </div>
-                </Layout>
-            </Layout>
-        </Layout>
-    );
+return (
+  <Layout 
+    className="min-h-screen" 
+    style={{ 
+      marginTop: "-80px",  
+      background: "white" 
+    }}
+  >
+    <Layout>
+      <AdminSidebar />
+      <Layout className="w-full" style={{ background: "white" }}>
+        <div className="w-full flex justify-center" style={{ background: "white" }}>
+          <div className="w-full lg:max-w-[1400px] px-3 sm:px-6 md:px-8">
+            <Layout.Content
+              style={{
+                minHeight: 360,
+                padding: 24,
+                background: "white",  
+                borderRadius: 8,
+              }}
+            >
+              {children}
+            </Layout.Content>
+          </div>
+        </div>
+      </Layout>
+    </Layout>
+  </Layout>
+);
 }

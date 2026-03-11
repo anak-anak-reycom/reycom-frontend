@@ -51,8 +51,8 @@ export function ClientAi() {
 
          
           <div className="flex-1 min-w-0">
-            <h2 className="text-lg font-bold text-gray-900 mb-2">{company.title}</h2>
-            <p className="text-sm text-gray-700 leading-relaxed break-words">
+            <h2 className="text-lg font-bold text-gray-900 mb-2 font-sans">{company.title}</h2>
+            <p className="text-sm text-gray-700 leading-relaxed break-words font-sans">
               {company.description || "—"}
             </p>
           </div>

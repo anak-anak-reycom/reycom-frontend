@@ -50,9 +50,9 @@ export default function JobDetails({
               <Image src={jobImage} alt={career.jobName ?? "job"} width={110} height={110} className="object-cover rounded" />
             </div>
 
-            <div className="flex-1 text-center md:text-left">
-              <h3 className="text-xl md:text-2xl font-semibold">{career.jobName}</h3>
-              {career.category?.nameCategory && <div className="text-sm text-gray-500 mt-1">{career.category.nameCategory}</div>}
+            <div className="flex-1 text-center md:text-left font-sans">
+              <h3 className="text-xl md:text-2xl font-semibold font-sans">{career.jobName}</h3>
+              {career.category?.nameCategory && <div className="text-sm text-gray-500 mt-1 font-sans">{career.category.nameCategory}</div>}
             </div>
           </div>
 
@@ -60,19 +60,19 @@ export default function JobDetails({
             <div className="grid grid-cols-2 gap-4 max-w-[420px] mx-auto md:mx-0">
               <div className="flex items-center justify-center gap-3 px-5 py-2 border-2 rounded-full border-[#214B62]">
                 <Timer size={18} />
-                <span className="text-sm font-medium">{jobTypeNormalized}</span>
+                <span className="text-sm font-medium font-sans">{jobTypeNormalized}</span>
               </div>
               <div className="flex items-center justify-center gap-3 px-5 py-2 border-2 rounded-full border-[#214B62]">
                 <Calendar size={18} />
-                <span className="text-sm font-medium">Date Release</span>
+                <span className="text-sm font-medium font-sans">Date Release</span>
               </div>
             </div>
           </div>
 
           <div className="mt-5 grid grid-cols-1 md:grid-cols-1 gap-5">
             <div>
-              <h4 className="text-2xl font-semibold mb-4">Responsibilities</h4>
-              <ul className="list-disc list-inside space-y-2 text-sm">
+              <h4 className="text-2xl font-semibold mb-4 font-sans">Responsibilities</h4>
+              <ul className="list-disc list-inside space-y-2 text-sm font-sans">
                 {(career.jobResponbilities || "")
                   .split(",")
                   .map((x) => x.trim())
@@ -83,8 +83,8 @@ export default function JobDetails({
             </div>
 
             <div>
-              <h4 className="text-2xl font-semibold mb-4">Job Requirements</h4>
-              <ul className="list-disc list-inside space-y-2 text-sm">
+              <h4 className="text-2xl font-semibold mb-4 font-sans">Job Requirements</h4>
+              <ul className="list-disc list-inside space-y-2 text-sm font-sans">
                 {(career.jobRequirement || "")
                   .split(",")
                   .map((x) => x.trim())
@@ -111,8 +111,8 @@ export default function JobDetails({
         {showApply && (
           <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} onClick={() => setShowApply(false)}>
             <motion.div className="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-6 max-h-[90vh] overflow-y-auto" initial={{ scale: 0.8, opacity: 0, y: 40 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.8, opacity: 0, y: 40 }} transition={{ type: "spring", stiffness: 200, damping: 20 }} onClick={(e) => e.stopPropagation()}>
-              <button onClick={() => setShowApply(false)} className="absolute top-4 right-4 text-gray-400 hover:text-black text-xl">✕</button>
-              <h2 className="text-2xl font-semibold mb-6 text-center">Apply for this Position</h2>
+              <button onClick={() => setShowApply(false)} className="font-sans absolute top-4 right-4 text-gray-400 hover:text-black text-xl">✕</button>
+              <h2 className="text-2xl font-semibold mb-6 text-center font-sans">Apply for this Position</h2>
               <ApplyForm jobId={career.id} onSubmitted={() => setShowApply(false)} />
             </motion.div>
           </motion.div>

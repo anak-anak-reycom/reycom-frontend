@@ -54,7 +54,7 @@ export default function EditBranchCard({
     "w-full rounded-full border-2 border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#214B62]";
   const labelClass = "block mb-2 font-medium";
 
-  // load countries (and companies nested)
+ 
   useEffect(() => {
     let mounted = true;
     (async () => {
