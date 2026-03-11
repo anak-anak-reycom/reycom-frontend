@@ -21,12 +21,12 @@ export const DualCard = () => {
 
             <div className="grid grid-cols-2 mt-6 text-center">
               <div>
-                <h2 className="text-2xl font-bold">+150</h2>
-                <p className="text-sm text-gray-600">Website Visits</p>
+                <h2 className="text-2xl font-bold font-sans">+150</h2>
+                <p className="text-sm text-gray-600 font-sans">Website Visits</p>
               </div>
               <div>
-                <h2 className="text-2xl font-bold">+1000</h2>
-                <p className="text-sm text-gray-600">Our Client Around World</p>
+                <h2 className="text-2xl font-bold font-sans">+1000</h2>
+                <p className="text-sm text-gray-600 font-sans">Our Client Around World</p>
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@ export const DualCard = () => {
               Joint Ventures with Toppan Forms
             </h1>
 
-            <p className="text-center pt-6 text-lg leading-relaxed text-gray-700">
+            <p className="text-center pt-6 text-lg leading-relaxed text-gray-700 font-sans">
               RDS Group has now become an affiliate company of TOPPAN FORMS CO., LTD,
               a prominent hybrid digital information management company from Japan.
               This strategic alliance and investment mark the synergy between RDS and

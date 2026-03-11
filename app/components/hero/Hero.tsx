@@ -1,6 +1,7 @@
 "use client";
 
 import Masonary from "../masonarygrid/masonaryGrid";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -19,10 +20,10 @@ const Hero = () => {
           <p className="text-black text-[16px] font-sans font-medium mb-6">
             Contact us today—before your private word leaves your hands.
           </p>
-
-          <button className="border-3 text-black font-sans border-[#456882] px-6 py-2 rounded-3xl hover:bg-black hover:text-white transition">
+          <Link  href = "/contact" 
+                 className="border-3 text-black font-sans border-[#456882] px-6 py-2 rounded-3xl hover:bg-black hover:text-white transition">
             Contact Us
-          </button>
+          </Link>
         </div>
           <Masonary/>
       </div>

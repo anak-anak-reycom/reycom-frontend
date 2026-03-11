@@ -23,8 +23,8 @@ export default function Footer() {
 
                     <div className="pt-1">
                         <p className="text-sm font-medium mb-2">Our Company Contact</p>
-                        <button className="border border-white px-5 py-2 rounded-full text-sm hover:bg-white hover:text-[#234b68] transition">
-                            Visit Us
+                        <button  className="border border-white px-5 py-2 rounded-full text-sm hover:bg-white hover:text-[#234b68] transition">
+                            <Link href= "/contact">Visit Us</Link>
                         </button>
                     </div>
 
