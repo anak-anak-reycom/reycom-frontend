@@ -255,7 +255,7 @@ export default function EditBranchCard({
         </div>
 
         <div>
-          <label className={labelClass}>Street Address (optional)</label>
+          <label className={labelClass}>Street Address (Street adress must be exactly match with Google Maps)</label>
           <input value={streetAddress} onChange={(e) => setStreetAddress(e.target.value)} placeholder="Alamat jalan" className={inputClass} />
         </div>
 

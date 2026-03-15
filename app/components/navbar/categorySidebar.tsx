@@ -191,10 +191,26 @@ export default function CategorySidebar({
 
   return (
     <>
-      <Sider width={280} collapsedWidth={80} breakpoint="lg" collapsible collapsed={collapsed} trigger={null}
-             style={{ background: "white" }} className="!border-none px-4 py-6 hidden lg:block">
-        {sidebarContent}
-      </Sider>
+      
+        <Sider
+          width={280}
+          collapsedWidth={80}
+          breakpoint="lg"
+          collapsible
+          collapsed={collapsed}
+          trigger={null}
+          style={{
+            background: "white",
+            position: "sticky",
+            top: 80,                       
+            height: "calc(100vh - 80px)",  
+            alignSelf: "flex-start",     
+            overflowY: "auto",
+          }}
+          className="!border-none hidden lg:block"
+        >
+          {sidebarContent}
+        </Sider>
 
       {!collapsed && !mobileOpen && (
         <button aria-label="Open filters" className="lg:hidden fixed z-50 flex items-center gap-2 bg-white rounded-b-md px-3 py-2"

@@ -22,18 +22,18 @@ export default function Vision() {
 
         {/* ====LEFT DESCRIPTION==== */}
         <div>
-          <h2 className="text-[48px] font-semibold text-black mb-6">
+          <h2 className="text-[48px] font-semibold text-black mb-6 font-sans">
             Get To Know Us
           </h2>
-          <p className="text-gray-700 text-[16px] leading-relaxed max-w-md">
+          <p className="text-gray-700 text-[16px] leading-relaxed max-w-md font-sans">
             Welcome to the core of RDS—where our vision, our expertise,
             and our commitment to your success come together.
           </p>
         </div>
 
         {/* =====RIGHT DROPDOWN==== */}
-        <div className="space-y-6">
-          {/* Panel component repeated for clarity */}
+        <div className="space-y-6 ">
+          
           <Panel
             id="vision"
             title="Vision"

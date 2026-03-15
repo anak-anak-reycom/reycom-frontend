@@ -48,6 +48,7 @@ export default function RootLayout({
           ${geistSans.variable}
           ${geistMono.variable}
         `}
+        style={{ overflow: "unset" }}  
         >   
          <ClientNavbar/>
        <main className="flex z-0 px-2 pt-20 bg-white font-sans justify-center dark:bg-white">

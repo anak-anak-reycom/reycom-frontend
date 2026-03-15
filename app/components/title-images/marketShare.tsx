@@ -9,7 +9,7 @@ export default function CoverageMap() {
       <div className="max-w-[1400px] mx-auto px-6">
 
         
-        <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14">
+        <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 font-sans">
           Coverage Area & Market Share
         </h2>
 

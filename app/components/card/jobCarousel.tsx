@@ -7,8 +7,8 @@ import JobCard from "./jobCard";
 import type { CareerItem } from "@/app/types/career-types";
 
 type Props = {
-  excludeId?: number | null; // optional: jangan tampilkan job yang sama
-  pageSize?: number; // default 3
+  excludeId?: number | null;
+  pageSize?: number; 
 };
 
 export function chunkArray<T>(arr: T[], size: number) {
@@ -32,15 +32,15 @@ export const JobCarousel: React.FC<Props> = ({ excludeId = null, pageSize = 3 })
 
     (async () => {
       try {
-        // sesuaikan endpoint jika berbeda: /career atau /careers
+        
         const res = await axios.get(`${BASE_API}/career`);
         const payload = res.data?.data ?? res.data;
 
         if (!mounted) return;
 
-        // normalisasi array
+      
         const arr = Array.isArray(payload) ? payload : [];
-        // expect each is CareerItem shape
+       
         const careers: CareerItem[] = arr.map((c: any) => ({
           id: Number(c.id ?? c.idCareer ?? 0),
           jobName: c.jobName ?? c.title ?? "",
@@ -49,16 +49,15 @@ export const JobCarousel: React.FC<Props> = ({ excludeId = null, pageSize = 3 })
           jobRequirement: c.jobRequirement ?? c.requirement ?? "",
           jobResponbilities: c.jobResponbilities ?? c.responsibilities ?? "",
           category: c.category ?? null,
-          // spread other props just in case
+          
           ...(c as object),
         }));
 
-        // exclude current if provided
+        
         const filtered = excludeId ? careers.filter((x) => x.id !== excludeId) : careers;
 
         setItems(filtered);
       } catch (err: any) {
-        console.error("Failed to load careers for carousel", err);
         setError(err?.response?.data?.message ?? err?.message ?? "Failed to load jobs");
       } finally {
         if (mounted) setLoading(false);
@@ -70,12 +69,12 @@ export const JobCarousel: React.FC<Props> = ({ excludeId = null, pageSize = 3 })
     };
   }, [BASE_API, excludeId]);
 
-  // pages: each page contains `pageSize` items (vertical stacked)
+  
   const pages = useMemo(() => chunkArray(items, pageSize), [items, pageSize]);
   const pageCount = pages.length;
 
   useEffect(() => {
-    // clamp page index after items change
+  
     if (pageIndex >= pageCount) setPageIndex(Math.max(0, pageCount - 1));
   }, [pageCount, pageIndex]);
 
@@ -112,7 +111,7 @@ export const JobCarousel: React.FC<Props> = ({ excludeId = null, pageSize = 3 })
   return (
     <div className="w-full max-w-[700px] mx-auto">
       <div className="relative">
-        {/* viewport */}
+      
         <div className="overflow-hidden">
           <div
             className="flex transition-transform duration-400 ease-in-out"
@@ -120,11 +119,11 @@ export const JobCarousel: React.FC<Props> = ({ excludeId = null, pageSize = 3 })
           >
             {pages.map((pageItems, idx) => (
               <div key={idx} className="w-full px-2" style={{ width: `${100 / pageCount}%` }}>
-                {/* stacked vertical list (max pageSize per "slide") */}
+              
                 <div className="flex flex-col gap-4 py-2">
                   {pageItems.map((career) => (
                     <div key={career.id}>
-                      {/* JobCard expects the same career shape; we pass through */}
+                      
                       <JobCard career={career as any} />
                     </div>
                   ))}
@@ -152,7 +151,7 @@ export const JobCarousel: React.FC<Props> = ({ excludeId = null, pageSize = 3 })
               ›
             </button>
 
-            {/* dots */}
+            
             <div className="flex items-center justify-center gap-2 mt-3">
               {pages.map((_, i) => (
                 <button
