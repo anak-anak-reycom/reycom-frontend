@@ -26,26 +26,26 @@ export default function CareerClient({ careers }: { careers: (CareerItem & { cat
 
   const filtered = useMemo(() => {
     return careers.filter((c) => {
-      // search by jobName
+      
       if (search) {
         const name = String(c.jobName ?? "").toLowerCase();
         if (!name.includes(search)) return false;
       }
 
-      // category match (normalize both sides)
+     
       if (selectedCats.length) {
         const rawCat = c?.category?.nameCategory ?? c?.category?.name ?? "";
         const norm = normalizeCategoryName(rawCat);
         if (!selectedCats.includes(norm)) return false;
       }
 
-      // jobType match
+
       if (selectedJobTypes.length) {
         const jt = String(c?.category?.jobType ?? "").toLowerCase();
         const wantsPart = selectedJobTypes.includes("parttime");
         const wantsFull = selectedJobTypes.includes("fulltime");
         if (!( (wantsPart && jt.includes("part")) || (wantsFull && jt.includes("full")) || (wantsFull && wantsPart) )) {
-          // if neither condition matched, and not both selected, fail
+          
           if (!(wantsPart && wantsFull)) return false;
         }
       }

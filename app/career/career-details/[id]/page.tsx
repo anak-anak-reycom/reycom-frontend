@@ -8,9 +8,9 @@ type Props = {
 };
 
 export default async function CareerDetailsPage({ params }: Props) {
-  // UNWRAP params (await!) before using
+
   const p = await params;
-  console.log("DEBUG: career-details page params (resolved):", p);
+
 
   const idStr = p?.id ?? "";
   if (!idStr) {
@@ -30,14 +30,14 @@ export default async function CareerDetailsPage({ params }: Props) {
     return <main className="min-h-screen p-8">Invalid numeric id: {String(idStr)}</main>;
   }
 
-  // Fetch career data on the server
+
   try {
     const career = await getCareerById(id);
     if (!career) {
       return <main className="min-h-screen p-8">Career not found (id: {id})</main>;
     }
 
-    // Jika JobDetails adalah client component, pastikan JobDetails menerima prop `career`.
+
     return (
       <main className="min-h-screen">
         <JobDetails career={career} />

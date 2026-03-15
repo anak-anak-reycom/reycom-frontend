@@ -49,9 +49,7 @@ function getFlagForCountry(name?: string) {
   return defaultFlag;
 }
 
-/**
- * Component utama: fetch countries dari backend dan render accordion per country
- */
+
 export default function BranchDropdownClient() {
   const BASE = process.env.NEXT_PUBLIC_BASE_API ?? "";
   const [countries, setCountries] = useState<CountryApi[]>([]);
@@ -68,12 +66,12 @@ export default function BranchDropdownClient() {
         const res = await fetch(`${BASE}/country`, { cache: "no-store" });
         if (!res.ok) throw new Error(`Fetch countries failed: ${res.status}`);
         const json = await res.json();
-        // API returns { success, message, data: [...] }
+        
         const data: CountryApi[] = Array.isArray(json?.data) ? json.data : json?.data ?? [];
         if (!mounted) return;
         setCountries(data);
       } catch (e: any) {
-        console.error("load countries error", e);
+
         if (mounted) setErr(e?.message ?? "Failed to load countries");
       } finally {
         if (mounted) setLoading(false);
@@ -137,7 +135,7 @@ export default function BranchDropdownClient() {
   );
 }
 
-/* ---------- BranchPanel (presentational) ---------- */
+/* ---------- BranchPanel ---------- */
 function BranchPanel({
   id,
   flagSrc,

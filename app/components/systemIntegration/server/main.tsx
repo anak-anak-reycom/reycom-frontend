@@ -26,7 +26,7 @@ export default function CardServer() {
 
           
           <div className="text-center mx-auto max-w-[700px]">
-            <div className="mx-auto w-24 h-0.5 rounded mb-1 bg-gray-300" />
+            <div className="mx-auto w-24 h-0.5 rounded mb-1 bg-gray-300 " />
             <p className="text-sm text-gray-700 leading-relaxed font-sans">
               At RDS, we go far beyond traditional document management to act as your ultimate
               IT-driven growth partner. By blending our deep-rooted expertise with cutting-edge

@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { createSApplier } from "@/app/data/apply"; // tetap gunakan jika backend endpoint menerima JSON
+import { createSApplier } from "@/app/data/apply"; 
 
 type ApplyFormProps = {
   jobId?: number;
@@ -16,7 +16,7 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
     phone: "",
     gender: "",
     domicile: "",
-    resumeText: "", // teks resume / notes (optional if file provided)
+    resumeText: "", 
   });
 
   const [resumeFile, setResumeFile] = useState<File | null>(null);
@@ -49,7 +49,7 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
     if (!form.phone.trim()) err.phone = "Phone number is required";
     if (!form.gender.trim()) err.gender = "Choose a gender";
     if (!form.domicile.trim()) err.domicile = "Domicile is required";
-    // require either resume file or resumeText
+ 
     if (!resumeFile && !form.resumeText.trim()) err.resume = "Resume file or notes required";
     return err;
   }
@@ -68,7 +68,7 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
     setSending(true);
 
     try {
-      // prefer FormData if a file present
+     
       if (resumeFile) {
         const fd = new FormData();
         fd.append("nameApply", form.name);
@@ -80,8 +80,7 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
         if (form.resumeText.trim()) fd.append("resumeText", form.resumeText.trim());
         if (jobId !== undefined) fd.append("jobId", String(jobId));
 
-        // NOTE: using fetch here so we can send multipart/form-data easily.
-        // adjust URL if your actual endpoint differs.
+      
         const BASE = process.env.NEXT_PUBLIC_BASE_API ?? "";
         const res = await fetch(`${BASE}/apply`, {
           method: "POST",
@@ -92,7 +91,7 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
           throw new Error(body?.message ?? `Server responded ${res.status}`);
         }
       } else {
-        // fallback: JSON payload via createSApplier (existing helper)
+       
         const payload = {
           nameApply: form.name,
           emailApply: form.email,
@@ -102,7 +101,7 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
           resume: form.resumeText.trim(),
           ...(jobId !== undefined ? { jobId } : {}),
         };
-        // createSApplier might be an axios wrapper expecting JSON
+        
         await createSApplier(payload as any);
       }
 
@@ -160,7 +159,6 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
             <option value="">Choose Ur Gender Here</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
-            <option value="other">Other</option>
           </select>
           {errors.gender && <p id="err-gender" className="text-sm text-red-600 mt-2">{errors.gender}</p>}
         </div>

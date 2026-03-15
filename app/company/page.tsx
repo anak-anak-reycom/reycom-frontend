@@ -1,3 +1,4 @@
+// app/company/page.tsx
 import { CorporateCulture } from "../components/card/corporateCultureCard"
 import { DualCard } from "../components/card/dualCardCompany"
 import CompanyHero from "../components/hero/TheCompanyHero"

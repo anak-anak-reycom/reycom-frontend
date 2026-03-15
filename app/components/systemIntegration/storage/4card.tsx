@@ -32,7 +32,7 @@ export default function FourCardStorage() {
                 All Flash
               </h3>
 
-              <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
+              <p className="text-secondary flex justify-center text-center text-[16px] mb-4 font-sans">
               All-flash is a storage infrastructure that contains only flash memory drives instead of spinning-disk drives. All-flash storage is also referred to as a Solid-State Array (SSA). all-flash offers speed, performance, and agility for your business applications.​​
               </p>
 
@@ -50,11 +50,11 @@ export default function FourCardStorage() {
             />
 
             <div className="p-5">
-              <h3 className="font-semibold flex justify-center text-3xl mb-2">
+              <h3 className="font-semibold flex justify-center text-3xl mb-2 font-sans">
                 Hybrid
               </h3>
 
-              <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
+              <p className="text-secondary flex justify-center text-center text-[16px] mb-4 font-sans">
               Hybrid storage combines both traditional hard disk drives (HDDs) and solid-state drives (SSDs) in a single system. This approach leverages the cost-effectiveness of HDDs and the performance benefits of SSDs, providing a balanced solution for data storage needs. Hybrid storage systems automatically move frequently accessed data to faster SSDs while keeping less-used data on slower HDDs. This intelligent data placement ensures optimal performance without sacrificing capacity or cost-efficiency.​​
               </p>
 
@@ -72,11 +72,11 @@ export default function FourCardStorage() {
             />
 
             <div className="p-5">
-              <h3 className="font-semibold flex justify-center text-center text-3xl mb-2">
+              <h3 className="font-semibold flex justify-center text-center text-3xl mb-2 font-sans">
                 Traditional Storage
               </h3>
 
-              <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
+              <p className="text-secondary flex justify-center text-center text-[16px] mb-4 font-sans">
               Tape Storage keeps on evolving, Tape storage is one of the best solutions for archiving large volumes of data, with data volumes growing rapidly, tape storage is a suitable system for data storage requiring large capacity. Tape storage is not used only for backup in case of system failure, but also for archiving data for long-term storage.​​
               </p>
 
@@ -94,11 +94,11 @@ export default function FourCardStorage() {
             />
 
             <div className="p-5">
-              <h3 className="font-semibold flex justify-center text-3xl mb-2">
+              <h3 className="font-semibold flex justify-center text-3xl mb-2 font-sans">
                 Backup Tools
               </h3>
 
-              <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
+              <p className="text-secondary flex justify-center text-center text-[16px] mb-4 font-sans">
               Make a copy of your files on storage separate from your main hard drive, that’s the point of this tool. it will really make your data safe, you can do replication data to another drive, external drive, NAS, etc. it will prevent data loss in your businessKesadaran diri untuk bertanggungjawab atas situasi yang akan muncul dan mampu untuk mengantisipasi serta menindaklanjuti situasi tersebut tanpa harus diminta terlebih dahulu.​​
               </p>
 

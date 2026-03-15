@@ -64,7 +64,9 @@ export default function JobDetails({
               </div>
               <div className="flex items-center justify-center gap-3 px-5 py-2 border-2 rounded-full border-[#214B62]">
                 <Calendar size={18} />
-                <span className="text-sm font-medium font-sans">Date Release</span>
+                  <span className="text-sm font-medium font-sans">
+                    {career.jobDate ? new Date(career.jobDate).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" }) : "—"}
+                  </span>
               </div>
             </div>
           </div>
