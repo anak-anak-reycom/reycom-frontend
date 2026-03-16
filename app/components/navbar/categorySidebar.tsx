@@ -213,8 +213,18 @@ export default function CategorySidebar({
         </Sider>
 
       {!collapsed && !mobileOpen && (
-        <button aria-label="Open filters" className="lg:hidden fixed z-50 flex items-center gap-2 bg-white rounded-b-md px-3 py-2"
-                onClick={() => setMobileOpen(true)}>
+        <button
+          aria-label="Open filters"
+          className="lg:hidden flex items-center gap-2 bg-white rounded-b-md px-3 py-2 "
+          style={{
+          position: "sticky",
+          top: 80,                  
+          height: "fit-content",
+          alignSelf: "flex-start",  
+          zIndex: 20,
+        }}
+          onClick={() => setMobileOpen(true)}
+        >
           <MenuIcon size={18} />
         </button>
       )}

@@ -64,59 +64,61 @@ export default function EditNews({
         return e;
     }
 
-    async function handleSubmit(e: React.FormEvent) {
-        e.preventDefault();
-        setErrorMsg(null);
-        setSuccessMsg(null);
+async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setErrorMsg(null);
+    setSuccessMsg(null);
 
-        const v = validate();
-        if (Object.keys(v).length > 0) {
-            setErrors(v);
-            return;
-        }
-        setErrors({});
-        setSending(true);
-
-        try {
-            const fd = new FormData();
-            fd.append("title", title);
-            fd.append("content", content);
-            if (imageFile) fd.append("image", imageFile, imageFile.name);
-
-            const token =
-                adminTokenProp ??
-                (typeof window !== "undefined" ? localStorage.getItem("token") : null);
-
-            const headers: Record<string, string> = {};
-            if (token) headers["Authorization"] = `Bearer ${token}`;
-
-            const res = await fetch(`${BASE_API}/news/${newsId}`, {
-                method: "PATCH",
-                headers,
-                body: fd,
-            });
-
-            if (!res.ok) {
-                const text = await res.text();
-                try {
-                    const j = JSON.parse(text);
-                    throw new Error(j?.message || JSON.stringify(j));
-                } catch {
-                    throw new Error(text || res.statusText || "Request failed");
-                }
-            }
-
-            const data = await res.json();
-            setSuccessMsg("News updated successfully.");
-            if (data?.data?.imageNews) setExistingImage(data.data.imageNews);
-            setImageFile(null);
-            onSuccess?.();
-        } catch (err: any) {
-            setErrorMsg(err?.message ?? "Failed to update news");
-        } finally {
-            setSending(false);
-        }
+    const v = validate();
+    if (Object.keys(v).length > 0) {
+        setErrors(v);
+        return;
     }
+    setErrors({});
+    setSending(true);
+
+    try {
+        const token =
+            adminTokenProp ??
+            (typeof window !== "undefined" ? localStorage.getItem("token") : null);
+
+        const headers: Record<string, string> = {
+            "Content-Type": "application/json", 
+        };
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+
+        
+        const body = JSON.stringify({
+            title,
+            content,
+        });
+
+        const res = await fetch(`${BASE_API}/news/${newsId}`, {
+            method: "PATCH",
+            headers,
+            body,
+        });
+
+        if (!res.ok) {
+            const text = await res.text();
+            try {
+                const j = JSON.parse(text);
+                throw new Error(j?.message || JSON.stringify(j));
+            } catch {
+                throw new Error(text || res.statusText || "Request failed");
+            }
+        }
+
+        const data = await res.json();
+        setSuccessMsg("News updated successfully.");
+        setImageFile(null);
+        onSuccess?.();
+    } catch (err: any) {
+        setErrorMsg(err?.message ?? "Failed to update news");
+    } finally {
+        setSending(false);
+    }
+}
 
     const inputClass =
         "w-full rounded-full border-2 border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#214B62]";
@@ -134,29 +136,13 @@ export default function EditNews({
 
                 {/* Image */}
                 <div className="mb-6">
-                    <label htmlFor="image" className={labelClass}>Image</label>
-                    <input
-                        id="image"
-                        name="image"
-                        type="file"
-                        accept="image/*"
-                        onChange={(ev) => {
-                            setImageFile(ev.target.files?.[0] ?? null);
-                            setErrors(prev => ({ ...prev, image: "" }));
-                        }}
-                        className="block w-full"
-                    />
-                    {errors.image && <p className="text-sm text-red-600 mt-2">{errors.image}</p>}
-                    {(preview || existingImage) && (
-                        <div className="mt-3">
-                            <div className="text-sm mb-2">
-                                {preview ? "New image preview:" : "Current image:"}
-                            </div>
-                            <img
-                                src={preview ?? existingImage!}
-                                alt="preview"
-                                className="max-h-48 rounded"
-                            />
+                    <label className={labelClass}>Current Image</label>
+                    {existingImage && (
+                        <div className="mt-2">
+                            <img src={existingImage} alt="current" className="max-h-48 rounded" />
+                            <p className="text-xs text-gray-400 mt-1">
+                                * Gambar tidak dapat diubah melalui form ini
+                            </p>
                         </div>
                     )}
                 </div>

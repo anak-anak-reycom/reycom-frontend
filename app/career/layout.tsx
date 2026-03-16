@@ -18,13 +18,13 @@ export default function CategoryLayout({ children }: { children: React.ReactNode
   return (
     
 
-    <Layout className="min-h-screen">
-      <Layout> 
+    <Layout className="min-h-screen" style={{ background: "white" }}>
+      <Layout style={{ background: "white" }}> 
 
         { !hideSidebar && < CategorySidebar />}
 
-        <Layout className="w-full " >
-            <div className="w-full flex justify-center bg-white" >
+        <Layout className="w-full " style={{ background: "white" }} >
+            <div className="w-full flex justify-center " style={{ background: "white" }} >
                 <div className="w-full lg:max-w-[1400px] px-3 sm:px-6 md:px-8">
                   
                     <Content

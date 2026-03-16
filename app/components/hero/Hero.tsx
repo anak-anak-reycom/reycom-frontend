@@ -8,7 +8,7 @@ const Hero = () => {
     <section className="w-full">
       <div className="max-w-[1400px] grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         <div className="mb-">
-          <h1 className="text-[68px] font-semibold font-sans text-black mb-6">
+         <h1 className="text-[40px] sm:text-[52px] lg:text-[68px] font-semibold font-sans text-black mb-6">
             Your Vault of <br /> Confidentiality
           </h1>
           <p className="text-black mb-4 font-sans text-[16px] font-medium">The fortress for your secrets.</p>

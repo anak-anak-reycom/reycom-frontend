@@ -1,5 +1,10 @@
 import Image from "next/image"
 import Card from "../../../public/card.png"
+import proaktif from "@/public/companyCulture/culture3.png"
+import integritas from "@/public/companyCulture/culture1.png"
+import servcie from "@/public/companyCulture/culture2.png"
+import belajar from "@/public/companyCulture/service5.png"
+
 
 export const CorporateCulture = () => {
   return (
@@ -18,7 +23,7 @@ export const CorporateCulture = () => {
           <div className="bg-[#ededed] rounded-xl shadow-sm overflow-hidden max-w-[300px]">
             <div className="px-2 py-3">
             <Image
-              src={Card}
+              src={proaktif}
               alt="Cirrust Lite"
               width={200}
               height={300}
@@ -40,7 +45,7 @@ export const CorporateCulture = () => {
           <div className="bg-[#ededed] rounded-xl shadow-sm overflow-hidden max-w-[300px]">
             <div className="px-2 py-3">
             <Image
-              src={Card}
+              src={servcie}
               alt="Cirrust Lite"
               width={200}
               height={300}
@@ -49,11 +54,11 @@ export const CorporateCulture = () => {
 
             <div className="p-5">
               <h3 className="font-semibold flex justify-center text-3xl mb-2">
-                Proaktif
+                Service No. 1
               </h3>
 
               <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
-              Kesadaran diri untuk bertanggungjawab atas situasi yang akan muncul dan mampu untuk mengantisipasi serta menindaklanjuti situasi tersebut tanpa harus diminta terlebih dahulu.​​
+              Keinginan untuk membantu atau melayani orang lain untuk memenuhi kebutuhan pelanggan internal atau eksternal dengan pelayanan yang prima.​​
               </p>
 
             </div>
@@ -62,7 +67,7 @@ export const CorporateCulture = () => {
           <div className="bg-[#ededed] rounded-xl shadow-sm overflow-hidden max-w-[300px]">
             <div className="px-2 py-3">
             <Image
-              src={Card}
+              src={belajar}
               alt="Cirrust Lite"
               width={200}
               height={300}
@@ -71,11 +76,11 @@ export const CorporateCulture = () => {
 
             <div className="p-5">
               <h3 className="font-semibold flex justify-center text-3xl mb-2">
-                Proaktif
+                Terus Belajar
               </h3>
 
               <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
-              Kesadaran diri untuk bertanggungjawab atas situasi yang akan muncul dan mampu untuk mengantisipasi serta menindaklanjuti situasi tersebut tanpa harus diminta terlebih dahulu.​​
+             Kemauan untuk belajar terus menerus dalam mengembangkan dan memperbaiki kualitas pribadi yaitu pengetahuan, keterampilan dan sikap kerja.
               </p>
 
             </div>
@@ -84,7 +89,7 @@ export const CorporateCulture = () => {
           <div className="bg-[#ededed] rounded-xl shadow-sm overflow-hidden max-w-[300px]">
             <div className="px-2 py-3">
             <Image
-              src={Card}
+              src={integritas}
               alt="Cirrust Lite"
               width={200}
               height={300}
@@ -93,11 +98,11 @@ export const CorporateCulture = () => {
 
             <div className="p-5">
               <h3 className="font-semibold flex justify-center text-3xl mb-2">
-                Proaktif
+                Integritas
               </h3>
 
               <p className="text-secondary flex justify-center text-center text-[16px] mb-4">
-              Kesadaran diri untuk bertanggungjawab atas situasi yang akan muncul dan mampu untuk mengantisipasi serta menindaklanjuti situasi tersebut tanpa harus diminta terlebih dahulu.​​
+              Kemampuan untuk bertindak konsisten sesuai dengan nilai-nilai budaya dan peraturan perusahaan, serta kode etik profesi, walaupun dalam keadaan yang sulit untuk melakukannya.
               </p>
 
             </div>
