@@ -14,11 +14,14 @@ export type BranchPayload = {
   id: number;
   companyId?: number;
   nameBranch?: string;
+  name_branch?: string;
   streetAddress?: string | null;
+  street_address?: string | null;
   phone?: string | null;
   email?: string | null;
   website?: string | null;
   linkMap?: string | null;
+  link_map?: string | null;
 };
 
 export default function EditBranchCard({
@@ -34,8 +37,7 @@ export default function EditBranchCard({
 
   const [countries, setCountries] = useState<CountryRaw[]>([]);
   const [companies, setCompanies] = useState<{ id: number; nameCompany: string }[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [loadingBranch, setLoadingBranch] = useState(false);
+  const [loadingForm, setLoadingForm] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   const [countryId, setCountryId] = useState<number | "">("");
@@ -54,102 +56,80 @@ export default function EditBranchCard({
     "w-full rounded-full border-2 border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#214B62]";
   const labelClass = "block mb-2 font-medium";
 
- 
+  // fetch parallel: countries + branch detail sekaligus
   useEffect(() => {
+    if (!branchId) return;
     let mounted = true;
+
     (async () => {
-      setLoading(true);
+      setLoadingForm(true);
       try {
-        const res = await axios.get(`${BASE_API}/country`);
-        const payload = res.data?.data ?? res.data;
+        const [countryRes, branchRes] = await Promise.all([
+          axios.get(`${BASE_API}/country`),
+          axios.get(`${BASE_API}/branch/${branchId}`),
+        ]);
+
         if (!mounted) return;
+
+        // normalize countries
+        const payload = countryRes.data?.data ?? countryRes.data;
         const arr = Array.isArray(payload) ? payload : [];
-        const normalized = arr.map((c: any) => ({
+        const normalized: CountryRaw[] = arr.map((c: any) => ({
           id: Number(c.id ?? c.idCountry ?? 0),
           nameCountry: String(c.nameCountry ?? c.name_country ?? ""),
           companies: Array.isArray(c.companies)
             ? c.companies.map((co: any) => ({
-                id: Number(co.id ?? co.idCompany ?? co.id),
-                nameCompany: co.nameCompany ?? co.name_company ?? co.name,
+                id: Number(co.id ?? co.idCompany ?? 0),
+                nameCompany: co.nameCompany ?? co.name_company ?? co.name ?? "",
               }))
             : [],
         }));
         setCountries(normalized);
-      } catch (err: any) {
-        console.error("Failed to load countries", err);
-        setErrorMsg(err?.response?.data?.message ?? err?.message ?? "Failed to load countries");
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    })();
 
-    return () => {
-      mounted = false;
-    };
-  }, [BASE_API]);
+        // populate branch fields — handle camelCase & snake_case
+        const branch: BranchPayload = branchRes.data?.data ?? branchRes.data;
+        setNameBranch(branch.nameBranch ?? branch.name_branch ?? "");
+        setStreetAddress(branch.streetAddress ?? branch.street_address ?? "");
+        setPhone(branch.phone ?? "");
+        setEmail(branch.email ?? "");
+        setWebsite(branch.website ?? "");
+        setLinkMap(branch.linkMap ?? branch.link_map ?? "");
 
-  // load branch detail if branchId provided
-  useEffect(() => {
-    if (!branchId) return;
-
-    let mounted = true;
-    (async () => {
-      setLoadingBranch(true);
-      try {
-        // asumsi endpoint detail branch: GET /branch/:id
-        const res = await axios.get(`${BASE_API}/branch/${branchId}`);
-        const data: BranchPayload = res.data?.data ?? res.data;
-        if (!mounted || !data) return;
-
-        // populate fields (safely)
-        setNameBranch(data.nameBranch ?? "");
-        setStreetAddress(data.streetAddress ?? "");
-        setPhone(data.phone ?? "");
-        setEmail(data.email ?? "");
-        setWebsite(data.website ?? "");
-        setLinkMap(data.linkMap ?? "");
-        if (data.companyId) {
-          setCompanyId(data.companyId);
-          // try find country that contains this company
-          const foundCountry = (countries || []).find((c) => c.companies?.some((co) => co.id === data.companyId));
+        // resolve countryId dari normalized langsung (bukan state)
+        if (branch.companyId) {
+          setCompanyId(branch.companyId);
+          const foundCountry = normalized.find((c) =>
+            c.companies?.some((co) => co.id === branch.companyId)
+          );
           if (foundCountry) {
             setCountryId(foundCountry.id);
             setCompanies(foundCountry.companies ?? []);
-          } else {
-            // if countries not loaded yet, we'll set companies when countries arrive via the effect below
-            setCountryId("");
           }
-        } else {
-          setCompanyId("");
-          setCountryId("");
         }
       } catch (err: any) {
-        console.error("Failed to load branch detail", err);
-        setErrorMsg(err?.response?.data?.message ?? err?.message ?? "Failed to load branch detail");
+        console.error("Failed to load form data", err);
+        setErrorMsg(
+          err?.response?.data?.message ?? err?.message ?? "Failed to load data"
+        );
       } finally {
-        if (mounted) setLoadingBranch(false);
+        if (mounted) setLoadingForm(false);
       }
     })();
 
-    return () => {
-      mounted = false;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => { mounted = false; };
   }, [BASE_API, branchId]);
 
-  // when countries loaded or countryId changes, update companies list
+  // update companies saat user ganti country dropdown
   useEffect(() => {
     if (!countryId) {
       setCompanies([]);
-      // keep companyId as is (for edit, we might want to keep it)
       return;
     }
     const found = countries.find((c) => c.id === countryId);
     const comps = found?.companies ?? [];
     setCompanies(comps);
-    // if current companyId not in new list -> reset
     if (companyId && !comps.some((c) => c.id === companyId)) setCompanyId("");
-  }, [countryId, countries, companyId]);
+  }, [countryId, countries]);
 
   function validate() {
     if (!companyId) return "Pilih company terlebih dahulu";
@@ -164,36 +144,33 @@ export default function EditBranchCard({
     setSuccessMsg(null);
 
     const v = validate();
-    if (v) {
-      setErrorMsg(v);
-      return;
-    }
-
-    if (!branchId) {
-      setErrorMsg("branchId tidak disediakan");
-      return;
-    }
+    if (v) { setErrorMsg(v); return; }
+    if (!branchId) { setErrorMsg("branchId tidak disediakan"); return; }
 
     setSubmitting(true);
     try {
+      const token =
+        typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
       const payload = {
-        companyId: companyId,
+        
         nameBranch: nameBranch.trim(),
         streetAddress: streetAddress.trim() || null,
         phone: phone.trim() || null,
         email: email.trim() || null,
         website: website.trim() || null,
-        linkMap: linkMap.trim() || null,
+        
       };
 
-      // Asumsi update endpoint: PATCH /branch/:id
-      const res = await axios.patch(`${BASE_API}/branch/${branchId}`, payload, {
-        headers: { "Content-Type": "application/json" },
+      await axios.patch(`${BASE_API}/branch/${branchId}`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
       });
 
       setSuccessMsg("Branch updated successfully");
       onUpdated?.();
-      // optionally keep data or reset depending on UX
     } catch (err: any) {
       console.error("Update branch failed", err);
       const srv = err?.response?.data;
@@ -211,15 +188,13 @@ export default function EditBranchCard({
     }
   }
 
-  if (!branchId) {
-    return <div className="p-4 text-sm text-gray-600">branchId not provided</div>;
-  }
+  if (!branchId) return <div className="p-4 text-sm text-gray-600">branchId not provided</div>;
+  if (loadingForm) return <p className="text-center py-10">Loading branch data...</p>;
 
   return (
     <div className="max-w-[720px] mx-auto bg-white p-6 rounded-lg shadow">
       <h3 className="text-xl font-semibold mb-4">Edit Branch</h3>
 
-      {(loading || loadingBranch) && <div className="mb-4 text-sm text-gray-500">Loading...</div>}
       {errorMsg && <div className="mb-4 text-sm text-red-600">{errorMsg}</div>}
       {successMsg && <div className="mb-4 text-sm text-green-600">{successMsg}</div>}
 
@@ -232,61 +207,107 @@ export default function EditBranchCard({
             className={inputClass}
           >
             <option value="">-- pilih country --</option>
-            {loading ? <option disabled>Loading...</option> : countries.map((c) => <option key={c.id} value={c.id}>{c.nameCountry}</option>)}
+            {countries.map((c) => (
+              <option key={c.id} value={c.id}>{c.nameCountry}</option>
+            ))}
           </select>
         </div>
 
-        <div>
-          <label className={labelClass}>Company</label>
-          <select
-            value={companyId}
-            onChange={(e) => setCompanyId(e.target.value ? Number(e.target.value) : "")}
-            className={inputClass}
-            disabled={!companies.length}
-          >
-            <option value="">{companies.length ? "-- pilih company --" : "Pilih country dulu"}</option>
-            {companies.map((co) => <option key={co.id} value={co.id}>{co.nameCompany}</option>)}
-          </select>
-        </div>
+          <div>
+              <label className={labelClass}>Company</label>
+              <select
+                  value={companyId}
+                  disabled  
+                  className={`${inputClass} bg-gray-100 cursor-not-allowed opacity-60`}
+              >
+                  <option value="">{companies.length ? "-- pilih company --" : "Pilih country dulu"}</option>
+                  {companies.map((co) => (
+                      <option key={co.id} value={co.id}>{co.nameCompany}</option>
+                  ))}
+              </select>
+              <p className="text-xs text-gray-400 mt-1">
+                  * Company tidak dapat diubah melalui form ini
+              </p>
+          </div>
 
         <div>
           <label className={labelClass}>Branch Name</label>
-          <input value={nameBranch} onChange={(e) => setNameBranch(e.target.value)} placeholder="Nama cabang" className={inputClass} />
+          <input
+            value={nameBranch}
+            onChange={(e) => setNameBranch(e.target.value)}
+            placeholder="Nama cabang"
+            className={inputClass}
+          />
         </div>
 
         <div>
-          <label className={labelClass}>Street Address (Street adress must be exactly match with Google Maps)</label>
-          <input value={streetAddress} onChange={(e) => setStreetAddress(e.target.value)} placeholder="Alamat jalan" className={inputClass} />
+          <label className={labelClass}>Street Address (must exactly match Google Maps)</label>
+          <input
+            value={streetAddress}
+            onChange={(e) => setStreetAddress(e.target.value)}
+            placeholder="Alamat jalan"
+            className={inputClass}
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <label className={labelClass}>Phone (optional)</label>
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="0812xxxx" className={inputClass} />
+            <input
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="0812xxxx"
+              className={inputClass}
+            />
           </div>
           <div>
             <label className={labelClass}>Email (optional)</label>
-            <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email@company.com" className={inputClass} />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="email@company.com"
+              className={inputClass}
+            />
           </div>
         </div>
 
         <div>
           <label className={labelClass}>Website (optional)</label>
-          <input value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://..." className={inputClass} />
+          <input
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            placeholder="https://..."
+            className={inputClass}
+          />
         </div>
 
-        <div>
-          <label className={labelClass}>Map Embed Link (optional)</label>
-          <input value={linkMap} onChange={(e) => setLinkMap(e.target.value)} placeholder="google maps embed link" className={inputClass} />
-        </div>
+       <div>
+          <label className={labelClass}>Map Embed Link</label>
+          <input
+              value={linkMap}
+              disabled
+              className={`${inputClass} bg-gray-100 cursor-not-allowed opacity-60`}
+          />
+          <p className="text-xs text-gray-400 mt-1">
+              * Link map tidak dapat diubah melalui form ini
+          </p>
+      </div>
 
         <div className="flex gap-3">
-          <button type="submit" disabled={submitting} className="rounded-lg bg-[#214B62] text-white px-6 py-3">
+          <button
+            type="submit"
+            disabled={submitting}
+            className="rounded-lg bg-[#214B62] text-white px-6 py-3 disabled:opacity-60"
+          >
             {submitting ? "Updating..." : "Update Branch"}
           </button>
-          <button type="button" onClick={() => {
-            onCancel?.();
-          }} className="rounded-lg border px-4 py-3">Cancel</button>
+          <button
+            type="button"
+            onClick={() => onCancel?.()}
+            className="rounded-lg border px-4 py-3"
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>

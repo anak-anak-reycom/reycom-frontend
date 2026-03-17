@@ -1,4 +1,4 @@
-// components/admin/CreateBranchCard.tsx
+// components/admin/branches/createBranch.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -9,6 +9,11 @@ type Country = {
   nameCountry: string;
   companies?: { id: number; nameCompany: string }[];
 };
+
+function createMapEmbed(address: string): string | null {
+  if (!address.trim()) return null;
+  return `https://www.google.com/maps?q=${encodeURIComponent(address.trim())}&output=embed`;
+}
 
 export default function CreateBranchCard({ onCreated }: { onCreated?: () => void }) {
   const BASE_API = process.env.NEXT_PUBLIC_BASE_API ?? '';
@@ -25,7 +30,6 @@ export default function CreateBranchCard({ onCreated }: { onCreated?: () => void
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [website, setWebsite] = useState('');
-  const [linkMap, setLinkMap] = useState('');
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -41,28 +45,27 @@ export default function CreateBranchCard({ onCreated }: { onCreated?: () => void
         const res = await axios.get(`${BASE_API}/country`);
         const payload = res.data?.data ?? res.data;
         if (!mounted) return;
-        // normalize minimal shape
         const arr = Array.isArray(payload) ? payload : [];
         const normalized = arr.map((c: any) => ({
           id: Number(c.id ?? c.idCountry ?? 0),
           nameCountry: String(c.nameCountry ?? c.name_country ?? ''),
           companies: Array.isArray(c.companies)
-            ? c.companies.map((co: any) => ({ id: Number(co.id ?? co.idCompany ?? co.id), nameCompany: co.nameCompany ?? co.name_company ?? co.name }))
+            ? c.companies.map((co: any) => ({
+                id: Number(co.id ?? co.idCompany ?? 0),
+                nameCompany: co.nameCompany ?? co.name_company ?? co.name ?? '',
+              }))
             : [],
         }));
         setCountries(normalized);
       } catch (err: any) {
-        console.error('Failed to load countries', err);
         setErrorMsg(err?.response?.data?.message ?? err?.message ?? 'Failed to load countries');
       } finally {
         if (mounted) setLoading(false);
       }
     })();
-
     return () => { mounted = false; };
   }, [BASE_API]);
 
-  // update companies list when country changes
   useEffect(() => {
     if (!countryId) {
       setCompanies([]);
@@ -72,7 +75,6 @@ export default function CreateBranchCard({ onCreated }: { onCreated?: () => void
     const found = countries.find((c) => c.id === countryId);
     const comps = found?.companies ?? [];
     setCompanies(comps);
-    // if current companyId not in new list -> reset
     if (companyId && !comps.some((c) => c.id === companyId)) setCompanyId('');
   }, [countryId, countries]);
 
@@ -80,7 +82,6 @@ export default function CreateBranchCard({ onCreated }: { onCreated?: () => void
     if (!countryId) return 'Pilih country terlebih dahulu';
     if (!companyId) return 'Pilih company terlebih dahulu';
     if (!nameBranch.trim()) return 'Nama branch wajib diisi';
-    // optional: basic email validation
     if (email && !/^\S+@\S+\.\S+$/.test(email)) return 'Email tidak valid';
     return null;
   }
@@ -91,13 +92,12 @@ export default function CreateBranchCard({ onCreated }: { onCreated?: () => void
     setSuccessMsg(null);
 
     const v = validate();
-    if (v) {
-      setErrorMsg(v);
-      return;
-    }
+    if (v) { setErrorMsg(v); return; }
 
     setSubmitting(true);
     try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
       const payload = {
         companyId: companyId,
         nameBranch: nameBranch.trim(),
@@ -105,11 +105,14 @@ export default function CreateBranchCard({ onCreated }: { onCreated?: () => void
         phone: phone.trim() || null,
         email: email.trim() || null,
         website: website.trim() || null,
-        linkMap: linkMap.trim() || null,
+        linkMap: createMapEmbed(streetAddress), // ← auto-generate
       };
 
-      const res = await axios.post(`${BASE_API}/branch`, payload, {
-        headers: { 'Content-Type': 'application/json' },
+      await axios.post(`${BASE_API}/branch`, payload, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
       });
 
       setSuccessMsg('Branch created successfully');
@@ -118,12 +121,10 @@ export default function CreateBranchCard({ onCreated }: { onCreated?: () => void
       setPhone('');
       setEmail('');
       setWebsite('');
-      setLinkMap('');
       setCountryId('');
       setCompanyId('');
       onCreated?.();
     } catch (err: any) {
-      console.error('Create branch failed', err);
       const srv = err?.response?.data;
       let message = 'Failed to create branch';
       if (srv) {
@@ -178,42 +179,94 @@ export default function CreateBranchCard({ onCreated }: { onCreated?: () => void
 
         <div>
           <label className={labelClass}>Branch Name</label>
-          <input value={nameBranch} onChange={(e) => setNameBranch(e.target.value)} placeholder="Nama cabang" className={inputClass} />
+          <input
+            value={nameBranch}
+            onChange={(e) => setNameBranch(e.target.value)}
+            placeholder="Nama cabang"
+            className={inputClass}
+          />
         </div>
 
+        {/* Street Address + auto map preview */}
         <div>
-          <label className={labelClass}>Street Address (optional)</label>
-          <input value={streetAddress} onChange={(e) => setStreetAddress(e.target.value)} placeholder="Alamat jalan" className={inputClass} />
+          <label className={labelClass}>
+            Street Address{' '}
+            <span className="text-xs font-normal text-gray-400">
+              (must exactly match Google Maps)
+            </span>
+          </label>
+          <input
+            value={streetAddress}
+            onChange={(e) => setStreetAddress(e.target.value)}
+            placeholder="116 Vũ Trọng Phụng, Thanh Xuân, Hà Nội"
+            className={inputClass}
+          />
+          {/* map embed preview otomatis */}
+          {streetAddress.trim() && (
+            <div className="mt-3">
+              <p className="text-xs text-gray-500 mb-1">Map preview (auto-generated):</p>
+              <iframe
+                src={createMapEmbed(streetAddress)!}
+                width="100%"
+                height="220"
+                className="rounded-xl border"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <label className={labelClass}>Phone (optional)</label>
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="0812xxxx" className={inputClass} />
+            <input
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="0812xxxx"
+              className={inputClass}
+            />
           </div>
           <div>
             <label className={labelClass}>Email (optional)</label>
-            <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email@company.com" className={inputClass} />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="email@company.com"
+              className={inputClass}
+            />
           </div>
         </div>
 
         <div>
           <label className={labelClass}>Website (optional)</label>
-          <input value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://..." className={inputClass} />
-        </div>
-
-        <div>
-          <label className={labelClass}>Map Embed Link (optional)</label>
-          <input value={linkMap} onChange={(e) => setLinkMap(e.target.value)} placeholder="google maps embed link" className={inputClass} />
+          <input
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            placeholder="https://..."
+            className={inputClass}
+          />
         </div>
 
         <div className="flex gap-3">
-          <button type="submit" disabled={submitting} className="rounded-lg bg-[#214B62] text-white px-6 py-3">
+          <button
+            type="submit"
+            disabled={submitting}
+            className="rounded-lg bg-[#214B62] text-white px-6 py-3 disabled:opacity-60"
+          >
             {submitting ? 'Creating...' : 'Create Branch'}
           </button>
-          <button type="button" onClick={() => {
-            setCountryId(''); setCompanyId(''); setNameBranch(''); setStreetAddress(''); setPhone(''); setEmail(''); setWebsite(''); setLinkMap(''); setErrorMsg(null); setSuccessMsg(null);
-          }} className="rounded-lg border px-4 py-3">Reset</button>
+          <button
+            type="button"
+            onClick={() => {
+              setCountryId(''); setCompanyId(''); setNameBranch('');
+              setStreetAddress(''); setPhone(''); setEmail('');
+              setWebsite(''); setErrorMsg(null); setSuccessMsg(null);
+            }}
+            className="rounded-lg border px-4 py-3"
+          >
+            Reset
+          </button>
         </div>
       </form>
     </div>
