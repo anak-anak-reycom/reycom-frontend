@@ -49,7 +49,6 @@ function getFlagForCountry(name?: string) {
   return defaultFlag;
 }
 
-
 export default function BranchDropdownClient() {
   const BASE = process.env.NEXT_PUBLIC_BASE_API ?? "";
   const [countries, setCountries] = useState<CountryApi[]>([]);
@@ -63,16 +62,43 @@ export default function BranchDropdownClient() {
       setLoading(true);
       setErr(null);
       try {
-        const res = await fetch(`${BASE}/country`, { cache: "no-store" });
-        if (!res.ok) throw new Error(`Fetch countries failed: ${res.status}`);
-        const json = await res.json();
-        
-        const data: CountryApi[] = Array.isArray(json?.data) ? json.data : json?.data ?? [];
-        if (!mounted) return;
-        setCountries(data);
-      } catch (e: any) {
+        // fetch /country + /branch parallel
+        const [countryRes, branchRes] = await Promise.all([
+          fetch(`${BASE}/country`, { cache: "no-store" }),
+          fetch(`${BASE}/branch`, { cache: "no-store" }),
+        ]);
 
-        if (mounted) setErr(e?.message ?? "Failed to load countries");
+        if (!countryRes.ok) throw new Error(`Fetch countries failed: ${countryRes.status}`);
+        if (!branchRes.ok) throw new Error(`Fetch branches failed: ${branchRes.status}`);
+
+        const countryJson = await countryRes.json();
+        const branchJson = await branchRes.json();
+
+        const countryData: CountryApi[] = Array.isArray(countryJson?.data)
+          ? countryJson.data
+          : [];
+
+        // buat lookup map branchId → full branch data dari /branch
+        const branchMap = new Map<number, any>();
+        const branchArr = Array.isArray(branchJson?.data) ? branchJson.data : [];
+        branchArr.forEach((b: any) => branchMap.set(b.id, b));
+
+        // merge: enrich branches di dalam country dengan full data
+        const merged: CountryApi[] = countryData.map((c) => ({
+          ...c,
+          companies: (c.companies ?? []).map((co) => ({
+            ...co,
+            branches: (co.branches ?? []).map((b) => {
+              const full = branchMap.get(b.id);
+              return full ? { ...b, ...full } : b;
+            }),
+          })),
+        }));
+
+        if (!mounted) return;
+        setCountries(merged);
+      } catch (e: any) {
+        if (mounted) setErr(e?.message ?? "Failed to load data");
       } finally {
         if (mounted) setLoading(false);
       }
@@ -87,7 +113,6 @@ export default function BranchDropdownClient() {
         {err && <div className="text-sm text-red-600">{err}</div>}
 
         {countries.map((c) => {
-    
           const locations: BranchLocation[] = [];
           (c.companies ?? []).forEach((co) => {
             if (Array.isArray(co.branches) && co.branches.length) {
@@ -99,11 +124,10 @@ export default function BranchDropdownClient() {
                   phone: b.phone ?? undefined,
                   email: b.email ?? undefined,
                   website: b.website ?? undefined,
-                  mapEmbed: (b as any).linkMap ?? (b as any).mapEmbed ?? undefined,
+                  mapEmbed: b.linkMap ?? undefined,
                 });
               });
             } else {
-              
               locations.push({
                 id: co.id,
                 title: co.nameCompany,
@@ -179,7 +203,6 @@ function BranchPanel({
       <div
         id={`branch-${id}`}
         role="region"
-        aria-labelledby={id}
         className={`px-6 overflow-hidden transition-[max-height,opacity,padding] duration-300 ease-in-out ${
           isOpen ? "max-h-[1200px] opacity-100 py-6" : "max-h-0 opacity-0 py-0"
         }`}
@@ -191,9 +214,14 @@ function BranchPanel({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {locations.map((loc, idx) => (
-              <article key={loc.id ?? idx} className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 flex flex-col">
+              <article
+                key={loc.id ?? idx}
+                className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 flex flex-col"
+              >
                 <h4 className="text-lg font-semibold mb-2">{loc.title}</h4>
-                <p className="text-sm text-gray-700 mb-3 leading-relaxed">{loc.address ?? "Address not provided"}</p>
+                <p className="text-sm text-gray-700 mb-3 leading-relaxed">
+                  {loc.address ?? "Address not provided"}
+                </p>
 
                 <p className="text-sm font-semibold mb-3">
                   Phone : <span className="font-normal">{loc.phone ?? "-"}</span>
@@ -202,7 +230,13 @@ function BranchPanel({
                 {loc.mapEmbed ? (
                   <div className="mt-auto">
                     <div className="w-full rounded-md overflow-hidden border">
-                      <iframe title={`${loc.title} map`} src={loc.mapEmbed} className="w-full h-36" loading="lazy" />
+                      <iframe
+                        title={`${loc.title} map`}
+                        src={loc.mapEmbed}
+                        className="w-full h-36"
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                      />
                     </div>
                   </div>
                 ) : (
