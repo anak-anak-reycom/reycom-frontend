@@ -62,7 +62,7 @@ export default function BranchDropdownClient() {
       setLoading(true);
       setErr(null);
       try {
-        // fetch /country + /branch parallel
+      
         const [countryRes, branchRes] = await Promise.all([
           fetch(`${BASE}/country`, { cache: "no-store" }),
           fetch(`${BASE}/branch`, { cache: "no-store" }),
@@ -78,12 +78,12 @@ export default function BranchDropdownClient() {
           ? countryJson.data
           : [];
 
-        // buat lookup map branchId → full branch data dari /branch
+        
         const branchMap = new Map<number, any>();
         const branchArr = Array.isArray(branchJson?.data) ? branchJson.data : [];
         branchArr.forEach((b: any) => branchMap.set(b.id, b));
 
-        // merge: enrich branches di dalam country dengan full data
+        
         const merged: CountryApi[] = countryData.map((c) => ({
           ...c,
           companies: (c.companies ?? []).map((co) => ({
