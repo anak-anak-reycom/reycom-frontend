@@ -26,7 +26,7 @@ export default function HardwareContent() {
                 <div className="text-center mx-auto max-w-[700px]">
                     <div className="mx-auto w-24 h-0.5 rounded mb-1 bg-gray-300" />
                     <h2 className="text-3xl pt-5 font-bold mb-4 font-sans">IOT</h2>
-                        <p className="text-sm text-gray-700 leading-relaxed font-sans">
+                        <p className="text-lg text-gray-700 leading-relaxed font-sans">
                          Nowadays digital transformation is encouraging more organizations to adopt initiatives driven by the Internet of Things (IoT). with the IoT,
                           we can monitor and control devices and objects with built-in sensors are connected to an Internet of Things platform, which integrates data
                            from the different devices and applies analytics to share the most valuable information with applications built to address specific needs.

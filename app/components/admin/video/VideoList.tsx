@@ -119,7 +119,7 @@ export default function AdminVideoList() {
     const token =
       typeof window !== "undefined" ? localStorage.getItem("token") : null;
     try {
-      const res = await fetch(`${BASE_API}/video/${id}`, {
+      const res = await fetch(`${BASE_API}/videos/${id}`, {
         method: "DELETE",
         headers: token ? { Authorization: `Bearer ${token}` } : undefined,
       });

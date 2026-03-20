@@ -34,7 +34,7 @@ export default function CreateVideoCard({ onCreated }: { onCreated?: () => void 
     "w-full rounded-full border-2 border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#214B62]";
   const labelClass = "block mb-2 font-medium";
 
-  // preview dari link yang diketik
+  
   const previewId = linkVideo.trim() ? parseYouTubeId(linkVideo) : null;
 
   function validate() {
@@ -58,8 +58,8 @@ export default function CreateVideoCard({ onCreated }: { onCreated?: () => void 
         typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
       await axios.post(
-        `${BASE_API}/video`,
-        { titleVideo: titleVideo.trim(), linkVideo: linkVideo.trim() },
+        `${BASE_API}/videos`,
+        { title_video: titleVideo.trim(), link_video: linkVideo.trim() },
         {
           headers: {
             "Content-Type": "application/json",

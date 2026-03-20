@@ -2,7 +2,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { createSApplier } from "@/app/data/apply"; 
 
 type ApplyFormProps = {
   jobId?: number;
@@ -16,29 +15,22 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
     phone: "",
     gender: "",
     domicile: "",
-    resumeText: "", 
+    resume: "",
   });
 
-  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<{ [k: string]: string }>({});
   const [sending, setSending] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-    setErrors(prev => ({ ...prev, [name]: "" }));
+    setForm((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
     setErrorMsg(null);
     setSuccessMsg(null);
-  }
-
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setErrorMsg(null);
-    setSuccessMsg(null);
-    setErrors(prev => ({ ...prev, resumeFile: "" }));
-    const f = e.target.files && e.target.files[0] ? e.target.files[0] : null;
-    setResumeFile(f);
   }
 
   function validate() {
@@ -49,8 +41,8 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
     if (!form.phone.trim()) err.phone = "Phone number is required";
     if (!form.gender.trim()) err.gender = "Choose a gender";
     if (!form.domicile.trim()) err.domicile = "Domicile is required";
- 
-    if (!resumeFile && !form.resumeText.trim()) err.resume = "Resume file or notes required";
+    if (!form.resume.trim()) err.resume = "Resume link is required";
+    else if (form.resume.trim().length < 5) err.resume = "Resume must be at least 5 characters";
     return err;
   }
 
@@ -66,67 +58,43 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
     }
 
     setSending(true);
-
     try {
-     
-      if (resumeFile) {
-        const fd = new FormData();
-        fd.append("nameApply", form.name);
-        fd.append("emailApply", form.email);
-        fd.append("phoneNumberApply", form.phone);
-        fd.append("gender", form.gender);
-        fd.append("domicile", form.domicile);
-        fd.append("resume", resumeFile); // backend should accept field 'resume' as file
-        if (form.resumeText.trim()) fd.append("resumeText", form.resumeText.trim());
-        if (jobId !== undefined) fd.append("jobId", String(jobId));
+      const BASE = process.env.NEXT_PUBLIC_BASE_API ?? "";
 
-      
-        const BASE = process.env.NEXT_PUBLIC_BASE_API ?? "";
-        const res = await fetch(`${BASE}/apply`, {
-          method: "POST",
-          body: fd,
-        });
-        if (!res.ok) {
-          const body = await res.json().catch(() => null);
-          throw new Error(body?.message ?? `Server responded ${res.status}`);
-        }
-      } else {
-       
-        const payload = {
-          nameApply: form.name,
-          emailApply: form.email,
-          phoneNumberApply: form.phone,
-          gender: form.gender,
-          domicile: form.domicile,
-          resume: form.resumeText.trim(),
-          ...(jobId !== undefined ? { jobId } : {}),
-        };
-        
-        await createSApplier(payload as any);
+      const payload = {
+        nameApply: form.name.trim(),
+        emailApply: form.email.trim(),
+        phoneNumberApply: form.phone.trim(),
+        gender: form.gender,
+        domicile: form.domicile.trim(),
+        resume: form.resume.trim(),
+        ...(jobId !== undefined ? { jobId } : {}),
+      };
+
+      const res = await fetch(`${BASE}/apply`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.message ?? `Server responded ${res.status}`);
       }
 
       setSuccessMsg("Application submitted successfully.");
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        gender: "",
-        domicile: "",
-        resumeText: ""
-      });
-      setResumeFile(null);
+      setForm({ name: "", email: "", phone: "", gender: "", domicile: "", resume: "" });
       setErrors({});
       onSubmitted?.();
     } catch (err: any) {
-      
-      const msg = err?.response?.data?.message ?? err?.message ?? "Failed to submit application.";
-      setErrorMsg(String(msg));
+      setErrorMsg(err?.message ?? "Failed to submit application.");
     } finally {
       setSending(false);
     }
   }
 
-  const inputClass = "w-full rounded-full border-2 border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#214B62]";
+  const inputClass =
+    "w-full rounded-full border-2 border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#214B62]";
   const labelClass = "block mb-2 font-medium";
 
   return (
@@ -137,53 +105,83 @@ export default function ApplyForm({ jobId, onSubmitted }: ApplyFormProps) {
 
         <div className="mb-6">
           <label htmlFor="name" className={labelClass}>Name</label>
-          <input id="name" name="name" value={form.name} onChange={handleChange} placeholder="Type Ur Name Here" className={inputClass} aria-invalid={!!errors.name} aria-describedby={errors.name ? "err-name" : undefined} />
-          {errors.name && <p id="err-name" className="text-sm text-red-600 mt-2">{errors.name}</p>}
+          <input
+            id="name" name="name" value={form.name}
+            onChange={handleChange} placeholder="Type your name here"
+            className={inputClass}
+          />
+          {errors.name && <p className="text-sm text-red-600 mt-2">{errors.name}</p>}
         </div>
 
         <div className="mb-6">
           <label htmlFor="email" className={labelClass}>Email</label>
-          <input id="email" type="email" name="email" value={form.email} onChange={handleChange} placeholder="Type Ur Email Here" className={inputClass} aria-invalid={!!errors.email} aria-describedby={errors.email ? "err-email" : undefined} />
-          {errors.email && <p id="err-email" className="text-sm text-red-600 mt-2">{errors.email}</p>}
+          <input
+            id="email" type="email" name="email" value={form.email}
+            onChange={handleChange} placeholder="Type your email here"
+            className={inputClass}
+          />
+          {errors.email && <p className="text-sm text-red-600 mt-2">{errors.email}</p>}
         </div>
 
         <div className="mb-6">
           <label htmlFor="phone" className={labelClass}>Phone Number</label>
-          <input id="phone" name="phone" value={form.phone} onChange={handleChange} placeholder="Type Ur Phone Number Here" className={inputClass} type="tel" aria-invalid={!!errors.phone} aria-describedby={errors.phone ? "err-phone" : undefined} />
-          {errors.phone && <p id="err-phone" className="text-sm text-red-600 mt-2">{errors.phone}</p>}
+          <input
+            id="phone" name="phone" type="tel" value={form.phone}
+            onChange={handleChange} placeholder="Type your phone number here"
+            className={inputClass}
+          />
+          {errors.phone && <p className="text-sm text-red-600 mt-2">{errors.phone}</p>}
         </div>
 
         <div className="mb-6">
           <label htmlFor="gender" className={labelClass}>Gender</label>
-          <select id="gender" name="gender" value={form.gender} onChange={handleChange} className={"appearance-none " + inputClass + " bg-white pr-8"} aria-invalid={!!errors.gender} aria-describedby={errors.gender ? "err-gender" : undefined}>
-            <option value="">Choose Ur Gender Here</option>
+          <select
+            id="gender" name="gender" value={form.gender}
+            onChange={handleChange}
+            className={"appearance-none bg-white pr-8 " + inputClass}
+          >
+            <option value="">Choose your gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
-          {errors.gender && <p id="err-gender" className="text-sm text-red-600 mt-2">{errors.gender}</p>}
+          {errors.gender && <p className="text-sm text-red-600 mt-2">{errors.gender}</p>}
         </div>
 
         <div className="mb-6">
           <label htmlFor="domicile" className={labelClass}>Domicile</label>
-          <input id="domicile" name="domicile" value={form.domicile} onChange={handleChange} placeholder="Type Ur Domicile Here" className={inputClass} aria-invalid={!!errors.domicile} aria-describedby={errors.domicile ? "err-domicile" : undefined} />
-          {errors.domicile && <p id="err-domicile" className="text-sm text-red-600 mt-2">{errors.domicile}</p>}
+          <input
+            id="domicile" name="domicile" value={form.domicile}
+            onChange={handleChange} placeholder="Type your domicile here"
+            className={inputClass}
+          />
+          {errors.domicile && <p className="text-sm text-red-600 mt-2">{errors.domicile}</p>}
         </div>
 
+      
         <div className="mb-6">
-          <label htmlFor="resumeText" className={labelClass}>Resume / Notes (optional if you upload a file)</label>
-          <textarea id="resumeText" name="resumeText" value={form.resumeText} onChange={handleChange} placeholder="Short notes or paste resume text here" className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#214B62] min-h-[100px]" />
-        </div>
+          <label htmlFor="resume" className={labelClass}>
+            Resume{" "}
+            <span className="text-xs font-normal text-gray-400">
+              (Google Drive link, etc)
+            </span>
+          </label>
 
-        <div className="mb-6">
-          <label htmlFor="resumeFile" className={labelClass}>Resume File (optional)</label>
-          <input id="resumeFile" name="resumeFile" type="file" onChange={handleFileChange} className="w-full" />
-          {resumeFile && <p className="text-sm text-gray-600 mt-2">Selected file: {resumeFile.name}</p>}
-          {errors.resume && <p id="err-resume" className="text-sm text-red-600 mt-2">{errors.resume}</p>}
+          <input
+            id="resume" name="resume" value={form.resume}
+            onChange={handleChange}
+            placeholder="https://drive.google.com/file/d/..."
+            className={inputClass}
+          />
+          {errors.resume && <p className="text-sm text-red-600 mt-2">{errors.resume}</p>}
         </div>
 
         <div>
-          <button type="submit" className="w-full rounded-lg bg-[#214B62] text-white text-lg font-medium py-3 disabled:opacity-60" disabled={sending}>
-            {sending ? "Sending..." : "Send"}
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-[#214B62] text-white text-lg font-medium py-3 disabled:opacity-60"
+            disabled={sending}
+          >
+            {sending ? "Sending..." : "Send Application"}
           </button>
         </div>
       </form>

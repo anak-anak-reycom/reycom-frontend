@@ -1,7 +1,7 @@
 // middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 
-const LOGIN_PATH = "/admin-x7k2p9";  // sesuaikan URL login kamu
+const LOGIN_PATH = "/admin-x7k2p9";  
 const GATE_COOKIE = "admin_gate";
 const GATE_SECRET = process.env.ADMIN_GATE_SECRET ?? "";
 
@@ -26,7 +26,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  // 2. Kalau user akses halaman login langsung tanpa cookie → redirect ke homepage
+
   if (pathname === LOGIN_PATH) {
     const gate = req.cookies.get(GATE_COOKIE);
     if (!gate || gate.value !== "1") {
@@ -38,5 +38,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/unlock", "/admin-x7k2p9"], // sesuaikan
+  matcher: ["/unlock", "/admin-x7k2p9"], 
 };
