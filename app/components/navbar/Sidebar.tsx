@@ -99,6 +99,7 @@
               inlineCollapsed={false}
               style={{ height: "100%", borderInlineEnd: 0, background: "transparent" }}
               items={items}
+              className="font-sans"
             />
           </div>
         </div>

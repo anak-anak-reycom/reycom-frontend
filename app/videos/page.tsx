@@ -3,6 +3,8 @@ import React from "react";
 import VideoGallery from "@/app/components/video/VideoGallery";
 import { BASE_API } from "../data/api";
 
+export const metadata = { title: "Videos" };
+
 type VideoItem = {
   id: number;
   titleVideo: string;

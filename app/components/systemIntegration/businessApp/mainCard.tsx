@@ -5,7 +5,7 @@ import card from "@/public/systemIntegration/businessApp/businessApp.png";
 
 export default function CardBusiness() {
   return (
-    <section className="w-full py-10">
+    <section className="w-full ">
         <div className="max-w-[1000px] mx-auto">
             <div className="grid grid-cols-1 gap-3">
 

@@ -1,5 +1,6 @@
 import ServicesText from "@/app/components/systemIntegration/serviceComp/mainText"
 
+export const metadata = { title: "Services" };
 
 const Services = () => {
   return <div>

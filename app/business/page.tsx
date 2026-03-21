@@ -1,6 +1,8 @@
 import { Carousel } from '../components/slidincarousel/carousel'
 import { carouselItems } from '../data/business'
 
+export const metadata = { title: "Business Processing" };
+
 export default function Home() {
   return (
     <main className="min-h-screen py-8 md:py-12">

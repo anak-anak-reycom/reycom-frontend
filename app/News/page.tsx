@@ -5,6 +5,7 @@ import { NewsItem } from '@/app//types/news-types'
 import {  getAllNews } from '../data/news'
 import Link from 'next/link'
 
+export const metadata = { title: "News" };
 
 const Page = async () => {
   const news = await getAllNews()

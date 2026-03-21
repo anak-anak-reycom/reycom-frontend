@@ -3,6 +3,8 @@ import React from "react";
 import JobDetails from "@/app/components/jobDetails/jobDetails"; // client component
 import { getCareerById } from "@/app/data/career";
 
+export const metadata = { title: "Career Details" };
+
 type Props = {
   params: any | Promise<any>;
 };

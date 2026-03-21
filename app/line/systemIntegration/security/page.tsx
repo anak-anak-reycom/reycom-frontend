@@ -1,6 +1,8 @@
 import CardSecurityComp from "@/app/components/systemIntegration/securityComp/mainCard"
 import FillSecurity from "@/app/components/systemIntegration/securityComp/fill"
 
+export const metadata = { title: "Security" };
+
 const Security = () => {
   return (
     <main className="min-h-screen">

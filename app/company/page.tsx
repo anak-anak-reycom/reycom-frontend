@@ -4,6 +4,7 @@ import { DualCard } from "../components/card/dualCardCompany"
 import CompanyHero from "../components/hero/TheCompanyHero"
 import CoverageMap from "../components/title-images/marketShare"
 
+export const metadata = { title: "The Company" };
 
 export default function Home() {
   return (
