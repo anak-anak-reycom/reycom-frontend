@@ -12,18 +12,18 @@ export default function Footer() {
                 <div className=" space-y-10">
                     <div className="flex items-center gap-5">
                         <Image src={Logo} alt="RDS Logo" width={100} height={100} />
-                        <h3 className="text-lg font-semibold">Reycom Dokumen Solusi</h3>
+                        <h3 className="text-lg font-semibold font-sans">Reycom Dokumen Solusi</h3>
                     </div>
                     
-                    <p className="text-sm text-gray-300 leading-relaxed">
+                    <p className="text-sm font-sans text-gray-300 leading-relaxed">
                         RDS Group stands at the intersection of legacy physical records
                         and the future of digital intelligence, engineering seamless
                         data ecosystems for Southeast Asia’s leading enterprises.
                     </p>
 
                     <div className="pt-1">
-                        <p className="text-sm font-medium mb-2">Our Company Contact</p>
-                        <button  className="border border-white px-5 py-2 rounded-full text-sm hover:bg-white hover:text-[#234b68] transition">
+                        <p className="text-sm font-medium mb-2 font-sans">Our Company Contact</p>
+                        <button  className="border border-white px-5 py-2 rounded-full text-sm hover:bg-white font-sans hover:text-[#234b68] transition">
                             <Link href= "/contact">Visit Us</Link>
                         </button>
                     </div>
@@ -33,14 +33,14 @@ export default function Footer() {
 
                 {/* COLUMN 2 VIETNAM */}
                 <div className=" space-y-10">
-                    <h4 className="text-base font-semibold">Also visit our other website</h4>
+                    <h4 className="text-base font-semibold font-sans">Also visit our other website</h4>
                     <div>
-                        <p className="text-sm mb-4">Vietnam :</p>
+                        <p className="text-sm mb-4 font-sans">Vietnam :</p>
                         <a
                             href="https://rdsvietnam.vn/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm underline hover:text-gray-300 transition">
+                            className="text-sm underline hover:text-gray-300 transition font-sans">
 
                             https://rdsvietnam.vn/ 
                         </a>
@@ -51,20 +51,20 @@ export default function Footer() {
                 {/* -------------------------------COLUMN 3 ABOUT POLICY--------------------- */}
 
                 <div className="space-y-10">
-                    <h4 className="font-semibold text-base">Company</h4>
+                    <h4 className="font-semibold text-base font-sans">Company</h4>
                         <ul className="space-y-2 text-sm text-gray-200">
                             <li>
-                                <Link href="/about" className="hover:text-white transition">
+                                <Link href="/about" className="hover:text-white transition font-sans">
                                 About Us
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/privacy" className="hover:text-white transition">
+                                <Link href="/privacy" className="hover:text-white transition font-sans">
                                 Privacy Police
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/videos" className="hover:text-white transition">
+                                <Link href="/videos" className="hover:text-white transition font-sans">
                                 Video
                                 </Link>
                             </li>
@@ -73,8 +73,8 @@ export default function Footer() {
 
                 {/* -------------------------------COLUMN 4 LINE--------------------- */}
                 <div className="space-y-10">
-                    <h4 className="font-semibold text-base">Line</h4>
-                    <ul className="space-y-2 text-sm text-gray-200">
+                    <h4 className="font-semibold text-base font-sans">Line</h4>
+                    <ul className="space-y-2 text-sm text-gray-200 font-sans">
                         <li>Business Process</li>
                         <li>System Integrate</li>
                         <li>Printing And Creative Serve</li>
