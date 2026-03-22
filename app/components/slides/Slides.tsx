@@ -141,7 +141,7 @@ export default function HealthcareSlides() {
               key={curr.id + "-text"}
             >
               <h2 className="text-2xl font-semibold mb-4  font-sans">{curr.title}</h2>
-              <p className="text-sm text-gray-700 leading-relaxed font-sans">{curr.body}</p>
+              <p className="text-lg text-gray-700 leading-relaxed font-sans">{curr.body}</p>
               {curr.link && (
                 <p className="mt-4">
                   <a href={curr.link} target="_blank" rel="noreferrer" className="text-blue-600 underline">
@@ -159,7 +159,7 @@ export default function HealthcareSlides() {
                 key={next.id + "-text"}
               >
                 <h2 className="text-2xl font-semibold mb-4 font-sans" >{next.title}</h2>
-                <p className="text-sm text-gray-700 leading-relaxed font-sans">{next.body}</p>
+                <p className="text-lg text-gray-700 leading-relaxed font-sans">{next.body}</p>
                 {next.link && (
                   <p className="mt-4">
                     <a href={next.link} target="_blank" rel="noreferrer" className="text-blue-600 underline">

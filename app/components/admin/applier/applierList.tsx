@@ -155,15 +155,6 @@ export default function ApplierList() {
             style={{ width: 320 }}
           />
 
-          <Button
-            type="primary"
-            size="large"
-            icon={<PlusOutlined />}
-            className="rounded-xl shadow-sm"
-            onClick={() => setCreateOpen(true)}
-          >
-            Tambah Job
-          </Button>
         </Space>
       </div>
 

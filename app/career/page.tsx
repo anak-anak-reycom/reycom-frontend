@@ -4,6 +4,7 @@ import { CareerItem } from "../types/career-types"
 import { JobCarousel } from "../components/card/jobCarousel"
 import CareerClient from "./CareerClient"
 
+export const metadata = { title: "Career" };
 
 export default async function CareerPage() {
 

@@ -5,7 +5,7 @@ import card from "@/public/systemIntegration/experience/customerx.png";
 export default function CardExperience() {
   return (
 
-     <section className="w-full py-10">
+     <section className="w-full ">
         <div className="max-w-[1000px] mx-auto">
             <div className="grid grid-cols-1 gap-3">
 
@@ -26,7 +26,7 @@ export default function CardExperience() {
                 <div className="text-center mx-auto max-w-[700px]">
                     <div className="mx-auto w-24 h-0.5 rounded mb-1 bg-gray-300" />
             
-                        <p className="text-sm text-gray-700 leading-relaxed font-sans">
+                        <p className="text-lg text-gray-700 leading-relaxed font-sans">
                         Today’s customers demand personalized, relevant communications that are available in real-time and accessible through the channel of their choice.The Customer Experience software allows organizations to deploy a new approach to information exchange thereby improving the ability to maintain relationships with customers and other stakeholders. By using the software, messages disseminated are no longer generic but tailored according to customers’ needs and specific platforms (Web, email, SMS, print] and devices (mobile, laptop, tablet, PC).
                         </p>
 

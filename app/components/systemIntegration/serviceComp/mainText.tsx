@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ServicesText () {
     return (
-      <div className='mx-auto max-w-[1000px] my-8 p-4'>
+      <div className='mx-auto max-w-[1000px]  p-4'>
         <div className='mt-8'>
             <h1 className='text-center font-bold text-4xl font-sans'>Services</h1>
                 <p className='mt-8 text-center text-[16px] font-sans '>

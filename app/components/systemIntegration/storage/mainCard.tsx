@@ -5,7 +5,7 @@ import card from "@/public/systemIntegration/storage/storage.png";
 
 export default function CardStorage() {
   return (
-    <section className="w-full py-10">
+    <section className="w-full">
         <div className="max-w-[1000px] mx-auto">
             <div className="grid grid-cols-1 gap-3">
 
@@ -26,7 +26,7 @@ export default function CardStorage() {
                 <div className="text-center mx-auto max-w-[700px]">
                     <div className="mx-auto w-24 h-0.5 rounded mb-1 bg-gray-300" />
             
-                        <p className="text-sm text-gray-700 leading-relaxed font-sans">
+                        <p className="text-lg text-gray-700 leading-relaxed font-sans">
                         Storage is important think on the component of the infrastructure, storage will support your system on the complete lifecycle of data, same as another technology storage had evolution from the old version until modern version, following the technology update we provide comprehensive storage: All-flash system, Hybrid disk and flash storage arrays, Tape Storage
                         </p>
 

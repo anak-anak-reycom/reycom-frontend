@@ -10,7 +10,7 @@ import type { CareerItem } from "@/app/types/career-types";
 
 const BASE_API = process.env.NEXT_PUBLIC_BASE_API ?? "";
 
-// Reusable modal wrapper (sama seperti pola di NewsDataClientPage)
+
 function ModalWrapper({
   title,
   onClose,

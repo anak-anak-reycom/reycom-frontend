@@ -10,7 +10,7 @@ export default function FillStarted () {
          <Image src="/systemIntegration/gettinStarted/bion.png" alt="bion" width={250} height={250} className='py-6' />
         </div>
         
-        <p className='text-sm text-gray-700 leading-relaxed text-center font-sans'>BION – RDS System Integrator is present as the business focus of the RDS Group to provide comprehensive information technology-based services armed with experience in several industries, such as insurance, 
+        <p className='text-lg text-gray-700 leading-relaxed text-center font-sans'>BION – RDS System Integrator is present as the business focus of the RDS Group to provide comprehensive information technology-based services armed with experience in several industries, such as insurance, 
             banking, government institutions, encouraging BION to provide innovative solutions that are continuously updated along with technological developments, customer needs and tailored with market changes. </p>
         </div>
       </div>
