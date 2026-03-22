@@ -9,7 +9,7 @@ import { getAllBranch } from "../data/branch";
 import { getAllCountry } from "../data/country";
 import { getAllCompany } from "../data/company";
 
-export const metadata = { title: "Contact" };
+
 
 export default function ContactPage() {
   const [query, setQuery] = useState("");
