@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { toSlug } from "@/lib/slug";
 
 export type NewsItem = {
   id: number | string;
@@ -53,7 +54,7 @@ export default function NewsCarousel({ news }: { news: NewsItem[] }) {
     }
     return (
       <Link
-        href={`/news-content/${item.id}`}
+        href={`/news-content/${(item as any).id}-${toSlug((item as any).title ?? "")}`}
         onClick={onClick}
         className="flex bg-white rounded-lg shadow-sm p-4 min-h-[140px] flex gap-4 grid hover:shadow-md transition-shadow duration-200 cursor-pointer"
       >

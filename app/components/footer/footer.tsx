@@ -12,7 +12,9 @@ export default function Footer() {
                 <div className=" space-y-10">
                     <div className="flex items-center gap-5">
                         <Image src={Logo} alt="RDS Logo" width={100} height={100} />
-                        <h3 className="text-lg font-semibold font-sans">Reycom Dokumen Solusi</h3>
+                        <h3 className="text-lg font-semibold font-sans">
+                        Reycom Dokumen <span className="font-playfair">Solusi</span>
+                        </h3>
                     </div>
                     
                     <p className="text-sm font-sans text-gray-300 leading-relaxed">
