@@ -2,7 +2,7 @@
   "use client";
 
   import React, { useMemo } from "react";
-  import { Layout, Menu, theme } from "antd";
+  import {ConfigProvider, Layout, Menu, theme } from "antd";
   import type { MenuProps } from "antd";
   import { usePathname, useRouter } from "next/navigation";
   import {
@@ -48,7 +48,12 @@
     }, []);
 
     const parts = pathname.split("/").filter(Boolean);
-    const activeKey = parts[2] ?? defaultSelected;
+
+    const activeKey = useMemo(() => {
+          const found = MENU_ITEMS.find(it => pathname.startsWith(it.route));
+          return found?.key ?? defaultSelected;
+          }, [pathname, defaultSelected])
+          
     const { token: { colorBgContainer } } = theme.useToken();
 
     const items: MenuProps["items"] = useMemo(
@@ -65,6 +70,13 @@
     };
 
     return (
+    <ConfigProvider
+            theme={{
+              token: {
+                fontFamily: "var(--font-plus-jakarta-sans), sans-serif",
+              },
+            }}
+    >
       <Sider
         width={260}
         collapsedWidth={0}
@@ -104,5 +116,6 @@
           </div>
         </div>
       </Sider>
+      </ConfigProvider>
     );
   }

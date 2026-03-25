@@ -9,8 +9,8 @@ export const CardDetail = () => {
       <div className="max-w-[1400px] mx-auto px-4">
         
         {/* ===== TITLE ===== */}
-        <h2 className="text-2xl font-semibold mb-8">
-          Read our other <span className="text-primary">Details</span>
+        <h2 className="text-2xl font-semibold mb-8 font-sans">
+          Read our other <span className="text-primary font-playfair">Details</span>
         </h2>
 
         {/* ===== GRID ===== */}

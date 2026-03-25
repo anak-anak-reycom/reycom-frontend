@@ -4,12 +4,16 @@ import Card from '@/public/card.png'
 import { NewsItem } from '@/app//types/news-types'
 import {  getAllNews } from '../data/news'
 import Link from 'next/link'
+import { toSlug } from '@/lib/slug'
 
 export const metadata = { title: "News" };
+
 
 const Page = async () => {
   const news = await getAllNews()
   const data = news as NewsItem[]
+
+  
 
   return (
     <section className="py-10">
@@ -41,7 +45,7 @@ const Page = async () => {
                 </p>
 
                 <Link
-                    href={`/news-content/${item.id}`}
+                    href={`/news-content/${item.id}-${toSlug(item.title ?? "")}`}
                     className="text-primary text-sm font-medium hover:underline"
                 >
                   Visit News
