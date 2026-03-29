@@ -145,3 +145,6 @@ body {
 .ant-menu-item-group-title {
   font-family: var(--font-plus-jakarta-sans), sans-serif !important;
 }
+.ant-layout-sider::-webkit-scrollbar {
+  display: none;
+}

@@ -3,6 +3,7 @@ import Card from "../../../public/card.png"
 import details1 from "@/public/details-1.jpeg"
 import details2 from "@/public/details-2.jpeg"
 
+
 export const CardDetail = () => {
   return (
     <section className="py-10">
