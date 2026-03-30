@@ -5,7 +5,7 @@ const LOGIN_PATH = "/admin-x7k2p9";
 const GATE_COOKIE = "admin_gate";
 const GATE_SECRET = process.env.ADMIN_GATE_SECRET ?? "";
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
 
  
