@@ -12,7 +12,7 @@ export default function EditNews({
 }: {
     newsId: number;
     adminTokenProp?: string;
-    onSuccess?: () => void;
+    onSuccess?: () => void | Promise<void>;
 }) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");

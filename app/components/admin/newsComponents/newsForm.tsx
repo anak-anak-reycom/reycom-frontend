@@ -5,7 +5,12 @@ import React, { useState, useEffect } from "react";
 
 const MAX_BYTES = 8 * 1024 * 1024; // optional UX check (8MB)
 
-export default function CreateNews({ adminTokenProp }: { adminTokenProp?: string }) {
+type CreateNewsProps = {
+  adminTokenProp?: string;
+  onSuccess?: () => void | Promise<void>;
+};
+
+export default function CreateNews({ adminTokenProp, onSuccess }: CreateNewsProps) {
 
 
     const [title, setTitle] = useState("");
@@ -91,6 +96,8 @@ export default function CreateNews({ adminTokenProp }: { adminTokenProp?: string
             setPreview(null);
             setErrors({});
             console.log("createNews response:", data);
+
+            await onSuccess?.();
         } catch (err: any) {
             console.error("Create news failed:", err);
             setErrorMsg(err?.message ?? "Failed to create news");
